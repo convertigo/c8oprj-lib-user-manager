@@ -17,3 +17,30 @@ databaseName: lib_usermanager_fullsync
     description: Document id
   ↓data [variables.RequestableVariable-1572600355399]: 
     description: Document content
+↓PostMergeDocument [transactions.couchdb.PostDocumentTransaction]: 
+  accessibility: Private
+  policy: merge
+  ↓_use_json_base [variables.RequestableVariable-1582120940449]: 
+    description: (string) – JSON use as a base for the document (js object). Optional
+  ↓_id [variables.RequestableVariable-1582120940452]: 
+    description: Document id
+↓Design_document [couchdb.DesignDocument]: 
+  docdata: 
+    →: |
+      '{
+        "_id": "_design\/Design_document",
+        "filters": {},
+        "updates": {},
+        "views": {"PasswordLostAccountsByPasswordResetKey": {"map": "function (doc) {\r\n
+          try {\r\n
+              if (doc.account.status == ''passwordlost'' && doc.account.passwordResetKey) {\r\n
+                  emit(doc.account.passwordResetKey, {\r\n
+                      site: doc.account.site,\r\n
+                      email: doc.account.email\r\n
+                  });\r\n
+              }\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"}}
+      }'
