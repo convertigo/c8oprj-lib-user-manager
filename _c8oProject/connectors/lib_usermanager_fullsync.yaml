@@ -9,6 +9,13 @@ databaseName: lib_usermanager_fullsync
     description: Document ID
 ↓GetServerInfo [transactions.couchdb.GetServerInfoTransaction]: 
   ↑default: true
+↓GetView [transactions.couchdb.GetViewTransaction]: 
+  ↓_use_ddoc [variables.RequestableVariable-1582124298856]: 
+    description: Design document name
+  ↓_use_view [variables.RequestableVariable-1582124298858]: 
+    description: View function name
+  ↓_use_key [variables.RequestableVariable-1582125233230]: 
+    description: (string) – Return only documents that match the specified key. Optional
 ↓PostDocument [transactions.couchdb.PostDocumentTransaction]: 
   accessibility: Private
   ↓_use_json_base [variables.RequestableVariable-1572600355393]: 
