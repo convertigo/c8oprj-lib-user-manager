@@ -1,4 +1,6 @@
 tplProjectName: mobilebuilder_tpl_7_7_0
 ↓LoginComponent [mobile.components.UISharedComponent-1572604124714]: 🗏 mobileSharedComponents/LoginComponent.yaml
+↓ForgotPassword [mobile.components.UISharedComponent-1582131761883]: 🗏 mobileSharedComponents/ForgotPassword.yaml
 ↓Page [mobile.components.PageComponent-1572604056200]: 🗏 mobilePages/Page.yaml
 ↓ModalPopup [mobile.components.PageComponent-1572623654326]: 🗏 mobilePages/ModalPopup.yaml
+↓ForgotPasswordPage [mobile.components.PageComponent-1582131661217]: 🗏 mobilePages/ForgotPasswordPage.yaml
