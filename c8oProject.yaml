@@ -17,8 +17,6 @@
   ↓SignIn [sequences.GenericSequence]: 🗏 sequences/SignIn.yaml
   ↓MobileApplication [core.MobileApplication]: 
     ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml
-  ↓C8oCloudSignup_reference [references.ProjectSchemaReference]: 
-    projectName: C8oCloudSignup=https://github.com/opicciotto/C8oCloudSignup.git:path=C8oCloudSignup:branch=master
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓Project_reference [references.ProjectSchemaReference]: 
