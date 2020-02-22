@@ -4,14 +4,14 @@
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: PLAIN
-        - →→: TWINSOFT2K\administrator
+        - ↑mode: JS
+        - →→: adminUser
   adminPassword: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: PLAIN
-        - →→: x18c08586f686caee0aa081e8b90bcbc0
+        - ↑mode: JS
+        - →→: x9fdb555718b9d4ab4dc3093362c28f59
   attributes: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -129,7 +129,13 @@
             - ↑mode: PLAIN
             - →→: Invalid username or password
 ↓user [variables.RequestableVariable-1582356986582]: 
+  comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
 ↓password [variables.RequestableVariable-1582356986585]: 
+  comment: The users password
+↓adminUser [variables.RequestableVariable-1582388405870]: 
+  comment: A a valid ActiveDirectory Admin Account with read privileges used to search for the user
+↓adminPassword [variables.RequestableVariable-1582388405873]: 
+  comment: The Active Directory admin account password
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1582356986589]: 
     value: test@mail.com
