@@ -1,3 +1,4 @@
+comment: Sign in using an ActiveDirectory account. Will also return the list of groups the user belongs to
 ↓Input_variables [steps.InputVariablesStep-1582356986531]: 
 ↓LDAP_Authentication [steps.LDAPAuthenticationStep-1582357199069]: 
   adminLogin: 
