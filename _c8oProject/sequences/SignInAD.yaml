@@ -42,8 +42,8 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: PLAIN
-        - →→: ldap://brutus-v:389
+        - ↑mode: JS
+        - →→: ldapServer
 ↓jSimpleSource [steps.SimpleSourceStep-1582358680358]: 
   sourceDefinition: 
     - xmlizable: 
@@ -109,6 +109,77 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
           ↓Attribute [steps.XMLAttributeStep-1582387768555]: 
             nodeName: type
             nodeText: string
+    ↓Call_Sequence1 [steps.SequenceStep-1582446217736]: 
+      sourceSequence: lib_FullSyncGrp.GroupsOf
+      ↓user [variables.StepVariable-1582446217738]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582388107038
+              - java.lang.String: 
+                - ↑value: ./authenticatedUserID/text()
+    ↓Iterator [steps.IteratorStep-1582446344229]: 
+      comment: Remove this user from all the groups he may belong
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1582446217736
+            - java.lang.String: 
+              - ↑value: ./document/group
+      ↓Call_Sequence [steps.SequenceStep-1582446375260]: 
+        sourceSequence: lib_FullSyncGrp.RemoveUserFromGroup
+        ↓user [variables.StepVariable-1582446375262]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1582388107038
+                - java.lang.String: 
+                  - ↑value: ./authenticatedUserID/text()
+        ↓group [variables.StepVariable-1582446375264]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1582446344229
+                - java.lang.String: 
+                  - ↑value: ./text()
+    ↓Iterator1 [steps.IteratorStep-1582446563581]: 
+      comment: Now insert the user in all the goups he belongs to
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1582387540263
+            - java.lang.String: 
+              - ↑value: ./item
+      ↓Call_Sequence [steps.SequenceStep-1582446631004]: 
+        sourceSequence: lib_FullSyncGrp.SetUserInGroup
+        ↓user [variables.StepVariable-1582446631006]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1582388107038
+                - java.lang.String: 
+                  - ↑value: ./authenticatedUserID/text()
+        ↓group [variables.StepVariable-1582446631008]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1582446563581
+                - java.lang.String: 
+                  - ↑value: ./text()
   ↓jElse [steps.ElseStep-1582388266945]: 
     ↓Error_structure [steps.XMLErrorStep-1582388270139]: 
       code: 
@@ -134,9 +205,14 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
 ↓password [variables.RequestableVariable-1582356986585]: 
   comment: The users password
 ↓adminUser [variables.RequestableVariable-1582388405870]: 
-  comment: A a valid ActiveDirectory Admin Account with read privileges used to search for the user
+  comment: A a valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If the this is not provided, the group membership information will not be returned.
+  value: ${lib_UserManager.adminUser}
 ↓adminPassword [variables.RequestableVariable-1582388405873]: 
-  comment: The Active Directory admin account password
+  comment: The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.
+  value: ${lib_UserManager.adminPassword}
+↓ldapServer [variables.RequestableVariable-1582444766404]: 
+  comment: The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
+  value: ${lib_UserManager.ldapServer}
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1582356986589]: 
     value: test@mail.com
