@@ -20,8 +20,8 @@
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
-    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=master
+    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=master:autoPull=true
   ↓Project_reference [references.ProjectSchemaReference]: 
     projectName: mobilebuilder_tpl_7_7_0=git@github.com:convertigo/c8oprj-mobilebuilder-tpl.git:branch=mobilebuilder_tpl_7_7_0
   ↓Project_reference1 [references.ProjectSchemaReference]: 
-    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=master
+    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=master:autoPull=true
