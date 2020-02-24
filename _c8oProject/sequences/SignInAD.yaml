@@ -204,12 +204,21 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
   comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
 ↓password [variables.RequestableVariable-1582356986585]: 
   comment: The users password
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: xd8e180806a1c1d83a6255212121ab827
+  visibility: '-1'
 ↓adminUser [variables.RequestableVariable-1582388405870]: 
   comment: A a valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If the this is not provided, the group membership information will not be returned.
   value: ${lib_UserManager.adminUser}
 ↓adminPassword [variables.RequestableVariable-1582388405873]: 
   comment: The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.
-  value: ${lib_UserManager.adminPassword}
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: x530464aa1e63d0f98506f750478888223a56345afc279c5c7d6d09ea5dc1fb0a28521910ff36c4cf7d6648628f2cd4e0
+  visibility: '-1'
 ↓ldapServer [variables.RequestableVariable-1582444766404]: 
   comment: The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
   value: ${lib_UserManager.ldapServer}
