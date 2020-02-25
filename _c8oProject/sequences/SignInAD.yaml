@@ -54,15 +54,6 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - java.lang.String: 
           - ↑value: ./userDn/text()
   variableName: userDN
-↓Copy [steps.XMLCopyStep-1582388107038]: 
-  sourceDefinition: 
-    - xmlizable: 
-      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-      - com.twinsoft.convertigo.beans.common.XMLVector: 
-        - java.lang.String: 
-          - ↑value: 1582357199069
-        - java.lang.String: 
-          - ↑value: ./authenticatedUserID
 ↓IfExist [steps.IfExistThenElseStep-1582388266941]: 
   sourceDefinition: 
     - xmlizable: 
@@ -71,8 +62,18 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - java.lang.String: 
           - ↑value: 1582357199069
         - java.lang.String: 
-          - ↑value: ./authenticatedUserID
+          - ↑value: ./authenticatedUserID/text()
   ↓jThen [steps.ThenStep-1582388266943]: 
+    ↓Element [steps.XMLElementStep-1582564311699]: 
+      nodeName: user
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1582357199069
+            - java.lang.String: 
+              - ↑value: ./authenticatedUserID/text()
     ↓Complex [steps.XMLComplexStep-1582387540263]: 
       nodeName: groups
       ↓Attribute [steps.XMLAttributeStep-1582387550991]: 
@@ -117,9 +118,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1582388107038
+                - ↑value: 1582356986531
               - java.lang.String: 
-                - ↑value: ./authenticatedUserID/text()
+                - ↑value: ./user/text()
     ↓Iterator [steps.IteratorStep-1582446344229]: 
       comment: Remove this user from all the groups he may belong
       sourceDefinition: 
@@ -138,9 +139,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1582388107038
+                  - ↑value: 1582356986531
                 - java.lang.String: 
-                  - ↑value: ./authenticatedUserID/text()
+                  - ↑value: ./user/text()
         ↓group [variables.StepVariable-1582446375264]: 
           sourceDefinition: 
             - xmlizable: 
@@ -168,9 +169,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1582388107038
+                  - ↑value: 1582356986531
                 - java.lang.String: 
-                  - ↑value: ./authenticatedUserID/text()
+                  - ↑value: ./user/text()
         ↓group [variables.StepVariable-1582446631008]: 
           sourceDefinition: 
             - xmlizable: 
@@ -217,7 +218,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
   value: 
     - ↑ciphered: true
     - ↑traceable: false
-    - →→: x530464aa1e63d0f98506f750478888223a56345afc279c5c7d6d09ea5dc1fb0a28521910ff36c4cf7d6648628f2cd4e0
+    - →→: x530464aa1e63d0f98506f75047888822cd14101585f94218a48f6594c8d671cc5363d6aa941b84b949231422a2651cd9
   visibility: '-1'
 ↓ldapServer [variables.RequestableVariable-1582444766404]: 
   comment: The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
