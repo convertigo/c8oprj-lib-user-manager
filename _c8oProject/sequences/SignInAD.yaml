@@ -211,7 +211,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     - →→: xd8e180806a1c1d83a6255212121ab827
   visibility: '-1'
 ↓adminUser [variables.RequestableVariable-1582388405870]: 
-  comment: A a valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If the this is not provided, the group membership information will not be returned.
+  comment: A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
   value: ${lib_UserManager.adminUser}
 ↓adminPassword [variables.RequestableVariable-1582388405873]: 
   comment: The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.
