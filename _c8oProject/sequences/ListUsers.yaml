@@ -1,0 +1,54 @@
+accessibility: Hidden
+authenticatedContextRequired: true
+↓Call_Transaction [steps.TransactionStep-1582733815671]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
+  ↓_use_ddoc [variables.StepVariable-1582733815673]: 
+    description: Design document name
+    value: Design_document
+  ↓_use_view [variables.StepVariable-1582733815675]: 
+    description: View function name
+    value: Users
+↓Complex [steps.XMLComplexStep-1582733875145]: 
+  nodeName: users
+  ↓Attribute [steps.XMLAttributeStep-1582733912541]: 
+    nodeName: type
+    nodeText: array
+  ↓Iterator [steps.IteratorStep-1582734015580]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1582733815671
+          - java.lang.String: 
+            - ↑value: ./document/couchdb_output/rows/item
+    ↓Complex [steps.XMLComplexStep-1582733969178]: 
+      nodeName: item
+      ↓Attribute [steps.XMLAttributeStep-1582733976918]: 
+        nodeName: type
+        nodeText: object
+      ↓Element [steps.XMLElementStep-1582733989000]: 
+        nodeName: email
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./id/text()
+      ↓Element1 [steps.XMLElementStep-1582733995559]: 
+        nodeName: status
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/status/text()
+↓TestOK [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1582733598726]: 
+    value: test@mail.com
+  ↓password [variables.TestCaseVariable-1582733598729]: 
+    value: test

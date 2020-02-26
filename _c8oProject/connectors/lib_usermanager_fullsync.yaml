@@ -38,7 +38,8 @@ databaseName: lib_usermanager_fullsync
         "_id": "_design\/Design_document",
         "filters": {},
         "updates": {},
-        "views": {"PasswordLostAccountsByPasswordResetKey": {"map": "function (doc) {\r\n
+        "views": {
+          "PasswordLostAccountsByPasswordResetKey": {"map": "function (doc) {\r\n
           try {\r\n
               if (doc.account.status == ''passwordlost'' && doc.account.passwordResetKey) {\r\n
                   emit(doc.account.passwordResetKey, {\r\n
@@ -49,5 +50,19 @@ databaseName: lib_usermanager_fullsync
           } catch (err) {\r\n
               log(err.message);\r\n
           }\r\n
-      }"}}
+      }"},
+          "Users": {"map": "function (doc) {\r\n
+          try {\r\n
+              if (doc.account)\r\n
+                  emit(doc.account.email, {\r\n
+                          email: doc.account.email,\r\n
+                          status: doc.account.status\r\n
+                      }\r\n
+                  );\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }\r\n
+      "}
+        }
       }'
