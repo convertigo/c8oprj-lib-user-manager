@@ -76,9 +76,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - ↑value: ./authenticatedUserID/text()
     ↓Complex [steps.XMLComplexStep-1582387540263]: 
       nodeName: groups
-      ↓Attribute [steps.XMLAttributeStep-1582387550991]: 
-        nodeName: type
-        nodeText: array
+      output: false
       ↓Iterator [steps.IteratorStep-1582387466103]: 
         sourceDefinition: 
           - xmlizable: 
@@ -107,9 +105,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         ↓jElement [steps.ElementStep-1582387784021]: 
           expression: jItem
           nodeName: item
-          ↓Attribute [steps.XMLAttributeStep-1582387768555]: 
-            nodeName: type
-            nodeText: string
+          output: false
     ↓Call_Sequence1 [steps.SequenceStep-1582446217736]: 
       sourceSequence: lib_FullSyncGrp.GroupsOf
       ↓user [variables.StepVariable-1582446217738]: 
@@ -121,8 +117,8 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
                 - ↑value: 1582356986531
               - java.lang.String: 
                 - ↑value: ./user/text()
-    ↓Iterator [steps.IteratorStep-1582446344229]: 
-      comment: Remove this user from all the groups he may belong
+    ↓IterateOnExistingGroups [steps.IteratorStep-1582446344229]: 
+      comment: Remove this user from all the ad groups he may belong
       sourceDefinition: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -131,56 +127,117 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - ↑value: 1582446217736
             - java.lang.String: 
               - ↑value: ./document/group
-      ↓Call_Sequence [steps.SequenceStep-1582446375260]: 
-        sourceSequence: lib_FullSyncGrp.RemoveUserFromGroup
-        ↓user [variables.StepVariable-1582446375262]: 
+      ↓IfExist [steps.IfExistStep-1582714634715]: 
+        comment: Only handle groups starting by 'ad:'
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582446344229
+              - java.lang.String: 
+                - ↑value: .[starts-with('ad:')]
+        ↓Call_Sequence [steps.SequenceStep-1582446375260]: 
+          comment: Remove the user from the group
+          sourceSequence: lib_FullSyncGrp.RemoveUserFromGroup
+          ↓user [variables.StepVariable-1582446375262]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1582356986531
+                  - java.lang.String: 
+                    - ↑value: ./user/text()
+          ↓group [variables.StepVariable-1582446375264]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1582446344229
+                  - java.lang.String: 
+                    - ↑value: ./text()
+    ↓Complex1 [steps.XMLComplexStep-1582715159394]: 
+      nodeName: groups
+      ↓Attribute [steps.XMLAttributeStep-1582387550991]: 
+        nodeName: type
+        nodeText: array
+      ↓IterateOnLDAPGroups [steps.IteratorStep-1582446563581]: 
+        comment: Now insert the user in all the goups he belongs to
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582387540263
+              - java.lang.String: 
+                - ↑value: ./item
+        ↓Concat [steps.XMLConcatStep-1582714463929]: 
+          nodeName: adGroup
+          output: false
+          separator: ':'
+          sourcesDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: description
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: ad
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: description
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: 1582446563581
+                        - java.lang.String: 
+                          - ↑value: ./text()
+                    - java.lang.String: 
+                      - ↑value: ''
+        ↓Call_Sequence [steps.SequenceStep-1582446631004]: 
+          sourceSequence: lib_FullSyncGrp.SetUserInGroup
+          ↓user [variables.StepVariable-1582446631006]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1582356986531
+                  - java.lang.String: 
+                    - ↑value: ./user/text()
+          ↓group [variables.StepVariable-1582446631008]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1582714463929
+                  - java.lang.String: 
+                    - ↑value: ./text()
+        ↓Element [steps.XMLElementStep-1582715211263]: 
+          nodeName: item
           sourceDefinition: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1582356986531
-                - java.lang.String: 
-                  - ↑value: ./user/text()
-        ↓group [variables.StepVariable-1582446375264]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1582446344229
+                  - ↑value: 1582714463929
                 - java.lang.String: 
                   - ↑value: ./text()
-    ↓Iterator1 [steps.IteratorStep-1582446563581]: 
-      comment: Now insert the user in all the goups he belongs to
-      sourceDefinition: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-          - com.twinsoft.convertigo.beans.common.XMLVector: 
-            - java.lang.String: 
-              - ↑value: 1582387540263
-            - java.lang.String: 
-              - ↑value: ./item
-      ↓Call_Sequence [steps.SequenceStep-1582446631004]: 
-        sourceSequence: lib_FullSyncGrp.SetUserInGroup
-        ↓user [variables.StepVariable-1582446631006]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1582356986531
-                - java.lang.String: 
-                  - ↑value: ./user/text()
-        ↓group [variables.StepVariable-1582446631008]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1582446563581
-                - java.lang.String: 
-                  - ↑value: ./text()
+          ↓Attribute [steps.XMLAttributeStep-1582715220030]: 
+            nodeName: type
+            nodeText: string
   ↓jElse [steps.ElseStep-1582388266945]: 
     ↓Error_structure [steps.XMLErrorStep-1582388270139]: 
       code: 
@@ -242,3 +299,13 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑traceable: false
       - →→: x18c08586f686caee0aa081e8b90bcbc0
     visibility: '-1'
+  ↓adminUser [variables.TestCaseVariable-1582714916400]: 
+    value: TWINSOFT2K\administrator
+  ↓adminPassword [variables.TestCaseVariable-1582714916402]: 
+    value: 
+      - ↑ciphered: true
+      - ↑traceable: false
+      - →→: x18c08586f686caee0aa081e8b90bcbc0
+    visibility: '-1'
+  ↓ldapServer [variables.TestCaseVariable-1582714916404]: 
+    value: ldap://brutus-v:389
