@@ -47,8 +47,3 @@ authenticatedContextRequired: true
                 - ↑value: 1582734015580
               - java.lang.String: 
                 - ↑value: ./value/status/text()
-↓TestOK [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1582733598726]: 
-    value: test@mail.com
-  ↓password [variables.TestCaseVariable-1582733598729]: 
-    value: test
