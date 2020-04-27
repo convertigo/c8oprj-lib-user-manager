@@ -23,8 +23,8 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: PLAIN
-        - →→: DC=twinsoft,DC=fr
+        - ↑mode: JS
+        - →→: ldapBasePath
   bindingPolicy: SearchAndBind
   login: 
     - xmlizable: 
@@ -280,6 +280,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
 ↓ldapServer [variables.RequestableVariable-1582444766404]: 
   comment: The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
   value: ${lib_UserManager.ldapServer}
+↓ldapBasePath [variables.RequestableVariable-1587995394837]: 
+  comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
+  value: ${lib_UserManager.ldapBasePath}
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1582356986589]: 
     value: test@mail.com
@@ -309,3 +312,5 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     visibility: '-1'
   ↓ldapServer [variables.TestCaseVariable-1582714916404]: 
     value: ldap://brutus-v:389
+  ↓ldapBasePath [variables.TestCaseVariable-1587996195739]: 
+    value: DC=twinsoft,DC=fr
