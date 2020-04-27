@@ -1,5 +1,58 @@
 comment: Sign in using an ActiveDirectory account. Will also return the list of groups the user belongs to
 ↓Input_variables [steps.InputVariablesStep-1582356986531]: 
+↓jIf [steps.IfStep-1588004581008]: 
+  comment: if we are not logging with an email
+  condition: '!(user.match(new RegExp("^\\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$")) != null)'
+  ↓jIf [steps.IfStep-1588005534934]: 
+    comment: if domain name is not given
+    condition: '!(user.match(new RegExp("^[a-zA-Z0-9_]+\\\\[a-zA-Z0-9_]+$")))'
+    ↓Concat [steps.XMLConcatStep-1588005605981]: 
+      comment: concat domain name to userName
+      nodeName: user
+      output: false
+      separator: \
+      sourcesDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1582356986531
+                    - java.lang.String: 
+                      - ↑value: ./domainNameUser/text()
+                - java.lang.String: 
+                  - ↑value: ''
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1582356986531
+                    - java.lang.String: 
+                      - ↑value: ./user/text()
+                - java.lang.String: 
+                  - ↑value: ''
+    ↓jSimpleSource [steps.SimpleSourceStep-1588005765565]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1588005605981
+            - java.lang.String: 
+              - ↑value: ./text()
+      variableName: user
 ↓LDAP_Authentication [steps.LDAPAuthenticationStep-1582357199069]: 
   adminLogin: 
     - xmlizable: 
@@ -283,6 +336,8 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
 ↓ldapBasePath [variables.RequestableVariable-1587995394837]: 
   comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
   value: ${lib_UserManager.ldapBasePath}
+↓domainNameUser [variables.RequestableVariable-1588005622006]: 
+  value: ${lib_UserManager.ldapDomainName}
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1582356986589]: 
     value: test@mail.com
