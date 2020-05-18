@@ -165,7 +165,7 @@
 											<span
 												style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
 												<span style="font-size: 16px; line-height: 28px;">
-													<span style="font-size: 14px; line-height: 25px;">Reset password</span>
+													<span style="font-size: 14px; line-height: 25px;"><xsl:value-of select="//emailButtonLabel" /></span>
 												</span>
 											</span>
 										</a>
@@ -185,4 +185,3 @@
 		</html>
 	</xsl:template>
 </xsl:stylesheet>
-		
