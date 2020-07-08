@@ -7,7 +7,7 @@
     - user login using OpenID
     
     '
-  version: 2.0.1
+  version: 2.0.2
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
@@ -16,6 +16,8 @@
   ↓ListUsers [sequences.GenericSequence]: 🗏 sequences/ListUsers.yaml
   ↓SignIn [sequences.GenericSequence]: 🗏 sequences/SignIn.yaml
   ↓SignInAD [sequences.GenericSequence]: 🗏 sequences/SignInAD.yaml
+  ↓SignInADBulk [sequences.GenericSequence]: 🗏 sequences/SignInADBulk.yaml
+  ↓SignInAdPostGroups [sequences.GenericSequence]: 🗏 sequences/SignInAdPostGroups.yaml
   ↓MobileApplication [core.MobileApplication]: 
     ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
