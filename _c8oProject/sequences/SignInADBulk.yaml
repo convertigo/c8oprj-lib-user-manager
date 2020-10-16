@@ -71,7 +71,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
-        - →→: '["memberOf", "sAMAccountName", "mail"]'
+        - →→: '["memberOf", "sAMAccountName", "mail", "displayName"]'
   basePath: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -160,6 +160,16 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - ↑value: 1594128996620
             - java.lang.String: 
               - ↑value: ./attribute[@name='mail']/text()
+    ↓Element21 [steps.XMLElementStep-1602862229484]: 
+      nodeName: displayName
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1594128996620
+            - java.lang.String: 
+              - ↑value: ./attribute[@name='displayName']/text()
     ↓Complex [steps.XMLComplexStep-1594128996641]: 
       nodeName: groups
       output: false
