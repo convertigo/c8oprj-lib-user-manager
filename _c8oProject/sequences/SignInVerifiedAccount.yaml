@@ -1,0 +1,175 @@
+↓Input_variables [steps.InputVariablesStep-1605366665938]: 
+↓Call_Transaction [steps.TransactionStep-1605366665941]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
+  ↓_use_docid [variables.StepVariable-1605366665944]: 
+    description: Document ID
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1605366665938
+          - java.lang.String: 
+            - ↑value: ./user/text()
+↓IfExistThenElse [steps.IfExistThenElseStep-1605366665947]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1605366665941
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output/error
+  ↓jThen [steps.ThenStep-1605366665950]: 
+    ↓Error_structure [steps.XMLErrorStep-1605366665953]: 
+      code: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: 2
+      details: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: SOURCE
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1605366665941
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/error/text()
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: Invalid username
+  ↓jElse [steps.ElseStep-1605366665956]: 
+    ↓Call_Sequence [steps.SequenceStep-1605366665959]: 
+      sourceSequence: lib_UserManager.HashAndSalt
+      ↓salt [variables.StepVariable-1605366665962]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1605366665941
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/account/salt/text()
+      ↓password [variables.StepVariable-1605366665965]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1605366665938
+              - java.lang.String: 
+                - ↑value: ./password/text()
+      ↓hash [variables.StepVariable-1605366665968]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1605366665941
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/account/hashPassword/text()
+    ↓IfExistThenElse1 [steps.IfExistThenElseStep-1605366814582]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1605366665941
+            - java.lang.String: 
+              - ↑value: ./document/couchdb_output/account/status[text() = 'confirmed']
+      ↓jThen [steps.ThenStep-1605366815686]: 
+        ↓IfExistThenElse [steps.IfExistThenElseStep-1605366665971]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1605366665959
+                - java.lang.String: 
+                  - ↑value: ./document/verified[text() = 'true']
+          ↓jThen [steps.ThenStep-1605366665974]: 
+            ↓Element [steps.XMLElementStep-1605366665977]: 
+              nodeName: user
+              nodeText: ok
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1605366665938
+                    - java.lang.String: 
+                      - ↑value: ./user/text()
+            ↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1605366665980]: 
+              userid: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                  - SmartType: 
+                    - ↑mode: SOURCE
+                    - com.twinsoft.convertigo.beans.common.XMLVector: 
+                      - java.lang.String: 
+                        - ↑value: 1605366665938
+                      - java.lang.String: 
+                        - ↑value: ./user/text()
+          ↓jElse [steps.ElseStep-1605366665983]: 
+            ↓Error_structure [steps.XMLErrorStep-1605366665986]: 
+              code: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                  - SmartType: 
+                    - ↑mode: PLAIN
+                    - →→: 3
+              details: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                  - SmartType: 
+                    - ↑mode: SOURCE
+                    - com.twinsoft.convertigo.beans.common.XMLVector: 
+              message: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                  - SmartType: 
+                    - ↑mode: PLAIN
+                    - →→: Invalid password
+      ↓jElse [steps.ElseStep-1605366815688]: 
+        ↓Error_structure [steps.XMLErrorStep-1605366915275]: 
+          code: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: PLAIN
+                - →→: 4
+          details: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: SOURCE
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+          message: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: PLAIN
+                - →→: Account has not been confirmed yet
+↓user [variables.RequestableVariable-1605366665989]: 
+↓password [variables.RequestableVariable-1605366665992]: 
+↓TestInvalidPassword [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1605366665996]: 
+    value: test@mail.com
+  ↓password [variables.TestCaseVariable-1605366665999]: 
+    value: kfdsfkjhdf
+↓TestInvalidUsename [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1605366666003]: 
+    value: charlesg+test01@convertigo.com
+  ↓password [variables.TestCaseVariable-1605366666006]: 
+    value: password
+↓TestOK [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1605366666010]: 
+    value: charlesg@convertigo.com
+  ↓password [variables.TestCaseVariable-1605366666013]: 
+    value: password

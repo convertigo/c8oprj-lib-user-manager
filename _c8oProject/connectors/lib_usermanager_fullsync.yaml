@@ -54,9 +54,13 @@ databaseName: lib_usermanager_fullsync
           "Users": {"map": "function (doc) {\r\n
           try {\r\n
               if (doc.account)\r\n
-                  emit(doc.account.email, {\r\n
+                  emit(doc.account.id, {\r\n
                           email: doc.account.email,\r\n
-                          status: doc.account.status\r\n
+                          status: doc.account.status,\r\n
+                          provider: doc.account.provider,\r\n
+                          admin: doc.account.admin,\r\n
+                          name: doc.account.name,\r\n
+                          surName: doc.account.surName\r\n
                       }\r\n
                   );\r\n
           } catch (err) {\r\n

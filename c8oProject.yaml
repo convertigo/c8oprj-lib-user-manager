@@ -9,6 +9,7 @@
     '
   version: 2.0.6
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
+  ↓AddExternalUser [sequences.GenericSequence]: 🗏 sequences/AddExternalUser.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
   ↓ForgotPassword [sequences.GenericSequence]: 🗏 sequences/ForgotPassword.yaml
@@ -18,6 +19,7 @@
   ↓SignInAD [sequences.GenericSequence]: 🗏 sequences/SignInAD.yaml
   ↓SignInADBulk [sequences.GenericSequence]: 🗏 sequences/SignInADBulk.yaml
   ↓SignInAdPostGroups [sequences.GenericSequence]: 🗏 sequences/SignInAdPostGroups.yaml
+  ↓SignInVerifiedAccount [sequences.GenericSequence]: 🗏 sequences/SignInVerifiedAccount.yaml
   ↓MobileApplication [core.MobileApplication]: 
     ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 

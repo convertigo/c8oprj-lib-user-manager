@@ -28,7 +28,7 @@ authenticatedContextRequired: true
         nodeName: type
         nodeText: object
       ↓Element [steps.XMLElementStep-1582733989000]: 
-        nodeName: email
+        nodeName: id
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -47,3 +47,53 @@ authenticatedContextRequired: true
                 - ↑value: 1582734015580
               - java.lang.String: 
                 - ↑value: ./value/status/text()
+      ↓Element11 [steps.XMLElementStep-1605458989238]: 
+        nodeName: email
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/email/text()
+      ↓Element111 [steps.XMLElementStep-1605459003650]: 
+        nodeName: provider
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/provider/text()
+      ↓Element1111 [steps.XMLElementStep-1605459326156]: 
+        nodeName: admin
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/admin/text()
+      ↓Element2 [steps.XMLElementStep-1605460237880]: 
+        nodeName: name
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/name/text()
+      ↓Element21 [steps.XMLElementStep-1605460249205]: 
+        nodeName: surName
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1582734015580
+              - java.lang.String: 
+                - ↑value: ./value/surName/text()
