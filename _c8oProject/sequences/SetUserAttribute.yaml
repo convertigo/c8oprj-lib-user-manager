@@ -1,5 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
+comment: Sets a given attribute on an user account
 ↓Input_variables [steps.InputVariablesStep-1608723430613]: 
 ↓Call_Transaction [steps.TransactionStep-1608723220424]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView

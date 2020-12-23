@@ -1,5 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
+comment: Gets a given attribute fomr an user account
 ↓Input_variables [steps.InputVariablesStep-1608724730154]: 
 ↓Call_Transaction [steps.TransactionStep-1608724730157]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
