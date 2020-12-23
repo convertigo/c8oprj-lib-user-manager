@@ -1,0 +1,80 @@
+accessibility: Hidden
+authenticatedContextRequired: true
+↓Input_variables [steps.InputVariablesStep-1608724730154]: 
+↓Call_Transaction [steps.TransactionStep-1608724730157]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
+  ↓_use_docid [variables.StepVariable-1608730089174]: 
+    description: Document ID
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1608724730154
+          - java.lang.String: 
+            - ↑value: ./user/text()
+↓IfExistThenElse [steps.IfExistThenElseStep-1608724730169]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1608724730157
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output/_id/text()
+  ↓jThen [steps.ThenStep-1608724730172]: 
+    ↓Log [steps.LogStep-1608741382392]: 
+      expression: |
+        '"Entering Loop"
+        '
+      level: WARN
+    ↓Attributes [steps.SourceStep-1608741133739]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1608724730157
+            - java.lang.String: 
+              - ↑value: ./document/couchdb_output/account/attributes/*
+      variableName: Attributes
+    ↓jIterator [steps.SimpleIteratorStep-1608741211606]: 
+      expression: Attributes
+      ↓Log [steps.LogStep-1608742111944]: 
+        expression: |
+          item.getTextContent();
+          
+        level: WARN
+      ↓Log1 [steps.LogStep-1608742487220]: 
+        expression: |
+          item.getNodeName();
+          
+          
+        level: WARN
+      ↓jIf [steps.IfStep-1608741240135]: 
+        condition: (item.getNodeName() +"") == attribute
+        ↓jElement [steps.ElementStep-1608741320163]: 
+          expression: item.getTextContent()
+          nodeName: value
+  ↓jElse [steps.ElseStep-1608724730190]: 
+    ↓Error_structure [steps.XMLErrorStep-1608724730193]: 
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: Non existant user
+↓user [variables.RequestableVariable-1608724730196]: 
+  comment: The user where we have to set the attribute on
+↓attribute [variables.RequestableVariable-1608724730199]: 
+  comment: The attribute name
+↓TestKO [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608724730206]: 
+    value: test@mail.com
+  ↓attribute [variables.TestCaseVariable-1608724730209]: 
+    value: Token
+↓TestOK [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608724730216]: 
+    value: user@noextant.com
+  ↓attribute [variables.TestCaseVariable-1608724730219]: 
+    value: Token

@@ -1,0 +1,104 @@
+accessibility: Hidden
+authenticatedContextRequired: true
+↓Input_variables [steps.InputVariablesStep-1608723430613]: 
+↓Call_Transaction [steps.TransactionStep-1608723220424]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
+  ↓_use_ddoc [variables.StepVariable-1608723232081]: 
+    description: Design document name
+    value: Design_document
+  ↓_use_view [variables.StepVariable-1608723232083]: 
+    description: View function name
+    value: Users
+  ↓_use_key [variables.StepVariable-1608723232085]: 
+    description: (string) – Return only documents that match the specified key. Optional
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1608723430613
+          - java.lang.String: 
+            - ↑value: ./user/text()
+↓IfExistThenElse [steps.IfExistThenElseStep-1608723993689]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1608723220424
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output/rows/item
+  ↓jThen [steps.ThenStep-1608723994196]: 
+    ↓BuidAttribute [steps.SimpleStep-1608724219506]: 
+      expression: |
+        'jSonObject = {
+        		account: {
+        			attributes: {
+        			}
+        		}
+        };
+        
+        jSonObject.account.attributes[attribute] = value;
+        jSonObject = JSON.stringify(jSonObject);
+        
+        '
+    ↓jElement [steps.ElementStep-1608724366555]: 
+      expression: jSonObject
+      nodeName: jsonbase
+    ↓Call_Transaction [steps.TransactionStep-1608724126181]: 
+      sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+      ↓_use_json_base [variables.StepVariable-1608724142620]: 
+        description: (string) – JSON use as a base for the document (js object). Optional
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1608724366555
+              - java.lang.String: 
+                - ↑value: ./text()
+      ↓_id [variables.StepVariable-1608724142622]: 
+        description: Document id
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1608723220424
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/rows/item/id/text()
+  ↓jElse [steps.ElseStep-1608723994198]: 
+    ↓Error_structure [steps.XMLErrorStep-1608724027583]: 
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: Non existant user
+↓user [variables.RequestableVariable-1608722921614]: 
+  comment: The user where we have to set the attribute on
+↓attribute [variables.RequestableVariable-1608722934893]: 
+  comment: The attribute name
+↓value [variables.RequestableVariable-1608722950222]: 
+  comment: The attribute value
+↓TestKO [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608723859436]: 
+    value: user@noextant.com
+  ↓attribute [variables.TestCaseVariable-1608723859438]: 
+    value: Token
+  ↓value [variables.TestCaseVariable-1608723859440]: 
+    value: AAAA
+↓TestOK [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608724057765]: 
+    value: test@mail.com
+  ↓attribute [variables.TestCaseVariable-1608724057768]: 
+    value: Token
+  ↓value [variables.TestCaseVariable-1608724057771]: 
+    value: AAAA
+↓TestOK1 [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608729912510]: 
+    value: test@mail.com
+  ↓attribute [variables.TestCaseVariable-1608729912513]: 
+    value: TokenOAuthGoogle
+  ↓value [variables.TestCaseVariable-1608729912516]: 
+    value: ZZZZ
