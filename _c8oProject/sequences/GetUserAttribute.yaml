@@ -28,7 +28,7 @@ comment: Gets a given attribute fomr an user account
       expression: |
         '"Entering Loop"
         '
-      level: WARN
+      level: DEBUG
     ↓Attributes [steps.SourceStep-1608741133739]: 
       sourceDefinition: 
         - xmlizable: 
@@ -45,13 +45,13 @@ comment: Gets a given attribute fomr an user account
         expression: |
           item.getTextContent();
           
-        level: WARN
+        level: DEBUG
       ↓Log1 [steps.LogStep-1608742487220]: 
         expression: |
           item.getNodeName();
           
           
-        level: WARN
+        level: DEBUG
       ↓jIf [steps.IfStep-1608741240135]: 
         condition: (item.getNodeName() +"") == attribute
         ↓jElement [steps.ElementStep-1608741320163]: 
