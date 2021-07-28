@@ -1,7 +1,11 @@
 accessibility: Private
 ↓Hash [steps.SimpleStep-1572600502810]: 
   expression: |
-    'if (salt == undefined) {
+    'var jVerified = "";
+    var jSalt = "";
+    var jHash = "";
+    
+    if (salt == undefined) {
     	// no Salt provided so use in set password mode.
     	// We will generate a salt and HASH the whole stuff.
     	// returning the hash and the salt.

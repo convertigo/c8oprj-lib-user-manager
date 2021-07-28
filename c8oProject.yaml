@@ -7,7 +7,7 @@
     - user login using OpenID
     
     '
-  version: 2.0.9
+  version: 2.0.10
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
@@ -28,5 +28,7 @@
     projectName: mobilebuilder_tpl_7_9_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl.git:branch=mobilebuilder_tpl_7_9_0:autoPull=true
   ↓Project_reference1 [references.ProjectSchemaReference]: 
     projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.0.1:autoPull=true
+  ↓Project_reference2 [references.ProjectSchemaReference]: 
+    projectName: mobilebuilder_tpl_7_7_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl/archive/mobilebuilder_tpl_7_7_0.zip
   ↓MobileApplication [core.MobileApplication]: 
     ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml
