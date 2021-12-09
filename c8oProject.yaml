@@ -1,4 +1,4 @@
-↑convertigo: 7.8.1.m006
+↑convertigo: 7.9.0.m006
 ↓lib_UserManager [core.Project]: 
   comment: |
     'The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
@@ -7,7 +7,7 @@
     - user login using OpenID
     
     '
-  version: 2.0.7
+  version: 2.0.9
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
@@ -18,8 +18,6 @@
   ↓SignInAD [sequences.GenericSequence]: 🗏 sequences/SignInAD.yaml
   ↓SignInADBulk [sequences.GenericSequence]: 🗏 sequences/SignInADBulk.yaml
   ↓SignInAdPostGroups [sequences.GenericSequence]: 🗏 sequences/SignInAdPostGroups.yaml
-  ↓MobileApplication [core.MobileApplication]: 
-    ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
@@ -27,4 +25,6 @@
   ↓Project_reference [references.ProjectSchemaReference]: 
     projectName: mobilebuilder_tpl_7_7_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl.git:branch=mobilebuilder_tpl_7_7_0:autoPull=true
   ↓Project_reference1 [references.ProjectSchemaReference]: 
-    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.0.1:autoPull=true
+    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.0.2:autoPull=true
+  ↓MobileApplication [core.MobileApplication]: 
+    ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml

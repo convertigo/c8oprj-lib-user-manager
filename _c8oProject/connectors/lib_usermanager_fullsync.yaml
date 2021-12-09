@@ -1,4 +1,5 @@
 ↑default: true
+anonymousReplication: allow
 databaseName: lib_usermanager_fullsync
 ↓DeleteDocument [transactions.couchdb.DeleteDocumentTransaction]: 
   ↓_use_docid [variables.RequestableVariable-1572602108218]: 
@@ -39,7 +40,8 @@ databaseName: lib_usermanager_fullsync
         "filters": {},
         "updates": {},
         "views": {
-          "PasswordLostAccountsByPasswordResetKey": {"map": "function (doc) {\r\n
+          "PasswordLostAccountsByPasswordResetKey": {
+            "map": "function (doc) {\r\n
           try {\r\n
               if (doc.account.status == ''passwordlost'' && doc.account.passwordResetKey) {\r\n
                   emit(doc.account.passwordResetKey, {\r\n
@@ -50,8 +52,10 @@ databaseName: lib_usermanager_fullsync
           } catch (err) {\r\n
               log(err.message);\r\n
           }\r\n
-      }"},
-          "Users": {"map": "function (doc) {\r\n
+      }"
+          },
+          "Users": {
+            "map": "function (doc) {\r\n
           try {\r\n
               if (doc.account)\r\n
                   emit(doc.account.email, {\r\n
@@ -63,6 +67,7 @@ databaseName: lib_usermanager_fullsync
               log(err.message);\r\n
           }\r\n
       }\r\n
-      "}
+      "
+          }
         }
       }'

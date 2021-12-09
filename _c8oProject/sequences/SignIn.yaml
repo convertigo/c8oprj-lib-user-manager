@@ -128,6 +128,11 @@
                 - →→: Invalid password
 ↓user [variables.RequestableVariable-1572602646436]: 
 ↓password [variables.RequestableVariable-1572602646439]: 
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: xd8e180806a1c1d83a6255212121ab827
+  visibility: '-1'
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572603756472]: 
     value: test@mail.com

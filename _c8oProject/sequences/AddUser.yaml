@@ -121,6 +121,11 @@ authenticatedContextRequired: true
               - ↑value: ./user/text()
 ↓user [variables.RequestableVariable-1572600451823]: 
 ↓password [variables.RequestableVariable-1572600460277]: 
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: xd8e180806a1c1d83a6255212121ab827
+  visibility: '-1'
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572600838619]: 
     value: test@mail.com

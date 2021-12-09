@@ -28,6 +28,11 @@ accessibility: Private
   expression: jVerified
   nodeName: verified
 ↓password [variables.RequestableVariable-1572600502822]: 
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: xd8e180806a1c1d83a6255212121ab827
+  visibility: '-1'
 ↓salt [variables.RequestableVariable-1572600502825]: 
 ↓hash [variables.RequestableVariable-1572600502828]: 
 ↓TestSetPassword [core.TestCase]: 
