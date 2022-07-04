@@ -8,6 +8,7 @@ title: Title for Page
     beanData: '{"ionBean":"Button"}'
     tagName: button
     ↓Text [mobile.components.UIText-1572623555409]: 
+      i18n: true
       textValue: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -19,6 +20,7 @@ title: Title for Page
     beanData: '{"ionBean":"Button"}'
     tagName: button
     ↓Text [mobile.components.UIText-1572935670188]: 
+      i18n: true
       textValue: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType

@@ -85,6 +85,7 @@ comment: |
                 }'
               tagName: h4
               ↓Text [mobile.components.UIText-1572622755335]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -238,6 +239,7 @@ comment: |
                 }'
               tagName: h4
               ↓Text [mobile.components.UIText-1572622846783]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -249,6 +251,7 @@ comment: |
               beanData: '{"ionBean":"Label","Fixed":"plain:fixed"}'
               tagName: ion-label
               ↓Text [mobile.components.UIText-1572604498931]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -272,6 +275,7 @@ comment: |
               beanData: '{"ionBean":"Label","Fixed":"plain:fixed"}'
               tagName: ion-label
               ↓Text [mobile.components.UIText-1572604498955]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -291,6 +295,7 @@ comment: |
             beanData: '{"ionBean":"SubmitButton"}'
             tagName: button
             ↓Text [mobile.components.UIText-1572604498979]: 
+              i18n: true
               textValue: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType
@@ -311,6 +316,7 @@ comment: |
               beanData: '{"ionBean":"Button"}'
               tagName: button
               ↓Text [mobile.components.UIText-1572627225052]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.mobile.components.MobileSmartSourceType

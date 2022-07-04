@@ -1,7 +1,42 @@
 accessibility: Hidden
 authenticatedContextRequired: true
-comment: Sets a given attribute on an user account
+comment: |
+  Sets a given attribute on an user account if the account does'nt exists, an account will be created with a fake radom password
+  
 ↓Input_variables [steps.InputVariablesStep-1608723430613]: 
+↓BuidAttributeAndRandomString [steps.SimpleStep-1608724219506]: 
+  expression: |
+    'function randomString(L) {
+      var s = '''';
+      var randomchar = function() {
+        var n = Math.floor(Math.random() * 62);
+        if (n < 10) return n; //1-10
+        if (n < 36) return String.fromCharCode(n + 55); //A-Z
+        return String.fromCharCode(n + 61); //a-z
+      }
+      while (s.length < L) s += randomchar();
+      return s;
+    }
+    
+    
+    jSonObject = {
+    		account: {
+    			attributes: {
+    			}
+    		}
+    };
+    
+    jSonObject.account.attributes[attribute] = value;
+    jSonObject = JSON.stringify(jSonObject);
+    
+    jRandom = randomString(10)
+    '
+↓jElement [steps.ElementStep-1608724366555]: 
+  expression: jSonObject
+  nodeName: jsonbase
+↓jElement1 [steps.ElementStep-1656948061032]: 
+  expression: jRandom
+  nodeName: FakePwd
 ↓Call_Transaction [steps.TransactionStep-1608723220424]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
   ↓_use_ddoc [variables.StepVariable-1608723232081]: 
@@ -30,22 +65,6 @@ comment: Sets a given attribute on an user account
         - java.lang.String: 
           - ↑value: ./document/couchdb_output/rows/item
   ↓jThen [steps.ThenStep-1608723994196]: 
-    ↓BuidAttribute [steps.SimpleStep-1608724219506]: 
-      expression: |
-        'jSonObject = {
-        		account: {
-        			attributes: {
-        			}
-        		}
-        };
-        
-        jSonObject.account.attributes[attribute] = value;
-        jSonObject = JSON.stringify(jSonObject);
-        
-        '
-    ↓jElement [steps.ElementStep-1608724366555]: 
-      expression: jSonObject
-      nodeName: jsonbase
     ↓Call_Transaction [steps.TransactionStep-1608724126181]: 
       sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
       ↓_use_json_base [variables.StepVariable-1608724142620]: 
@@ -69,26 +88,54 @@ comment: Sets a given attribute on an user account
               - java.lang.String: 
                 - ↑value: ./document/couchdb_output/rows/item/id/text()
   ↓jElse [steps.ElseStep-1608723994198]: 
-    ↓Error_structure [steps.XMLErrorStep-1608724027583]: 
-      message: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
-          - SmartType: 
-            - ↑mode: PLAIN
-            - →→: Non existant user
+    ↓Call_Sequence [steps.SequenceStep-1656947027615]: 
+      sourceSequence: lib_UserManager.AddUser
+      ↓user [variables.StepVariable-1656947027617]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1608723430613
+              - java.lang.String: 
+                - ↑value: ./user/text()
+      ↓password [variables.StepVariable-1656947027619]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1656948061032
+              - java.lang.String: 
+                - ↑value: ./text()
+    ↓Call_Transaction [steps.TransactionStep-1656947677033]: 
+      sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+      ↓_use_json_base [variables.StepVariable-1656947677036]: 
+        description: (string) – JSON use as a base for the document (js object). Optional
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1608724366555
+              - java.lang.String: 
+                - ↑value: ./text()
+      ↓_id [variables.StepVariable-1656947677039]: 
+        description: Document id
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1608723430613
+              - java.lang.String: 
+                - ↑value: ./user/text()
 ↓user [variables.RequestableVariable-1608722921614]: 
   comment: The user where we have to set the attribute on
 ↓attribute [variables.RequestableVariable-1608722934893]: 
   comment: The attribute name
 ↓value [variables.RequestableVariable-1608722950222]: 
   comment: The attribute value
-↓TestKO [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1608723859436]: 
-    value: user@noextant.com
-  ↓attribute [variables.TestCaseVariable-1608723859438]: 
-    value: Token
-  ↓value [variables.TestCaseVariable-1608723859440]: 
-    value: AAAA
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1608724057765]: 
     value: test@mail.com
@@ -103,3 +150,10 @@ comment: Sets a given attribute on an user account
     value: TokenOAuthGoogle
   ↓value [variables.TestCaseVariable-1608729912516]: 
     value: ZZZZ
+↓TestUserNotExists [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1608723859436]: 
+    value: user@noextant.com
+  ↓attribute [variables.TestCaseVariable-1608723859438]: 
+    value: Token
+  ↓value [variables.TestCaseVariable-1608723859440]: 
+    value: AAAA
