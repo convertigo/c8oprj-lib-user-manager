@@ -4,7 +4,11 @@
     'The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
     
     - user login with user/password using a salted password security
-    - user login using OpenID
+    - user login using OpenID (Google, Azure & linkedin)
+    
+    When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
+    
+    
     
     '
   version: 2.0.11
@@ -25,11 +29,7 @@
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
     projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=7.9.0:autoPull=true
-  ↓Project_reference [references.ProjectSchemaReference]: 
-    projectName: mobilebuilder_tpl_7_9_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl.git:branch=mobilebuilder_tpl_7_9_0:autoPull=true
   ↓Project_reference1 [references.ProjectSchemaReference]: 
     projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.0.1:autoPull=true
-  ↓Project_reference2 [references.ProjectSchemaReference]: 
-    projectName: mobilebuilder_tpl_7_7_0=https://github.com/convertigo/c8oprj-mobilebuilder-tpl/archive/mobilebuilder_tpl_7_7_0.zip
   ↓MobileApplication [core.MobileApplication]: 
     ↓Application [mobile.components.ApplicationComponent]: 🗏 mobileApplication.yaml

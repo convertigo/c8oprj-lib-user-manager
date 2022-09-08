@@ -1,4 +1,5 @@
 accessibility: Private
+comment: Utility sequence to Hash and Salt passwords
 ↓Hash [steps.SimpleStep-1572600502810]: 
   expression: |
     'var jVerified = "";

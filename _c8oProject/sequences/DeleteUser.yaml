@@ -1,5 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
+comment: Deletes an user from the internal Convertigo database
 ↓Input_variables [steps.InputVariablesStep-1572602059921]: 
 ↓Call_Transaction1 [steps.TransactionStep-1572602116292]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.DeleteDocument
@@ -59,6 +60,7 @@ authenticatedContextRequired: true
             - java.lang.String: 
               - ↑value: ./user/text()
 ↓user [variables.RequestableVariable-1572602059969]: 
+  comment: The user ID as (The users email address)
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572602059976]: 
     value: test@mail.com

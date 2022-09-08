@@ -1,3 +1,4 @@
+comment: Performs a user sign in for a given user with its id (email) and password
 ↓Input_variables [steps.InputVariablesStep-1572602646388]: 
 ↓Call_Transaction [steps.TransactionStep-1572602646412]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
@@ -127,7 +128,9 @@
                 - ↑mode: PLAIN
                 - →→: Invalid password
 ↓user [variables.RequestableVariable-1572602646436]: 
+  comment: The userID (user's email)
 ↓password [variables.RequestableVariable-1572602646439]: 
+  comment: The user's password
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572603756472]: 
     value: test@mail.com

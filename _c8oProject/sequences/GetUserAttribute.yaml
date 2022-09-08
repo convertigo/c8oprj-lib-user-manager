@@ -1,6 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
-comment: Gets a given attribute fomr an user account
+comment: Gets a given attribute from an user account
 ↓Input_variables [steps.InputVariablesStep-1608724730154]: 
 ↓Call_Transaction [steps.TransactionStep-1608724730157]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
@@ -66,7 +66,7 @@ comment: Gets a given attribute fomr an user account
             - ↑mode: PLAIN
             - →→: Non existant user
 ↓user [variables.RequestableVariable-1608724730196]: 
-  comment: The user where we have to set the attribute on
+  comment: The user where we have to get the attribute from
 ↓attribute [variables.RequestableVariable-1608724730199]: 
   comment: The attribute name
 ↓TestKO [core.TestCase]: 

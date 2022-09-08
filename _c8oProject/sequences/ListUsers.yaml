@@ -1,5 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
+comment: Lists users from the internal Convertigo User database
 ↓Call_Transaction [steps.TransactionStep-1582733815671]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
   ↓_use_ddoc [variables.StepVariable-1582733815673]: 

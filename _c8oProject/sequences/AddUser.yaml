@@ -1,5 +1,6 @@
 accessibility: Hidden
 authenticatedContextRequired: true
+comment: Adds an user to the Internal Convertigo User database
 ↓Input_variables [steps.InputVariablesStep-1572600429317]: 
 ↓Call_Sequence [steps.SequenceStep-1572600561038]: 
   sourceSequence: lib_UserManager.HashAndSalt
@@ -120,7 +121,9 @@ authenticatedContextRequired: true
             - java.lang.String: 
               - ↑value: ./user/text()
 ↓user [variables.RequestableVariable-1572600451823]: 
+  comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1572600460277]: 
+  comment: The inital password. (User will be able to chnage it afterwards)
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572600838619]: 
     value: test@mail.com

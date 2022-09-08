@@ -1,7 +1,7 @@
 accessibility: Hidden
 authenticatedContextRequired: true
 comment: |
-  Sets a given attribute on an user account if the account does'nt exists, an account will be created with a fake radom password
+  Sets a given attribute on an user account if the account doesn't exists, an account will be created with a fake radom password
   
 ↓Input_variables [steps.InputVariablesStep-1608723430613]: 
 ↓BuidAttributeAndRandomString [steps.SimpleStep-1608724219506]: 

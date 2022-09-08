@@ -4,7 +4,11 @@
 The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
 
 - user login with user/password using a salted password security
-- user login using OpenID
+- user login using OpenID (Google, Azure & linkedin)
+
+When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
+
+
 
 
 
@@ -34,7 +38,7 @@ see [documentation](http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd)
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_OAuth
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/334a638363d83d83bfed756b025f96226751e50e#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/8.0.0#readme)
 </p></blockquote></details>
 </p></blockquote></details>
 
@@ -251,12 +255,12 @@ comment
 <details><summary><span style="color:DarkGoldenRod"><i>Sequences</i></span></summary><blockquote><p>
 
 
-<details><summary><b>AddUser</b></summary><blockquote><p>
+<details><summary><b>AddUser</b> : Adds an user to the Internal Convertigo User database</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") AddUser
 
-
+Adds an user to the Internal Convertigo User database
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -274,7 +278,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;password
 </td>
 <td>
-
+The inital password. (User will be able to chnage it afterwards)
 </td>
 </tr>
 <tr>
@@ -282,19 +286,19 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
 </td>
 <td>
-
+The user id as a valid email address
 </td>
 </tr>
 </table>
 
 </p></blockquote></details>
 
-<details><summary><b>DeleteUser</b></summary><blockquote><p>
+<details><summary><b>DeleteUser</b> : Deletes an user from the internal Convertigo database</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") DeleteUser
 
-
+Deletes an user from the internal Convertigo database
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -312,7 +316,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
 </td>
 <td>
-
+The user ID as (The users email address)
 </td>
 </tr>
 </table>
@@ -397,12 +401,12 @@ Password reset key
 
 </p></blockquote></details>
 
-<details><summary><b>GetUserAttribute</b> : Gets a given attribute fomr an user account</summary><blockquote><p>
+<details><summary><b>GetUserAttribute</b> : Gets a given attribute from an user account</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") GetUserAttribute
 
-Gets a given attribute fomr an user account
+Gets a given attribute from an user account
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -428,19 +432,19 @@ The attribute name
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
 </td>
 <td>
-The user where we have to set the attribute on
+The user where we have to get the attribute from
 </td>
 </tr>
 </table>
 
 </p></blockquote></details>
 
-<details><summary><b>HashAndSalt</b></summary><blockquote><p>
+<details><summary><b>HashAndSalt</b> : Utility sequence to Hash and Salt passwords</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") HashAndSalt
 
-
+Utility sequence to Hash and Salt passwords
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -481,12 +485,12 @@ comment
 
 </p></blockquote></details>
 
-<details><summary><b>ListUsers</b></summary><blockquote><p>
+<details><summary><b>ListUsers</b> : Lists users from the internal Convertigo User database</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") ListUsers
 
-
+Lists users from the internal Convertigo User database
 </p></blockquote></details>
 
 <details><summary><b>ModifyPassword</b> : Modify a password for a given user</summary><blockquote><p>
@@ -527,12 +531,12 @@ User email to set the new password on
 
 </p></blockquote></details>
 
-<details><summary><b>SetUserAttribute</b> : Sets a given attribute on an user account if the account does'nt exists, an account will be created with a fake radom password</summary><blockquote><p>
+<details><summary><b>SetUserAttribute</b> : Sets a given attribute on an user account if the account doesn't exists, an account will be created with a fake radom password</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SetUserAttribute
 
-Sets a given attribute on an user account if the account does'nt exists, an account will be created with a fake radom password
+Sets a given attribute on an user account if the account doesn't exists, an account will be created with a fake radom password
 
 
 <span style="color:DarkGoldenRod">Variables</span>
@@ -574,12 +578,12 @@ The attribute value
 
 </p></blockquote></details>
 
-<details><summary><b>SignIn</b></summary><blockquote><p>
+<details><summary><b>SignIn</b> : Performs a user sign in for a given user with its id (email) and password</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SignIn
 
-
+Performs a user sign in for a given user with its id (email) and password
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -597,7 +601,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;password
 </td>
 <td>
-
+The user's password
 </td>
 </tr>
 <tr>
@@ -605,7 +609,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
 </td>
 <td>
-
+The userID (user's email)
 </td>
 </tr>
 </table>
