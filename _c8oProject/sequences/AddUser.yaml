@@ -123,7 +123,7 @@ comment: Adds an user to the Internal Convertigo User database
 ↓user [variables.RequestableVariable-1572600451823]: 
   comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1572600460277]: 
-  comment: The inital password. (User will be able to chnage it afterwards)
+  comment: The inital password. (User will be able to change it afterwards)
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572600838619]: 
     value: test@mail.com

@@ -72,7 +72,7 @@ Adds an user to the Internal Convertigo User database
 <th>name</th><th>comment</th>
 </tr>
 <tr>
-<td>password</td><td>The inital password. (User will be able to chnage it afterwards)</td>
+<td>password</td><td>The inital password. (User will be able to change it afterwards)</td>
 </tr>
 <tr>
 <td>user</td><td>The user id as a valid email address</td>
