@@ -1,4 +1,4 @@
-accessibility: Hidden
+accessibility: Private
 authenticatedContextRequired: true
 comment: Lists users from the internal Convertigo User database
 ↓Call_Transaction [steps.TransactionStep-1582733815671]: 

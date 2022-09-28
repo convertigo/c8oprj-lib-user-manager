@@ -31,10 +31,6 @@ For more technical informations : [documentation](./project.md)
     - [SignInAD](#signinad)
     - [SignInADBulk](#signinadbulk)
     - [SignInAdPostGroups](#signinadpostgroups)
-- [Mobile Library](#mobile-library)
-    - [Shared Components](#shared-components)
-        - [ForgotPassword](#forgotpassword-1)
-        - [LoginComponent](#logincomponent)
 
 
 ## Installation
@@ -46,13 +42,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=7.9.0.1
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/7.9.0.1.zip
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
      ```
      </td></tr>
     </table>
@@ -295,45 +291,6 @@ Sign in using an ActiveDirectory account. Will also return the list of groups th
 </table>
 
 ### SignInAdPostGroups
-
-## Mobile Library
-
-### Shared Components
-
-#### ForgotPassword
-
-#### LoginComponent
-
-This component handle a login / password form.
-And uses the lib_UserManager
-
-The component will check user / password and if successful will autenticate the user. When the user is authenticated, the component will fire a 'login' event that you can handle with a SubscribeHandler. use this event to close a modal page or to push/root a new page when the user is authenticated
-
-
-
-
-**variables**
-
-<table>
-<tr>
-<th>name</th><th>comment</th>
-</tr>
-<tr>
-<td>enableAzureADLogin</td><td>Set to false to disable login with AzureAD</td>
-</tr>
-<tr>
-<td>enableCancelDismiss</td><td>Set to true if you want a cancel button to be displayed causing a Modal Page dismiss</td>
-</tr>
-<tr>
-<td>enableGoogleLogin</td><td>Set to false to disable loggin with google</td>
-</tr>
-<tr>
-<td>enableLinkedInLogin</td><td>Set to false to disable login with LinkedIn</td>
-</tr>
-<tr>
-<td>logoImage</td><td>A logo image to be displayed over the login form (64x64)</td>
-</tr>
-</table>
 
 
 

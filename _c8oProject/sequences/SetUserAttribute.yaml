@@ -1,4 +1,4 @@
-accessibility: Hidden
+accessibility: Private
 authenticatedContextRequired: true
 comment: |
   Sets a given attribute on an user account if the account doesn't exists, an account will be created with a fake radom password

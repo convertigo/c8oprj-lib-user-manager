@@ -1,4 +1,4 @@
-accessibility: Hidden
+accessibility: Private
 authenticatedContextRequired: true
 comment: Deletes an user from the internal Convertigo database
 ↓Input_variables [steps.InputVariablesStep-1572602059921]: 
