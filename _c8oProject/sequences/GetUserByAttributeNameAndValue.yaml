@@ -1,0 +1,33 @@
+comment: Gets an user by attribute name and value
+↓Input_variables [steps.InputVariablesStep-1673557024033]: 
+↓Sequence_JS [steps.SimpleStep-1673557130759]: 
+  expression: |
+    var _use_key = "[" +'"'+ attrName +'"'+ ","+'"'+attrValue+'"'+"]";
+    log.warn("_use_key =>> "+_use_key)
+↓Call_Transaction [steps.TransactionStep-1673557060795]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
+  ↓_use_ddoc [variables.StepVariable-1673557071852]: 
+    description: Design document name
+    value: Design_document
+  ↓_use_view [variables.StepVariable-1673557071854]: 
+    description: View function name
+    value: ListUsersAttributes
+  ↓_use_key [variables.StepVariable-1673557071856]: 
+    description: (string) – Return only documents that match the specified key. Optional
+↓Element [steps.XMLElementStep-1673557443975]: 
+  nodeName: userName
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1673557060795
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output/rows/item/id/text()
+↓attrName [variables.RequestableVariable-1673556983436]: 
+↓attrValue [variables.RequestableVariable-1673556996736]: 
+↓Test_Case [core.TestCase]: 
+  ↓attrName [variables.TestCaseVariable-1673557241475]: 
+    value: password
+  ↓attrValue [variables.TestCaseVariable-1673557241477]: 
+    value: M%tNoEOSxjsfUmj

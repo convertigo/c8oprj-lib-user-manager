@@ -67,6 +67,24 @@ databaseName: lib_usermanager_fullsync
           }\r\n
       }\r\n
       "
+          },
+          "ListUsersAttributes": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              if(doc.account.attributes){\r\n
+          Object.keys(doc.account.attributes).forEach(function(e){\r\n
+            emit([e,doc.account.attributes[e]], 1);\r\n
+          })\r\n
+           \r\n
+          \r\n
+        }\r\n
+        \r\n
+      \r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }\r\n
+        "
           }
         }
       }'
