@@ -1,125 +1,94 @@
-comment: Has to be called with email fields not empty to send an email reset link to the user, or with a newPassword an passwordResetKey not empty to excplicitly reset a password
-↓Input_variables [steps.InputVariablesStep-1582120126723]: 
-↓jIfThenElse [steps.IfThenElseStep-1582124350598]: 
+comment: Has to be called with an accountResetKey not empty to excplicitly confirm an account
+↓Input_variables [steps.InputVariablesStep-1674730624375]: 
+↓jIfThenElse [steps.IfThenElseStep-1674730624378]: 
   condition: passwordResetKey != undefined
-  ↓jThen [steps.ThenStep-1582124350601]: 
-    ↓Call_Transaction1 [steps.TransactionStep-1582124350604]: 
+  ↓jThen [steps.ThenStep-1674730624381]: 
+    ↓Call_Transaction1 [steps.TransactionStep-1674730624384]: 
       sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
-      ↓_use_ddoc [variables.StepVariable-1582124350607]: 
+      ↓_use_ddoc [variables.StepVariable-1674730624387]: 
         description: Design document name
         value: Design_document
-      ↓_use_view [variables.StepVariable-1582124350610]: 
+      ↓_use_view [variables.StepVariable-1674730624390]: 
         description: View function name
         value: PasswordLostAccountsByPasswordResetKey
-      ↓_use_key [variables.StepVariable-1582124350613]: 
+      ↓_use_key [variables.StepVariable-1674730624393]: 
         description: (string) – Return only documents that match the specified key. Optional
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1582120126723
+                - ↑value: 1674730624375
               - java.lang.String: 
                 - ↑value: ./passwordResetKey/text()
-    ↓IfExistThenElse [steps.IfExistThenElseStep-1582124350616]: 
+    ↓IfExistThenElse [steps.IfExistThenElseStep-1674730624396]: 
       sourceDefinition: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
             - java.lang.String: 
-              - ↑value: 1582124350604
+              - ↑value: 1674730624384
             - java.lang.String: 
               - ↑value: ./document/couchdb_output/rows/item
-      ↓jThen [steps.ThenStep-1582124350619]: 
-        ↓Call_Sequence [steps.SequenceStep-1582124350622]: 
-          sourceSequence: lib_UserManager.HashAndSalt
-          ↓password [variables.StepVariable-1582124350625]: 
-            sourceDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1582120126723
-                  - java.lang.String: 
-                    - ↑value: ./newPassword/text()
-        ↓jSimpleSource [steps.SimpleSourceStep-1582124350628]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1582124350622
-                - java.lang.String: 
-                  - ↑value: ./document/salt/text()
-          variableName: jSalt
-        ↓jSimpleSource1 [steps.SimpleSourceStep-1582124350631]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1582124350622
-                - java.lang.String: 
-                  - ↑value: ./document/hash/text()
-          variableName: jHash
-        ↓jElement [steps.ElementStep-1582124350634]: 
-          expression: '''{account: {salt="'' + jSalt + ''", hashPassword:"'' + jHash + ''", status:"confirmed", passwordResetKey:null}}'''
+      ↓jThen [steps.ThenStep-1674730624399]: 
+        ↓jElement [steps.ElementStep-1674730624414]: 
+          expression: '''{account: {status:"confirmed", passwordResetKey:null}}'''
           nodeName: jSonData
           output: false
-        ↓Call_Transaction [steps.TransactionStep-1582124350637]: 
+        ↓Call_Transaction [steps.TransactionStep-1674730624417]: 
           sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
-          ↓_use_json_base [variables.StepVariable-1582124350640]: 
+          ↓_use_json_base [variables.StepVariable-1674730624420]: 
             description: (string) – JSON use as a base for the document (js object). Optional
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582124350634
+                    - ↑value: 1674730624414
                   - java.lang.String: 
                     - ↑value: ./text()
-          ↓_id [variables.StepVariable-1582124350643]: 
+          ↓_id [variables.StepVariable-1674730624423]: 
             description: Document id
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582124350604
+                    - ↑value: 1674730624384
                   - java.lang.String: 
                     - ↑value: ./document/couchdb_output/rows/item/id/text()
-      ↓jElse [steps.ElseStep-1582124350646]: 
-        ↓Error_structure [steps.XMLErrorStep-1582124350649]: 
+      ↓jElse [steps.ElseStep-1674730624426]: 
+        ↓Error_structure [steps.XMLErrorStep-1674730624429]: 
           message: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
               - SmartType: 
                 - ↑mode: PLAIN
                 - →→: This password resetkey is invalid
-  ↓jElse [steps.ElseStep-1582124350652]: 
-    ↓Call_Transaction [steps.TransactionStep-1582120126726]: 
+  ↓jElse [steps.ElseStep-1674730624432]: 
+    ↓Call_Transaction [steps.TransactionStep-1674730624435]: 
       sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
-      ↓_use_docid [variables.StepVariable-1582120126729]: 
+      ↓_use_docid [variables.StepVariable-1674730624438]: 
         description: Document ID
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1582120126723
+                - ↑value: 1674730624375
               - java.lang.String: 
                 - ↑value: ./email/text()
-    ↓IfExistThenElse [steps.IfExistThenElseStep-1582120126732]: 
+    ↓IfExistThenElse [steps.IfExistThenElseStep-1674730624441]: 
       sourceDefinition: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
             - java.lang.String: 
-              - ↑value: 1582120126726
+              - ↑value: 1674730624435
             - java.lang.String: 
               - ↑value: ./document/couchdb_output/error
-      ↓jThen [steps.ThenStep-1582120126735]: 
-        ↓Error_structure [steps.XMLErrorStep-1582120126738]: 
+      ↓jThen [steps.ThenStep-1674730624444]: 
+        ↓Error_structure [steps.XMLErrorStep-1674730624447]: 
           code: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -133,7 +102,7 @@ comment: Has to be called with email fields not empty to send an email reset lin
                 - ↑mode: SOURCE
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120126726
+                    - ↑value: 1674730624435
                   - java.lang.String: 
                     - ↑value: ./document/couchdb_output/error/text()
           message: 
@@ -142,59 +111,59 @@ comment: Has to be called with email fields not empty to send an email reset lin
               - SmartType: 
                 - ↑mode: PLAIN
                 - →→: Invalid username
-      ↓jElse [steps.ElseStep-1582120126741]: 
-        ↓jElement [steps.ElementStep-1582120883811]: 
+      ↓jElse [steps.ElseStep-1674730624450]: 
+        ↓jElement [steps.ElementStep-1674730624453]: 
           expression: '''{account: {status: "passwordlost"}}'''
           nodeName: jSonBase
           output: false
-        ↓Call_Transaction [steps.TransactionStep-1582120883814]: 
+        ↓Call_Transaction [steps.TransactionStep-1674730624456]: 
           sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
-          ↓_use_json_base [variables.StepVariable-1582120883817]: 
+          ↓_use_json_base [variables.StepVariable-1674730624459]: 
             description: (string) – JSON use as a base for the document (js object). Optional
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120883811
+                    - ↑value: 1674730624453
                   - java.lang.String: 
                     - ↑value: ./text()
-          ↓_id [variables.StepVariable-1582120883820]: 
+          ↓_id [variables.StepVariable-1674730624462]: 
             description: Document id
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120126723
+                    - ↑value: 1674730624375
                   - java.lang.String: 
                     - ↑value: ./email/text()
-        ↓Call_Sequence [steps.SequenceStep-1582120883823]: 
+        ↓Call_Sequence [steps.SequenceStep-1674730624465]: 
           comment: Just to get a random in 'salt' return
           sourceSequence: lib_UserManager.HashAndSalt
-          ↓password [variables.StepVariable-1582120883826]: 
+          ↓password [variables.StepVariable-1674730624468]: 
             value: TEST
-        ↓jSimpleSource [steps.SimpleSourceStep-1582120883829]: 
+        ↓jSimpleSource [steps.SimpleSourceStep-1674730624471]: 
           sourceDefinition: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1582120883823
+                  - ↑value: 1674730624465
                 - java.lang.String: 
                   - ↑value: ./document/salt/text()
           variableName: jPasswordResetKey
-        ↓jElement1 [steps.ElementStep-1582120883832]: 
+        ↓jElement1 [steps.ElementStep-1674730624474]: 
           expression: encodeURIComponent(jPasswordResetKey)
           nodeName: urlEncodedPasswordResetKey
           output: false
-        ↓Complex [steps.XMLComplexStep-1582120883835]: 
+        ↓Complex [steps.XMLComplexStep-1674730624477]: 
           nodeName: data
-          ↓confirmURL [steps.ElementStep-1674733376106]: 
-            expression: context.getConvertigoUrl() + 'projects/lib_UserManager_ui_ngx/DisplayObjects/mobile/ForgotPasswordPage/'
+          ↓confirmURL [steps.ElementStep-1674730928441]: 
+            expression: context.getConvertigoUrl() + 'projects/lib_UserManager_ui_ngx/DisplayObjects/mobile/ConfirmAccountPage/'
             nodeName: url
             output: false
-          ↓Concat1 [steps.XMLConcatStep-1582120883838]: 
+          ↓Concat1 [steps.XMLConcatStep-1674730624480]: 
             nodeName: confirmURL
             separator: 
             sourcesDefinition: 
@@ -210,7 +179,7 @@ comment: Has to be called with email fields not empty to send an email reset lin
                         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                         - com.twinsoft.convertigo.beans.common.XMLVector: 
                           - java.lang.String: 
-                            - ↑value: 1674733376106
+                            - ↑value: 1674730928441
                           - java.lang.String: 
                             - ↑value: ./text()
                       - java.lang.String: 
@@ -224,7 +193,7 @@ comment: Has to be called with email fields not empty to send an email reset lin
                         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                         - com.twinsoft.convertigo.beans.common.XMLVector: 
                           - java.lang.String: 
-                            - ↑value: 1582120883832
+                            - ↑value: 1674730624474
                           - java.lang.String: 
                             - ↑value: ./text()
                       - java.lang.String: 
@@ -248,58 +217,58 @@ comment: Has to be called with email fields not empty to send an email reset lin
                         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                         - com.twinsoft.convertigo.beans.common.XMLVector: 
                           - java.lang.String: 
-                            - ↑value: 1582120126723
+                            - ↑value: 1674730624375
                           - java.lang.String: 
                             - ↑value: ./targetApplicationName/text()
                       - java.lang.String: 
                         - ↑value: ''
-          ↓Element [steps.XMLElementStep-1582122158805]: 
+          ↓Element [steps.XMLElementStep-1674730624483]: 
             nodeName: body
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120126723
+                    - ↑value: 1674730624375
                   - java.lang.String: 
                     - ↑value: ./emailBody/text()
-          ↓Element1 [steps.XMLElementStep-1582123512902]: 
+          ↓Element1 [steps.XMLElementStep-1674730624486]: 
             nodeName: logo
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120126723
+                    - ↑value: 1674730624375
                   - java.lang.String: 
                     - ↑value: ./emailLogo/text()
-        ↓jElement2 [steps.ElementStep-1582120883841]: 
+        ↓jElement2 [steps.ElementStep-1674730624489]: 
           expression: '''{account: {passwordResetKey:"'' + jPasswordResetKey + ''"}}'''
           nodeName: jSonBase
           output: false
-        ↓Call_Transaction1 [steps.TransactionStep-1582120883844]: 
+        ↓Call_Transaction1 [steps.TransactionStep-1674730624492]: 
           sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
-          ↓_use_json_base [variables.StepVariable-1582120883847]: 
+          ↓_use_json_base [variables.StepVariable-1674730624495]: 
             description: (string) – JSON use as a base for the document (js object). Optional
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120883841
+                    - ↑value: 1674730624489
                   - java.lang.String: 
                     - ↑value: ./text()
-          ↓_id [variables.StepVariable-1582120883850]: 
+          ↓_id [variables.StepVariable-1674730624498]: 
             description: Document id
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582120126723
+                    - ↑value: 1674730624375
                   - java.lang.String: 
                     - ↑value: ./email/text()
-        ↓SMTP_send [steps.SmtpStep-1582120883853]: 
+        ↓SMTP_send [steps.SmtpStep-1674730624501]: 
           smtpAuthType: sslTls
           smtpPassword: x8c2a90d9ab90d81769f77c4873a6b260
           smtpPort: 465
@@ -309,31 +278,31 @@ comment: Has to be called with email fields not empty to send an email reset lin
           smtpSubject: emailSubject
           smtpUsername: noreply@convertigo.com
           xslFilepath: '".//emails/passwordLost.xsl"'
-↓email [variables.RequestableVariable-1582120126774]: 
+↓email [variables.RequestableVariable-1674728469829]: 
   comment: Email where to send the reset password link to
-↓emailBody [variables.RequestableVariable-1582120278811]: 
+↓emailBody [variables.RequestableVariable-1674728469832]: 
   comment: Email content
-↓emailSubject [variables.RequestableVariable-1582123561191]: 
+↓emailSubject [variables.RequestableVariable-1674728469835]: 
   comment: Email subject
-↓emailLogo [variables.RequestableVariable-1582123577736]: 
+↓emailLogo [variables.RequestableVariable-1674728469838]: 
   comment: Email logo to be added
-↓passwordResetKey [variables.RequestableVariable-1582124424399]: 
+↓passwordResetKey [variables.RequestableVariable-1674728469841]: 
   comment: Password reset key
-↓newPassword [variables.RequestableVariable-1582124684446]: 
+↓newPassword [variables.RequestableVariable-1674728469844]: 
   comment: New password to be set
-↓targetApplicationName [variables.RequestableVariable-1674757775238]: 
+↓targetApplicationName [variables.RequestableVariable-1674757881102]: 
   comment: Email where to send the reset password link to
 ↓TestAskforReset [core.TestCase]: 
-  ↓email [variables.TestCaseVariable-1582121917212]: 
+  ↓email [variables.TestCaseVariable-1674728469851]: 
     value: olivierp@convertigo.com
-  ↓emailBody [variables.TestCaseVariable-1582122082221]: 
+  ↓emailBody [variables.TestCaseVariable-1674728469854]: 
     value:  Hello. You requested to reset your password. Please click on the following Reset Button to reset your password
-  ↓emailSubject [variables.TestCaseVariable-1582122091531]: 
+  ↓emailSubject [variables.TestCaseVariable-1674728469857]: 
     value: Please reset your password by click the reset button
-  ↓emailLogo [variables.TestCaseVariable-1582123472801]: 
+  ↓emailLogo [variables.TestCaseVariable-1674728469860]: 
     value: https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png
 ↓TestSetNewPassword [core.TestCase]: 
-  ↓passwordResetKey [variables.TestCaseVariable-1582121917216]: 
+  ↓passwordResetKey [variables.TestCaseVariable-1674728469864]: 
     value: Sa05/gl8tIBXdLC5yu3mZIRwWbynJ/6waDsBYVU6h5s=
-  ↓newPassword [variables.TestCaseVariable-1582121917219]: 
+  ↓newPassword [variables.TestCaseVariable-1674728469867]: 
     value: TESTTEST

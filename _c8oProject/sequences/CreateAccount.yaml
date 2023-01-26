@@ -1,22 +1,20 @@
-accessibility: Private
-authenticatedContextRequired: true
 comment: Adds an user to the Internal Convertigo User database
-↓Input_variables [steps.InputVariablesStep-1572600429317]: 
-↓Call_Sequence [steps.SequenceStep-1572600561038]: 
+↓Input_variables [steps.InputVariablesStep-1674725834458]: 
+↓Call_Sequence [steps.SequenceStep-1674725834461]: 
   sourceSequence: lib_UserManager.HashAndSalt
-  ↓password [variables.StepVariable-1572600561040]: 
+  ↓password [variables.StepVariable-1674725834464]: 
     sourceDefinition: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600429317
+            - ↑value: 1674725834458
           - java.lang.String: 
             - ↑value: ./password/text()
-↓Complex1 [steps.XMLComplexStep-1572600407926]: 
+↓Complex1 [steps.XMLComplexStep-1674725834467]: 
   nodeName: account
   output: false
-  ↓Element [steps.XMLElementStep-1572600407929]: 
+  ↓Element [steps.XMLElementStep-1674725834470]: 
     nodeName: email
     output: false
     sourceDefinition: 
@@ -24,10 +22,10 @@ comment: Adds an user to the Internal Convertigo User database
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600429317
+            - ↑value: 1674725834458
           - java.lang.String: 
             - ↑value: ./user/text()
-  ↓Element1 [steps.XMLElementStep-1572600407932]: 
+  ↓Element1 [steps.XMLElementStep-1674725834473]: 
     nodeName: hashPassword
     output: false
     sourceDefinition: 
@@ -35,10 +33,10 @@ comment: Adds an user to the Internal Convertigo User database
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600561038
+            - ↑value: 1674725834461
           - java.lang.String: 
             - ↑value: ./document/hash/text()
-  ↓Element11 [steps.XMLElementStep-1572600407938]: 
+  ↓Element11 [steps.XMLElementStep-1674725834476]: 
     nodeName: salt
     output: false
     sourceDefinition: 
@@ -46,46 +44,46 @@ comment: Adds an user to the Internal Convertigo User database
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600561038
+            - ↑value: 1674725834461
           - java.lang.String: 
             - ↑value: ./document/salt/text()
-  ↓status [steps.ElementStep-1674733181891]: 
-    expression: 'askForPasswordReset == ''false'' ? ''confirmed'' : ''draft'''
+  ↓Element3 [steps.XMLElementStep-1674725834479]: 
     nodeName: status
+    nodeText: draft
     output: false
-↓Call_Transaction [steps.TransactionStep-1572600688269]: 
+↓Call_Transaction [steps.TransactionStep-1674725834482]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostDocument
-  ↓_id [variables.StepVariable-1572600688273]: 
+  ↓_id [variables.StepVariable-1674725834485]: 
     description: Document id
     sourceDefinition: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600429317
+            - ↑value: 1674725834458
           - java.lang.String: 
             - ↑value: ./user/text()
-  ↓data [variables.StepVariable-1572600688275]: 
+  ↓data [variables.StepVariable-1674725834488]: 
     description: Document content
     sourceDefinition: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
         - com.twinsoft.convertigo.beans.common.XMLVector: 
           - java.lang.String: 
-            - ↑value: 1572600407926
+            - ↑value: 1674725834467
           - java.lang.String: 
             - ↑value: .
-↓IfExistThenElse [steps.IfExistThenElseStep-1572600728159]: 
+↓IfExistThenElse [steps.IfExistThenElseStep-1674725834491]: 
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
       - com.twinsoft.convertigo.beans.common.XMLVector: 
         - java.lang.String: 
-          - ↑value: 1572600688269
+          - ↑value: 1674725834482
         - java.lang.String: 
           - ↑value: ./document/couchdb_output/error
-  ↓jThen [steps.ThenStep-1572600728646]: 
-    ↓Error_structure [steps.XMLErrorStep-1572600771640]: 
+  ↓jThen [steps.ThenStep-1674725834494]: 
+    ↓Error_structure [steps.XMLErrorStep-1674725834497]: 
       code: 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -99,7 +97,7 @@ comment: Adds an user to the Internal Convertigo User database
             - ↑mode: SOURCE
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600688269
+                - ↑value: 1674725834482
               - java.lang.String: 
                 - ↑value: ./document/couchdb_output/error/text()
       message: 
@@ -108,8 +106,8 @@ comment: Adds an user to the Internal Convertigo User database
           - SmartType: 
             - ↑mode: PLAIN
             - →→: User already exists
-  ↓jElse [steps.ElseStep-1572600728648]: 
-    ↓Element [steps.XMLElementStep-1572601046086]: 
+  ↓jElse [steps.ElseStep-1674725834500]: 
+    ↓Element [steps.XMLElementStep-1674725834503]: 
       nodeName: user
       nodeText: ok
       sourceDefinition: 
@@ -117,85 +115,83 @@ comment: Adds an user to the Internal Convertigo User database
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
             - java.lang.String: 
-              - ↑value: 1572600429317
+              - ↑value: 1674725834458
             - java.lang.String: 
               - ↑value: ./user/text()
-    ↓Call_Sequence [steps.SequenceStep-1674733277088]: 
-      sourceSequence: lib_UserManager.ForgotPassword
-      ↓email [variables.StepVariable-1674733317448]: 
+    ↓Call_Sequence [steps.SequenceStep-1674731017675]: 
+      sourceSequence: lib_UserManager.ConfirmAccount
+      ↓email [variables.StepVariable-1674731028157]: 
         comment: Email where to send the reset password link to
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600429317
+                - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./user/text()
-      ↓emailBody [variables.StepVariable-1674733317450]: 
+        value: 
+      ↓emailBody [variables.StepVariable-1674731028159]: 
         comment: Email content
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600429317
+                - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./emailBody/text()
-      ↓emailSubject [variables.StepVariable-1674733317452]: 
+      ↓emailSubject [variables.StepVariable-1674731028161]: 
         comment: Email subject
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600429317
+                - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./emailSubject/text()
-      ↓emailLogo [variables.StepVariable-1674733317454]: 
+      ↓emailLogo [variables.StepVariable-1674731028163]: 
         comment: Email logo to be added
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600429317
+                - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./emailLogo/text()
-      ↓passwordResetKey [variables.StepVariable-1674733317456]: 
+      ↓passwordResetKey [variables.StepVariable-1674731028165]: 
         comment: Password reset key
-      ↓newPassword [variables.StepVariable-1674733317458]: 
+      ↓newPassword [variables.StepVariable-1674731028167]: 
         comment: New password to be set
-      ↓targetApplicationName [variables.StepVariable-1674757854876]: 
+      ↓targetApplicationName [variables.StepVariable-1674757919206]: 
         comment: Email where to send the reset password link to
         sourceDefinition: 
           - xmlizable: 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1572600429317
+                - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./targetApplicationName/text()
-↓user [variables.RequestableVariable-1572600451823]: 
+↓user [variables.RequestableVariable-1674725834506]: 
   comment: The user id as a valid email address
-↓password [variables.RequestableVariable-1572600460277]: 
+↓password [variables.RequestableVariable-1674725834509]: 
   comment: The inital password. (User will be able to change it afterwards)
-↓askForPasswordReset [variables.RequestableVariable-1674732941453]: 
-  comment: The user id as a valid email address
-  value: false
-↓emailBody [variables.RequestableVariable-1674733616140]: 
+↓emailBody [variables.RequestableVariable-1674731077398]: 
   comment: Email content
-  value: ${lib_UserManager.createAccount.emailBody =Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
-↓emailSubject [variables.RequestableVariable-1674733616143]: 
+  value: ${lib_UserManager.createAccount.emailBody =Hello, you just created an account. Please click on the following Confirm account Button to confirm your account.}
+↓emailSubject [variables.RequestableVariable-1674731077401]: 
   comment: Email subject
-  value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by creating a new password and clicking on the reset password button}
-↓emailLogo [variables.RequestableVariable-1674733616146]: 
+  value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by clicking on the confirm account button}
+↓emailLogo [variables.RequestableVariable-1674731077404]: 
   comment: Email logo to be added
   value: ${lib_UserManager.createAccount.emailLogo =https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png}
-↓targetApplicationName [variables.RequestableVariable-1674757846419]: 
+↓targetApplicationName [variables.RequestableVariable-1674757927083]: 
   comment: Email where to send the reset password link to
 ↓TestOK [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1572600838619]: 
+  ↓user [variables.TestCaseVariable-1674725834513]: 
     value: test@mail.com
-  ↓password [variables.TestCaseVariable-1572600838621]: 
+  ↓password [variables.TestCaseVariable-1674725834516]: 
     value: test
