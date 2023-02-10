@@ -39,7 +39,7 @@ see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/e6674a8b
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_OAuth
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/bf120fcf0e880098e3ac992b86c8a1076864564d#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/8.0.0#readme)
 </p></blockquote></details>
 </p></blockquote></details>
 
@@ -334,12 +334,12 @@ The user id as a valid email address
 
 </p></blockquote></details>
 
-<details><summary><b>ConfirmAccount</b> : Has to be called with an accountResetKey not empty to excplicitly confirm an account</summary><blockquote><p>
+<details><summary><b>ConfirmAccount</b> : Confirms a user account if a passwordResetKey was provided, or sends an email to the user with a passwordResetKey and allow him to confirm account</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") ConfirmAccount
 
-Has to be called with an accountResetKey not empty to excplicitly confirm an account
+Confirms a user account if a passwordResetKey was provided, or sends an email to the user with a passwordResetKey and allow him to confirm account. It should be called by CreateAccount sequence.
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -362,14 +362,6 @@ Email where to send the reset password link to
 </tr>
 <tr>
 <td>
-<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailBody
-</td>
-<td>
-Email content
-</td>
-</tr>
-<tr>
-<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailLogo
 </td>
 <td>
@@ -386,10 +378,10 @@ Email subject
 </tr>
 <tr>
 <td>
-<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;newPassword
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
 </td>
 <td>
-New password to be set
+The lang to be used in the email. It can be fr or en
 </td>
 </tr>
 <tr>
@@ -397,7 +389,7 @@ New password to be set
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;passwordResetKey
 </td>
 <td>
-Password reset key
+Password reset key (Optional)
 </td>
 </tr>
 <tr>
@@ -405,19 +397,19 @@ Password reset key
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;targetApplicationName
 </td>
 <td>
-Email where to send the reset password link to
+The Target application name to be used into the email template
 </td>
 </tr>
 </table>
 
 </p></blockquote></details>
 
-<details><summary><b>CreateAccount</b> : Adds an user to the Internal Convertigo User database</summary><blockquote><p>
+<details><summary><b>CreateAccount</b> : Creates a user account and sends validation email, to active this account</summary><blockquote><p>
 
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") CreateAccount
 
-Adds an user to the Internal Convertigo User database
+Creates a user account and sends validation email, to active this account
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -432,14 +424,6 @@ comment
 </tr>
 <tr>
 <td>
-<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailBody
-</td>
-<td>
-Email content
-</td>
-</tr>
-<tr>
-<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailLogo
 </td>
 <td>
@@ -452,6 +436,14 @@ Email logo to be added
 </td>
 <td>
 Email subject
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
+</td>
+<td>
+The language to be used into the email. Can be fr or en.
 </td>
 </tr>
 <tr>
@@ -467,7 +459,7 @@ The inital password. (User will be able to change it afterwards)
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;targetApplicationName
 </td>
 <td>
-Email where to send the reset password link to
+target Application Name
 </td>
 </tr>
 <tr>
@@ -584,6 +576,84 @@ Password reset key
 </td>
 <td>
 Email where to send the reset password link to
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
+<details><summary><b>ForgotPasswordWithBrand</b> : Has to be called with email fields not empty to send an email reset link to the user, or with a newPassword an passwordResetKey not empty to excplicitly reset a password</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") ForgotPasswordWithBrand
+
+Has to be called with email fields not empty to send an email reset link to the user, or with a newPassword an passwordResetKey not empty to excplicitly reset a password
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;email
+</td>
+<td>
+Email where to send the reset password link to
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailLogo
+</td>
+<td>
+Email logo to be added
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailSubject
+</td>
+<td>
+Email subject
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
+</td>
+<td>
+The lang to be used in the email. It can be fr or en
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;newPassword
+</td>
+<td>
+New password to be set
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;passwordResetKey
+</td>
+<td>
+Password reset key
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;targetApplicationName
+</td>
+<td>
+The Target application name to be used into the email template
 </td>
 </tr>
 </table>

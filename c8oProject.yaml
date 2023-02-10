@@ -11,13 +11,14 @@
     
     
     '
-  version: 2.0.15
+  version: 2.0.16
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓ConfirmAccount [sequences.GenericSequence]: 🗏 sequences/ConfirmAccount.yaml
   ↓CreateAccount [sequences.GenericSequence]: 🗏 sequences/CreateAccount.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
   ↓ForgotPassword [sequences.GenericSequence]: 🗏 sequences/ForgotPassword.yaml
+  ↓ForgotPasswordWithBrand [sequences.GenericSequence]: 🗏 sequences/ForgotPasswordWithBrand.yaml
   ↓GetUserAttribute [sequences.GenericSequence]: 🗏 sequences/GetUserAttribute.yaml
   ↓GetUserByAttributeNameAndValue [sequences.GenericSequence]: 🗏 sequences/GetUserByAttributeNameAndValue.yaml
   ↓HashAndSalt [sequences.GenericSequence]: 🗏 sequences/HashAndSalt.yaml
@@ -33,4 +34,4 @@
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
     projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=7.9.0:autoPull=true
   ↓Project_reference1 [references.ProjectSchemaReference]: 
-    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.0.1:autoPull=true
+    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.1.0:autoPull=true

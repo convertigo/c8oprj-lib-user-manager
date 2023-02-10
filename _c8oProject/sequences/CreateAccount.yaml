@@ -1,4 +1,4 @@
-comment: Adds an user to the Internal Convertigo User database
+comment: Creates a user account and sends validation email, to active this account
 ↓Input_variables [steps.InputVariablesStep-1674725834458]: 
 ↓Call_Sequence [steps.SequenceStep-1674725834461]: 
   sourceSequence: lib_UserManager.HashAndSalt
@@ -131,16 +131,6 @@ comment: Adds an user to the Internal Convertigo User database
               - java.lang.String: 
                 - ↑value: ./user/text()
         value: 
-      ↓emailBody [variables.StepVariable-1674731028159]: 
-        comment: Email content
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1674725834458
-              - java.lang.String: 
-                - ↑value: ./emailBody/text()
       ↓emailSubject [variables.StepVariable-1674731028161]: 
         comment: Email subject
         sourceDefinition: 
@@ -175,13 +165,12 @@ comment: Adds an user to the Internal Convertigo User database
                 - ↑value: 1674725834458
               - java.lang.String: 
                 - ↑value: ./targetApplicationName/text()
+      ↓lang [variables.StepVariable-1675951609080]: 
+        comment: if you set lang, variable body must be set to null, you will need to provide along side logo, and appname. Value of lang can be either fr or en.
 ↓user [variables.RequestableVariable-1674725834506]: 
   comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1674725834509]: 
   comment: The inital password. (User will be able to change it afterwards)
-↓emailBody [variables.RequestableVariable-1674731077398]: 
-  comment: Email content
-  value: ${lib_UserManager.createAccount.emailBody =Hello, you just created an account. Please click on the following Confirm account Button to confirm your account.}
 ↓emailSubject [variables.RequestableVariable-1674731077401]: 
   comment: Email subject
   value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by clicking on the confirm account button}
@@ -189,9 +178,32 @@ comment: Adds an user to the Internal Convertigo User database
   comment: Email logo to be added
   value: ${lib_UserManager.createAccount.emailLogo =https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png}
 ↓targetApplicationName [variables.RequestableVariable-1674757927083]: 
-  comment: Email where to send the reset password link to
-↓TestOK [core.TestCase]: 
+  comment: target Application Name
+↓lang [variables.RequestableVariable-1675951622672]: 
+  comment: The language to be used into the email. Can be fr or en.
+↓TestOKEN [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1675953109185]: 
+    value: test@mail.com
+  ↓password [variables.TestCaseVariable-1675953109188]: 
+    value: test
+  ↓lang [variables.TestCaseVariable-1675953109191]: 
+    value: en
+  ↓emailLogo [variables.TestCaseVariable-1675953109194]: 
+    value: https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png
+  ↓targetApplicationName [variables.TestCaseVariable-1675953109197]: 
+    value: My super application
+  ↓emailSubject [variables.TestCaseVariable-1675953109200]: 
+    value: 'My super application : Confirm Your Email Address'
+↓TestOKFR [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1674725834513]: 
     value: test@mail.com
   ↓password [variables.TestCaseVariable-1674725834516]: 
     value: test
+  ↓lang [variables.TestCaseVariable-1675951642499]: 
+    value: fr
+  ↓emailLogo [variables.TestCaseVariable-1675951652055]: 
+    value: https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png
+  ↓targetApplicationName [variables.TestCaseVariable-1675951652057]: 
+    value: Ma super application
+  ↓emailSubject [variables.TestCaseVariable-1675953027088]: 
+    value: 'Ma super application  : Confirmez votre adresse e-mail'
