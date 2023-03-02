@@ -1,0 +1,57 @@
+accessibility: Private
+authenticatedContextRequired: true
+comment: Gets a given attribute from an user account
+↓Input_variables [steps.InputVariablesStep-1677071670790]: 
+↓Call_Transaction [steps.TransactionStep-1677071670793]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
+  ↓_use_docid [variables.StepVariable-1677071670796]: 
+    description: Document ID
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1677071670790
+          - java.lang.String: 
+            - ↑value: ./user/text()
+↓IfExistThenElse [steps.IfExistThenElseStep-1677071670799]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1677071670793
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output/_id/text()
+  ↓jThen [steps.ThenStep-1677071670802]: 
+    ↓Copy [steps.XMLCopyStep-1677071722083]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1677071670793
+            - java.lang.String: 
+              - ↑value: ./document/couchdb_output/account/attributes
+  ↓jElse [steps.ElseStep-1677071670826]: 
+    ↓Error_structure [steps.XMLErrorStep-1677071670829]: 
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: Non existant user
+↓user [variables.RequestableVariable-1677071670832]: 
+  comment: The user where we have to get the attribute from
+↓attribute [variables.RequestableVariable-1677071670835]: 
+  comment: The attribute name
+↓TestKO [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1677071670839]: 
+    value: test@mail.com
+  ↓attribute [variables.TestCaseVariable-1677071670842]: 
+    value: Token
+↓TestOK [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1677071670846]: 
+    value: user@test.com
+  ↓attribute [variables.TestCaseVariable-1677071670849]: 
+    value: Token

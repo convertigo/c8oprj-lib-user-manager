@@ -660,6 +660,44 @@ The Target application name to be used into the email template
 
 </p></blockquote></details>
 
+<details><summary><b>GetUAllserAttributes</b> : Gets a given attribute from an user account</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") GetUAllserAttributes
+
+Gets a given attribute from an user account
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;attribute
+</td>
+<td>
+The attribute name
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
+</td>
+<td>
+The user where we have to get the attribute from
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
 <details><summary><b>GetUserAttribute</b> : Gets a given attribute from an user account</summary><blockquote><p>
 
 
