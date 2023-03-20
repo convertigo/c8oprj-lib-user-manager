@@ -12,9 +12,8 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 
 
 
-# Symbols :
+## Symbols :
 
-|--------------------------------------|-------------------------------------------|
 | symbol                               | Usage                                     |
 |--------------------------------------|-------------------------------------------|
 | lib_UserManager.adminPassword.secret | LDAP admin account password               |
