@@ -12,6 +12,14 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 
 
 
+# Symbols :
+
+|--------------------------------------|-------------------------------------------|
+|lib_UserManager.adminPassword.secret  | LDAP admin account password               |
+|lib_UserManager.adminUser	           | LDAP admin account user                   |
+|lib_UserManager.ldapBasePath		   | LDAP Search Root Path                     |
+|lib_UserManager.ldapDomainName		   | LDAP DOMAIN Name                          |
+|lib_UserManager.ldapServer            | LDAP server address:port                  |
 
 
 
