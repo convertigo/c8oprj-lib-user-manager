@@ -120,62 +120,64 @@ comment: Adds an user to the Internal Convertigo User database
               - ↑value: 1572600429317
             - java.lang.String: 
               - ↑value: ./user/text()
-    ↓Call_Sequence [steps.SequenceStep-1674733277088]: 
-      sourceSequence: lib_UserManager.ForgotPassword
-      ↓email [variables.StepVariable-1674733317448]: 
-        comment: Email where to send the reset password link to
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1572600429317
-              - java.lang.String: 
-                - ↑value: ./user/text()
-      ↓emailBody [variables.StepVariable-1674733317450]: 
-        comment: Email content
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1572600429317
-              - java.lang.String: 
-                - ↑value: ./emailBody/text()
-      ↓emailSubject [variables.StepVariable-1674733317452]: 
-        comment: Email subject
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1572600429317
-              - java.lang.String: 
-                - ↑value: ./emailSubject/text()
-      ↓emailLogo [variables.StepVariable-1674733317454]: 
-        comment: Email logo to be added
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1572600429317
-              - java.lang.String: 
-                - ↑value: ./emailLogo/text()
-      ↓passwordResetKey [variables.StepVariable-1674733317456]: 
-        comment: Password reset key
-      ↓newPassword [variables.StepVariable-1674733317458]: 
-        comment: New password to be set
-      ↓targetApplicationName [variables.StepVariable-1674757854876]: 
-        comment: Email where to send the reset password link to
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1572600429317
-              - java.lang.String: 
-                - ↑value: ./targetApplicationName/text()
+    ↓jIf [steps.IfStep-1680094082890]: 
+      condition: askForPasswordReset != 'false'
+      ↓Call_Sequence [steps.SequenceStep-1674733277088]: 
+        sourceSequence: lib_UserManager.ForgotPassword
+        ↓email [variables.StepVariable-1674733317448]: 
+          comment: Email where to send the reset password link to
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1572600429317
+                - java.lang.String: 
+                  - ↑value: ./user/text()
+        ↓emailBody [variables.StepVariable-1674733317450]: 
+          comment: Email content
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1572600429317
+                - java.lang.String: 
+                  - ↑value: ./emailBody/text()
+        ↓emailSubject [variables.StepVariable-1674733317452]: 
+          comment: Email subject
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1572600429317
+                - java.lang.String: 
+                  - ↑value: ./emailSubject/text()
+        ↓emailLogo [variables.StepVariable-1674733317454]: 
+          comment: Email logo to be added
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1572600429317
+                - java.lang.String: 
+                  - ↑value: ./emailLogo/text()
+        ↓passwordResetKey [variables.StepVariable-1674733317456]: 
+          comment: Password reset key
+        ↓newPassword [variables.StepVariable-1674733317458]: 
+          comment: New password to be set
+        ↓targetApplicationName [variables.StepVariable-1674757854876]: 
+          comment: Email where to send the reset password link to
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1572600429317
+                - java.lang.String: 
+                  - ↑value: ./targetApplicationName/text()
 ↓user [variables.RequestableVariable-1572600451823]: 
   comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1572600460277]: 
