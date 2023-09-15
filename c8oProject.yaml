@@ -1,16 +1,30 @@
 ↑convertigo: 8.0.0.m006
 ↓lib_UserManager [core.Project]: 
   comment: |
-    'The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
+    '# User management and Authentication for your projects
+    
+    The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
     
     - user login with user/password using a salted password security
     - user login using OpenID (Google, Azure & linkedin)
     
     When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
     
+    ## Symbols :
     
-    
-    '
+    | symbol                               | Usage                                     |
+    |--------------------------------------|-------------------------------------------|
+    | lib_UserManager.adminPassword.secret | LDAP admin account password               |
+    | lib_UserManager.adminUser	           | LDAP admin account user                   |
+    | lib_UserManager.ldapBasePath		   | LDAP Search Root Path                     |
+    | lib_UserManager.ldapDomainName	   | LDAP DOMAIN Name                          |
+    | lib_UserManager.ldapServer           | LDAP server address:port                  |
+    | lib_UserManager.smtp.server          | SMTP server address                       |
+    | lib_UserManager.smtp.port            | SMTP server port                          |
+    | lib_UserManager.smtp.sauthtype       | SMTP server authentication type           |
+    | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
+    | lib_UserManager.smtp.user            | SMTP server user account                  |
+    | lib_UserManager.smtp.password.secret | SMTP server password                      |'
   version: 2.0.18
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
@@ -33,6 +47,6 @@
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
-    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=7.9.0:autoPull=true
+    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=8.0.0:autoPull=true
   ↓Project_reference1 [references.ProjectSchemaReference]: 
-    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=1.1.0:autoPull=true
+    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=8.0.0:autoPull=true
