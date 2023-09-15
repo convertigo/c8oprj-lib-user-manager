@@ -21,6 +21,12 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.ldapBasePath		   | LDAP Search Root Path                     |
 | lib_UserManager.ldapDomainName	   | LDAP DOMAIN Name                          |
 | lib_UserManager.ldapServer           | LDAP server address:port                  |
+| lib_UserManager.smtp.server          | SMTP server address                       |
+| lib_UserManager.smtp.port            | SMTP server port                          |
+| lib_UserManager.smtp.sauthtype       | SMTP server authentication type           |
+| lib_UserManager.smtp.sender          | SMTP sender mail address                  |
+| lib_UserManager.smtp.user            | SMTP server user account                  |
+| lib_UserManager.smtp.password.secret | SMTP server password                      |
 
 
 
