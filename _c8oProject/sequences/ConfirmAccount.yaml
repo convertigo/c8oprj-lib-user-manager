@@ -342,26 +342,26 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
           ↓jThen [steps.ThenStep-1675941785908]: 
             ↓SMTP_send [steps.SmtpStep-1674730624501]: 
               comment: accountConfirmation.xsl"
-              smtpAuthType: sslTls
-              smtpPassword: x8c2a90d9ab90d81769f77c4873a6b260
-              smtpPort: 465
+              smtpAuthType: ${lib_UserManager.smtp.authtype}
+              smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
+              smtpPort: ${lib_UserManager.smtp.port}
               smtpRecipients: email
-              smtpSender: '"Convertigo Cloud <noreply@convertigo.com>"'
-              smtpServer: smtp.gmail.com
+              smtpSender: ${lib_UserManager.smtp.sender}
+              smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
-              smtpUsername: noreply@convertigo.com
+              smtpUsername: ${lib_UserManager.smtp.user}
               xslFilepath: '".//emails/accountConfirmation_fr.xsl"'
           ↓jElse [steps.ElseStep-1675941785910]: 
             ↓SMTP_send [steps.SmtpStep-1675951386928]: 
               comment: accountConfirmation.xsl"
-              smtpAuthType: sslTls
-              smtpPassword: x8c2a90d9ab90d81769f77c4873a6b260
-              smtpPort: 465
+              smtpAuthType: ${lib_UserManager.smtp.authtype}
+              smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
+              smtpPort: ${lib_UserManager.smtp.port}
               smtpRecipients: email
-              smtpSender: '"Convertigo Cloud <noreply@convertigo.com>"'
-              smtpServer: smtp.gmail.com
+              smtpSender: ${lib_UserManager.smtp.sender}
+              smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
-              smtpUsername: noreply@convertigo.com
+              smtpUsername: ${lib_UserManager.smtp.user}
               xslFilepath: '".//emails/accountConfirmation_en.xsl"'
 ↓email [variables.RequestableVariable-1674728469829]: 
   comment: Email where to send the reset password link to
