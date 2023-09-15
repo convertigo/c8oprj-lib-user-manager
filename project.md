@@ -1,6 +1,8 @@
 
 # ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/core/images/project_color_16x16.png?raw=true "Project") lib_UserManager
 
+# User management and Authentication for your projects
+
 The lib_UserManager enables your projects to include user management and authentication in your apps. This library will handle :
 
 - user login with user/password using a salted password security
@@ -8,7 +10,21 @@ The lib_UserManager enables your projects to include user management and authent
 
 When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
 
+## Symbols :
 
+| symbol                               | Usage                                     |
+|--------------------------------------|-------------------------------------------|
+| lib_UserManager.adminPassword.secret | LDAP admin account password               |
+| lib_UserManager.adminUser	           | LDAP admin account user                   |
+| lib_UserManager.ldapBasePath		   | LDAP Search Root Path                     |
+| lib_UserManager.ldapDomainName	   | LDAP DOMAIN Name                          |
+| lib_UserManager.ldapServer           | LDAP server address:port                  |
+| lib_UserManager.smtp.server          | SMTP server address                       |
+| lib_UserManager.smtp.port            | SMTP server port                          |
+| lib_UserManager.smtp.sauthtype       | SMTP server authentication type           |
+| lib_UserManager.smtp.sender          | SMTP sender mail address                  |
+| lib_UserManager.smtp.user            | SMTP server user account                  |
+| lib_UserManager.smtp.password.secret | SMTP server password                      |
 
 
 
@@ -30,7 +46,7 @@ see [documentation](http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd)
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_FullSyncGrp
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/e6674a8b08e21ac87e9c337b3d766ac1447188cc#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/8.0.0#readme)
 </p></blockquote></details>
 
 <details><summary><b>lib_OAuth</b></summary><blockquote><p>

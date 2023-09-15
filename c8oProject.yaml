@@ -24,7 +24,9 @@
     | lib_UserManager.smtp.sauthtype       | SMTP server authentication type           |
     | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
     | lib_UserManager.smtp.user            | SMTP server user account                  |
-    | lib_UserManager.smtp.password.secret | SMTP server password                      |'
+    | lib_UserManager.smtp.password.secret | SMTP server password                      |
+    
+    '
   version: 2.0.18
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
