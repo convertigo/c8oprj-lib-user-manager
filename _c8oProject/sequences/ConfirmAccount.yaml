@@ -346,7 +346,7 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
               smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
               smtpPort: ${lib_UserManager.smtp.port}
               smtpRecipients: email
-              smtpSender: ${lib_UserManager.smtp.sender}
+              smtpSender: '"${lib_UserManager.smtp.sender}"'
               smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
               smtpUsername: ${lib_UserManager.smtp.user}
@@ -358,7 +358,7 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
               smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
               smtpPort: ${lib_UserManager.smtp.port}
               smtpRecipients: email
-              smtpSender: ${lib_UserManager.smtp.sender}
+              smtpSender: '"${lib_UserManager.smtp.sender}"'
               smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
               smtpUsername: ${lib_UserManager.smtp.user}
