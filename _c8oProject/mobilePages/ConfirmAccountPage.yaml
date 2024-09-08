@@ -13,21 +13,21 @@ scriptContent:
         /*Begin_c8o_PageFunction*/
         	/*End_c8o_PageFunction*/
         '
-segment: path-to-forgotpasswordpage
-title: Title for ForgotPasswordPage
-↓UseSharedComponent [ngx.components.UIUseShared-1725785310624]: 
-  sharedcomponent: lib_UserManager.MobileApplication.Application.ForgotPassword
-  ↓resetKey [ngx.components.UIUseVariable-1725785310627]: 
+segment: path-to-confirmaccountpage
+title: Title for ConfirmAccountPage
+↓UseSharedComponent [ngx.components.UIUseShared-1725785310639]: 
+  sharedcomponent: lib_UserManager.MobileApplication.Application.ConfirmAccount
+  ↓resetKey [ngx.components.UIUseVariable-1725785310642]: 
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
         - MobileSmartSourceType: script:this.navParams.data.resetKey
-  ↓appName [ngx.components.UIUseVariable-1725785310630]: 
+  ↓appName [ngx.components.UIUseVariable-1725785310645]: 
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
         - MobileSmartSourceType: script:this.navParams.data.appName
-  ↓imgUrl [ngx.components.UIUseVariable-1725785310633]: 
+  ↓imgUrl [ngx.components.UIUseVariable-1725785310648]: 
     varValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType

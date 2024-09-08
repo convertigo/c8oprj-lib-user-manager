@@ -89,16 +89,16 @@ scriptContent:
           }
         	/*End_c8o_CompFunction*/
         '
-↓Grid [ngx.components.UIDynamicElement-1725785309679]: 
+↓Grid [ngx.components.UIDynamicElement-1725785310204]: 
   beanData: '{"ionBean":"Grid","Height":"plain:100%"}'
   tagName: ion-grid
-  ↓GridRow [ngx.components.UIDynamicElement-1725785309682]: 
+  ↓GridRow [ngx.components.UIDynamicElement-1725785310207]: 
     beanData: '{"ionBean":"GridRow","FlexAlignement":"plain:ion-align-items-center"}'
     tagName: ion-row
-    ↓GridCol1 [ngx.components.UIDynamicElement-1725785309685]: 
+    ↓GridCol1 [ngx.components.UIDynamicElement-1725785310210]: 
       beanData: '{"ionBean":"GridCol"}'
       tagName: ion-col
-    ↓GridCol [ngx.components.UIDynamicElement-1725785309688]: 
+    ↓GridCol [ngx.components.UIDynamicElement-1725785310213]: 
       beanData: |
         '{
          "ionBean": "GridCol",
@@ -109,16 +109,16 @@ scriptContent:
          "SizeXs": "plain:12"
         }'
       tagName: ion-col
-      ↓CardContainer [ngx.components.UIDynamicElement-1725785309691]: 
+      ↓CardContainer [ngx.components.UIDynamicElement-1725785310216]: 
         beanData: '{"ionBean":"Card"}'
         tagName: ion-card
-        ↓CardHeader [ngx.components.UIDynamicElement-1725785309694]: 
+        ↓CardHeader [ngx.components.UIDynamicElement-1725785310219]: 
           beanData: '{"ionBean":"CardHeader"}'
           tagName: ion-card-header
-          ↓Div [ngx.components.UIDynamicElement-1725785309697]: 
+          ↓Div [ngx.components.UIDynamicElement-1725785310222]: 
             beanData: '{"ionBean":"DivTag"}'
             tagName: div
-            ↓Style [ngx.components.UIStyle-1725785309700]: 
+            ↓Style [ngx.components.UIStyle-1725785310225]: 
               styleContent: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -127,10 +127,10 @@ scriptContent:
                       '	display: flex;
                       	align-items: center;
                       '
-            ↓LazyImage [ngx.components.UIDynamicElement-1725785309703]: 
+            ↓LazyImage [ngx.components.UIDynamicElement-1725785310228]: 
               beanData: '{"ionBean":"LazyImage","Src":"source:{\"filter\":\"Asset\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"\",\"model\":{\"data\":[{\"asset\":\"''assets\\\/logo_convertigo_blue.svg''\"}],\"path\":\"\",\"prefix\":\"(this.imgUrl != undefined && this.imgUrl != '''') ? this.imgUrl : \",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}"}'
               tagName: ion-img
-              ↓Style [ngx.components.UIStyle-1725785309706]: 
+              ↓Style [ngx.components.UIStyle-1725785310231]: 
                 styleContent: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -140,20 +140,20 @@ scriptContent:
                         	width: 90px;
                         	margin-right: 15px;
                         '
-            ↓H1 [ngx.components.UIDynamicElement-1725785309709]: 
+            ↓H1 [ngx.components.UIDynamicElement-1725785310234]: 
               beanData: '{"ionBean":"Heading1"}'
               tagName: h1
-              ↓Text [ngx.components.UIText-1725785309712]: 
+              ↓Text [ngx.components.UIText-1725785310237]: 
                 i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Password reset
-              ↓FontStyle [ngx.components.UIFontStyle-1725785309715]: 
+                    - MobileSmartSourceType: plain:Suppression du compte et des données associées
+              ↓FontStyle [ngx.components.UIFontStyle-1725785310240]: 
                 fontFamily: Open Sans
                 fontStyle: normal
                 fontWeight: 700
-                ruleTargets: class1725785309709
+                ruleTargets: class1725785310234
                 styleContent: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -163,96 +163,165 @@ scriptContent:
                         font-style: normal;
                         font-weight: 700;
                         '
-        ↓CardContent [ngx.components.UIDynamicElement-1725785309718]: 
+        ↓CardContent [ngx.components.UIDynamicElement-1725785310243]: 
           beanData: '{"ionBean":"CardContent"}'
           tagName: ion-card-content
-          ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309721]: 
+          ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310246]: 
             beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-right"}'
             comment: FormatLayout
             tagName: div
-          ↓Form [ngx.components.UIForm-1725785309724]: 
+          ↓Form [ngx.components.UIForm-1725785310249]: 
             identifier: formResetPassword
-            ↓Event [ngx.components.UIControlEvent-1725785309727]: 
+            ↓Event [ngx.components.UIControlEvent-1725785310252]: 
               attrName: (ngSubmit)
               eventName: onSubmit
-              ↓CallSequenceForgotPassword [ngx.components.UIDynamicAction-1725785309730]: 
+              ↓CallSequenceForgotPassword [ngx.components.UIDynamicAction-1725785310255]: 
                 beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.ForgotPassword"}'
-                ↓passwordResetKey [ngx.components.UIControlVariable-1725785309733]: 
+                isEnabled: false
+                ↓passwordResetKey [ngx.components.UIControlVariable-1725785310258]: 
                   comment: new variable
                   varValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: source:{"filter":"Shared","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"priority":1582131761883,"regular":true}],"path":"?.resetKey","prefix":"","suffix":"","custom":"","useCustom":false}}
-                ↓newPassword [ngx.components.UIControlVariable-1725785309736]: 
+                ↓newPassword [ngx.components.UIControlVariable-1725785310261]: 
                   comment: new variable
                   varValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: script:formResetPassword.form.controls.newPassword.value
-                ↓IfElse [ngx.components.UIDynamicIf-1725785309739]: 
+                ↓IfElse [ngx.components.UIDynamicIf-1725785310264]: 
                   beanData: '{"ionBean":"IfElseAction","condition":"script:out.error"}'
-                  ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309742]: 
+                  ↓EmitEvent [ngx.components.UIDynamicEmit-1725785310267]: 
                     beanData: |
                       '{
                        "ionBean": "EmitEventAction",
                        "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.ForgotPassword.PasswordChangedError",
                        "data": "script:stack[''CallSequenceForgotPassword''].out.error.message"
                       }'
-                  ↓SetLocal [ngx.components.UIDynamicAction-1725785309745]: 
+                  ↓SetLocal [ngx.components.UIDynamicAction-1725785310270]: 
                     beanData: |
                       '{
                        "ionBean": "SetLocalAction",
                        "Property": "plain:error",
                        "Value": "script:true"
                       }'
-                  ↓Else_Handler [ngx.components.UIActionElseEvent-1725785309748]: 
-                    ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309751]: 
+                  ↓Else_Handler [ngx.components.UIActionElseEvent-1725785310273]: 
+                    ↓EmitEvent [ngx.components.UIDynamicEmit-1725785310276]: 
                       beanData: |
                         '{
                          "ionBean": "EmitEventAction",
                          "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.ForgotPassword.PasswordChangedOk",
                          "data": "plain:"
                         }'
-                    ↓SetLocal [ngx.components.UIDynamicAction-1725785309754]: 
+                    ↓SetLocal [ngx.components.UIDynamicAction-1725785310279]: 
                       beanData: |
                         '{
                          "ionBean": "SetLocalAction",
                          "Property": "plain:confirmAccount",
                          "Value": "script:true"
                         }'
-            ↓Directive [ngx.components.UIControlDirective-1725785309757]: 
+              ↓CallSequence [ngx.components.UIDynamicAction-1725785310282]: 
+                beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignIn"}'
+                tagName: CallSequence
+                ↓user [ngx.components.UIControlVariable-1725785310285]: 
+                  comment: new variable
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:formResetPassword.form.controls.email.value
+                ↓password [ngx.components.UIControlVariable-1725785310288]: 
+                  comment: new variable
+                  varValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:formResetPassword.form.controls.password.value
+                ↓IfElse [ngx.components.UIDynamicIf-1725785310291]: 
+                  beanData: '{"ionBean":"IfElseAction","condition":"script:parent.out.user != null"}'
+                  tagName: IfElse
+                  ↓CallSequence [ngx.components.UIDynamicAction-1725785310294]: 
+                    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.DeleteUser"}'
+                    tagName: CallSequence
+                    ↓user [ngx.components.UIControlVariable-1725785310297]: 
+                      comment: new variable
+                      varValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:parent.out.user
+                    ↓IfElse [ngx.components.UIDynamicIf-1725785310300]: 
+                      beanData: '{"ionBean":"IfElseAction","condition":"script:parent.out.deleted"}'
+                      tagName: IfElse
+                      ↓Toast [ngx.components.UIDynamicAction-1725785310303]: 
+                        beanData: |
+                          '{
+                           "ionBean": "ToastAction",
+                           "IonColor": "plain:danger",
+                           "message": "script:c8oPage.translate.instant(''toastSuccess'')",
+                           "duration": "plain",
+                           "cssClass": "plain:toastWarn",
+                           "showCloseButton": "plain:true",
+                           "closeButtonText": "plain:ok"
+                          }'
+                        tagName: Toast
+                      ↓Else_Handler [ngx.components.UIActionElseEvent-1725785310306]: 
+                        ↓Toast [ngx.components.UIDynamicAction-1725785310309]: 
+                          beanData: |
+                            '{
+                             "ionBean": "ToastAction",
+                             "IonColor": "plain:danger",
+                             "message": "script:c8oPage.translate.instant(''error_occured'')",
+                             "duration": "plain",
+                             "cssClass": "plain:toastWarn",
+                             "showCloseButton": "plain:true",
+                             "closeButtonText": "plain:ok"
+                            }'
+                          tagName: Toast
+                  ↓Else_Handler [ngx.components.UIActionElseEvent-1725785310312]: 
+                    ↓Toast [ngx.components.UIDynamicAction-1725785310315]: 
+                      beanData: |
+                        '{
+                         "ionBean": "ToastAction",
+                         "IonColor": "plain:danger",
+                         "message": "script:c8oPage.translate.instant(''bad_id'')",
+                         "duration": "plain",
+                         "cssClass": "plain:toastWarn",
+                         "showCloseButton": "plain:true",
+                         "closeButtonText": "plain:ok"
+                        }'
+                      tagName: Toast
+            ↓Directive [ngx.components.UIControlDirective-1725785310318]: 
               directiveName: If
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                   - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"localObject":"local"}],"path":"?.error","prefix":"","suffix":" == true else ElseBlock_1676026390778","custom":"","useCustom":false}}
-              ↓Div [ngx.components.UIDynamicElement-1725785309760]: 
+              ↓Div [ngx.components.UIDynamicElement-1725785310321]: 
                 beanData: '{"ionBean":"DivTag"}'
                 tagName: div
-                ↓Paragraph [ngx.components.UIDynamicElement-1725785309763]: 
+                ↓Paragraph [ngx.components.UIDynamicElement-1725785310324]: 
                   beanData: '{"ionBean":"Paragraph"}'
                   tagName: p
-                  ↓Text [ngx.components.UIText-1725785309766]: 
+                  ↓Text [ngx.components.UIText-1725785310327]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: plain:An error occurred while changing your password. Your link may have expired.
-                  ↓Span [ngx.components.UIDynamicElement-1725785309769]: 
+                  ↓Span [ngx.components.UIDynamicElement-1725785310330]: 
                     beanData: '{"ionBean":"SpanTag"}'
                     isEnabled: false
                     tagName: span
-                    ↓Text1 [ngx.components.UIText-1725785309772]: 
+                    ↓Text1 [ngx.components.UIText-1725785310333]: 
                       textValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:this.appName
-                    ↓FontStyle [ngx.components.UIFontStyle-1725785309775]: 
+                    ↓FontStyle [ngx.components.UIFontStyle-1725785310336]: 
                       fontFamily: Open Sans
                       fontSize: 20px
                       fontStyle: normal
                       fontWeight: 700
-                      ruleTargets: class1725785309769
+                      ruleTargets: class1725785310330
                       styleContent: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -263,7 +332,7 @@ scriptContent:
                               font-style: normal;
                               font-weight: 700;
                               '
-                    ↓Style [ngx.components.UIStyle-1725785309778]: 
+                    ↓Style [ngx.components.UIStyle-1725785310339]: 
                       styleContent: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -271,11 +340,11 @@ scriptContent:
                             →: |
                               '	color: var(--ion-color-primary);
                               '
-                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309781]: 
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310342]: 
                   beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
                   comment: FormatLayout
                   tagName: div
-                ↓Style [ngx.components.UIStyle-1725785309784]: 
+                ↓Style [ngx.components.UIStyle-1725785310345]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -283,42 +352,42 @@ scriptContent:
                         →: |
                           '	padding-bottom: 50px;
                           '
-            ↓Tag1 [ngx.components.UIElement-1725785309787]: 
+            ↓Tag1 [ngx.components.UIElement-1725785310348]: 
               identifier: ElseBlock_1676026390778
               tagName: ng-template
-              ↓Directive [ngx.components.UIControlDirective-1725785309790]: 
+              ↓Directive [ngx.components.UIControlDirective-1725785310351]: 
                 directiveName: If
                 directiveSource: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                     - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"localObject":"local"}],"path":"?.confirmAccount","prefix":"","suffix":" == true else ElseBlock_1675961194367","custom":"","useCustom":false}}
-                ↓Div [ngx.components.UIDynamicElement-1725785309793]: 
+                ↓Div [ngx.components.UIDynamicElement-1725785310354]: 
                   beanData: '{"ionBean":"DivTag"}'
                   tagName: div
-                  ↓Paragraph [ngx.components.UIDynamicElement-1725785309796]: 
+                  ↓Paragraph [ngx.components.UIDynamicElement-1725785310357]: 
                     beanData: '{"ionBean":"Paragraph"}'
                     tagName: p
-                    ↓Text [ngx.components.UIText-1725785309799]: 
+                    ↓Text [ngx.components.UIText-1725785310360]: 
                       i18n: true
                       textValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: plain:Your password has been changed. You can now log in to your account with your new password.
-                    ↓Span [ngx.components.UIDynamicElement-1725785309802]: 
+                    ↓Span [ngx.components.UIDynamicElement-1725785310363]: 
                       beanData: '{"ionBean":"SpanTag"}'
                       isEnabled: false
                       tagName: span
-                      ↓Text1 [ngx.components.UIText-1725785309805]: 
+                      ↓Text1 [ngx.components.UIText-1725785310366]: 
                         textValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: script:this.appName
-                      ↓FontStyle [ngx.components.UIFontStyle-1725785309808]: 
+                      ↓FontStyle [ngx.components.UIFontStyle-1725785310369]: 
                         fontFamily: Open Sans
                         fontSize: 20px
                         fontStyle: normal
                         fontWeight: 700
-                        ruleTargets: class1725785309802
+                        ruleTargets: class1725785310363
                         styleContent: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -329,7 +398,7 @@ scriptContent:
                                 font-style: normal;
                                 font-weight: 700;
                                 '
-                      ↓Style [ngx.components.UIStyle-1725785309811]: 
+                      ↓Style [ngx.components.UIStyle-1725785310372]: 
                         styleContent: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -337,11 +406,11 @@ scriptContent:
                               →: |
                                 '	color: var(--ion-color-primary);
                                 '
-                  ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309814]: 
+                  ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310375]: 
                     beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
                     comment: FormatLayout
                     tagName: div
-                  ↓Style [ngx.components.UIStyle-1725785309817]: 
+                  ↓Style [ngx.components.UIStyle-1725785310378]: 
                     styleContent: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -349,35 +418,35 @@ scriptContent:
                           →: |
                             '	padding-bottom: 50px;
                             '
-            ↓Tag [ngx.components.UIElement-1725785309820]: 
+            ↓Tag [ngx.components.UIElement-1725785310381]: 
               identifier: ElseBlock_1675961194367
               tagName: ng-template
-              ↓Div [ngx.components.UIDynamicElement-1725785309823]: 
+              ↓Div [ngx.components.UIDynamicElement-1725785310384]: 
                 beanData: '{"ionBean":"DivTag"}'
                 tagName: div
-                ↓Paragraph [ngx.components.UIDynamicElement-1725785309826]: 
+                ↓Paragraph [ngx.components.UIDynamicElement-1725785310387]: 
                   beanData: '{"ionBean":"Paragraph"}'
                   tagName: p
-                  ↓Text [ngx.components.UIText-1725785309829]: 
+                  ↓Text [ngx.components.UIText-1725785310390]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: 'plain:You have requested, or it is necessary to reset your password for the application: '
-                  ↓Span [ngx.components.UIDynamicElement-1725785309832]: 
+                        - MobileSmartSourceType: 'plain:Suppression du compte et des données associées pour l''application : '
+                  ↓Span [ngx.components.UIDynamicElement-1725785310393]: 
                     beanData: '{"ionBean":"SpanTag"}'
                     tagName: span
-                    ↓Text1 [ngx.components.UIText-1725785309835]: 
+                    ↓Text1 [ngx.components.UIText-1725785310396]: 
                       textValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:this.appName
-                    ↓FontStyle [ngx.components.UIFontStyle-1725785309838]: 
+                    ↓FontStyle [ngx.components.UIFontStyle-1725785310399]: 
                       fontFamily: Open Sans
                       fontSize: 20px
                       fontStyle: normal
                       fontWeight: 700
-                      ruleTargets: class1725785309832
+                      ruleTargets: class1725785310393
                       styleContent: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -388,7 +457,7 @@ scriptContent:
                               font-style: normal;
                               font-weight: 700;
                               '
-                    ↓Style [ngx.components.UIStyle-1725785309841]: 
+                    ↓Style [ngx.components.UIStyle-1725785310402]: 
                       styleContent: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -396,20 +465,20 @@ scriptContent:
                             →: |
                               '	color: var(--ion-color-primary);
                               '
-                ↓Paragraph1 [ngx.components.UIDynamicElement-1725785309844]: 
+                ↓Paragraph1 [ngx.components.UIDynamicElement-1725785310405]: 
                   beanData: '{"ionBean":"Paragraph"}'
                   tagName: p
-                  ↓Text [ngx.components.UIText-1725785309847]: 
+                  ↓Text [ngx.components.UIText-1725785310408]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: 'plain: Please enter a new password and then click on the change password button'
-                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309850]: 
+                        - MobileSmartSourceType: plain:Veuillez saisir votre email et votre mot de passe, puis cliquer sur le bouton Supprimer définitivement mon compte
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310411]: 
                   beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
                   comment: FormatLayout
                   tagName: div
-                ↓Style [ngx.components.UIStyle-1725785309853]: 
+                ↓Style [ngx.components.UIStyle-1725785310414]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -417,46 +486,62 @@ scriptContent:
                         →: |
                           '	padding-bottom: 50px;
                           '
-              ↓divErrors1 [ngx.components.UIDynamicElement-1725785309856]: 
+                ↓Paragraph2 [ngx.components.UIDynamicElement-1725785310417]: 
+                  beanData: '{"ionBean":"Paragraph"}'
+                  tagName: p
+                  ↓Text [ngx.components.UIText-1725785310420]: 
+                    i18n: true
+                    textValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:Veuillez saisir votre email et votre mot de passe, puis cliquer sur le bouton Supprimer définitivement mon compte
+                  ↓_innerHTML_ [ngx.components.UIAttribute-1725785310423]: 
+                    attrName: '[innerHTML]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:this?.moretext
+              ↓divErrors1 [ngx.components.UIDynamicElement-1725785310426]: 
                 beanData: '{"ionBean":"DivTag"}'
                 tagName: div
-                ↓Directive [ngx.components.UIControlDirective-1725785309859]: 
+                ↓Directive [ngx.components.UIControlDirective-1725785310429]: 
                   directiveName: If
                   directiveSource: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:f('newPassword')
-                  ↓Directive [ngx.components.UIControlDirective-1725785309862]: 
+                      - MobileSmartSourceType: script:f('email')
+                  ↓Directive [ngx.components.UIControlDirective-1725785310432]: 
                     directiveItemName: item
                     directiveSource: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:f('newPassword')
-                    ↓Directive1 [ngx.components.UIControlDirective-1725785309865]: 
+                        - MobileSmartSourceType: script:f('email')
+                    ↓Directive1 [ngx.components.UIControlDirective-1725785310435]: 
                       directiveName: If
                       directiveSource: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:item == 'required'
-                      ↓Text [ngx.components.UIText-1725785309868]: 
+                      ↓Text [ngx.components.UIText-1725785310438]: 
                         i18n: true
                         textValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: plain:* This field is required
-                    ↓Directive2 [ngx.components.UIControlDirective-1725785309871]: 
+                    ↓Directive2 [ngx.components.UIControlDirective-1725785310441]: 
                       directiveName: If
                       directiveSource: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:item == 'minlength'
-                      ↓Text1 [ngx.components.UIText-1725785309874]: 
+                      isEnabled: false
+                      ↓Text1 [ngx.components.UIText-1725785310444]: 
                         i18n: true
                         textValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: plain:* Password must contain at least 8 characters
-                ↓Style [ngx.components.UIStyle-1725785309877]: 
+                ↓Style [ngx.components.UIStyle-1725785310447]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -466,43 +551,42 @@ scriptContent:
                           	padding-left: 16px;
                           	min-height: 21px;
                           '
-                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309880]: 
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310450]: 
                   beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
                   selfClose: false
-              ↓FormItem [ngx.components.UIDynamicElement-1725785309883]: 
+              ↓FormItem [ngx.components.UIDynamicElement-1725785310453]: 
                 beanData: '{"ionBean":"FormItem","Lines":"plain:inset"}'
                 tagName: ion-item
-                ↓Label [ngx.components.UIDynamicElement-1725785309886]: 
+                ↓Label [ngx.components.UIDynamicElement-1725785310456]: 
                   beanData: '{"ionBean":"Label","Position":"plain:floating"}'
                   tagName: ion-label
-                  ↓Text [ngx.components.UIText-1725785309889]: 
+                  ↓Text [ngx.components.UIText-1725785310459]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: plain:New password
-                ↓TextInput [ngx.components.UIDynamicElement-1725785309892]: 
+                        - MobileSmartSourceType: plain:Email
+                ↓TextInput [ngx.components.UIDynamicElement-1725785310462]: 
                   beanData: |
                     '{
                      "ionBean": "Input",
-                     "ControlName": "plain:newPassword",
+                     "ControlName": "plain:email",
                      "Debounce": "plain:0",
-                     "Min": "plain:8",
-                     "MinLength": "plain:8",
                      "Required": "plain:true",
-                     "Type": "script:local.showPass === true ? ''text'' : ''password''"
+                     "Type": "plain:email"
                     }'
                   tagName: ion-input
-                ↓Icon [ngx.components.UIDynamicElement-1725785309895]: 
+                ↓Icon [ngx.components.UIDynamicElement-1725785310465]: 
                   beanData: |
                     '{
                      "ionBean": "Icon",
                      "IconName": "script:this.local.showPass ? ''eye-off-outline'' : ''eye-outline''",
                      "IconSlot": "plain:end"
                     }'
+                  isEnabled: false
                   tagName: ion-icon
-                  ↓Event [ngx.components.UIControlEvent-1725785309898]: 
-                    ↓changeTypePassword [ngx.components.UICustomAsyncAction-1725785309901]: 
+                  ↓Event [ngx.components.UIControlEvent-1725785310468]: 
+                    ↓changeTypePassword [ngx.components.UICustomAsyncAction-1725785310471]: 
                       actionValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -516,7 +600,7 @@ scriptContent:
                               			return;
                               		}
                               
-                  ↓Style [ngx.components.UIStyle-1725785309904]: 
+                  ↓Style [ngx.components.UIStyle-1725785310474]: 
                     styleContent: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -524,46 +608,46 @@ scriptContent:
                           →: |
                             '    margin-top: auto;
                             '
-              ↓divErrors2 [ngx.components.UIDynamicElement-1725785309907]: 
+              ↓divErrors2 [ngx.components.UIDynamicElement-1725785310477]: 
                 beanData: '{"ionBean":"DivTag"}'
                 tagName: div
-                ↓Directive [ngx.components.UIControlDirective-1725785309910]: 
+                ↓Directive [ngx.components.UIControlDirective-1725785310480]: 
                   directiveName: If
                   directiveSource: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:f('newPassword')
-                  ↓Directive [ngx.components.UIControlDirective-1725785309913]: 
+                      - MobileSmartSourceType: script:f('password')
+                  ↓Directive [ngx.components.UIControlDirective-1725785310483]: 
                     directiveItemName: item
                     directiveSource: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: script:f('newPassword')
-                    ↓Directive1 [ngx.components.UIControlDirective-1725785309916]: 
+                        - MobileSmartSourceType: script:f('password')
+                    ↓Directive1 [ngx.components.UIControlDirective-1725785310486]: 
                       directiveName: If
                       directiveSource: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:item == 'required'
-                      ↓Text [ngx.components.UIText-1725785309919]: 
+                      ↓Text [ngx.components.UIText-1725785310489]: 
                         i18n: true
                         textValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: plain:* This field is required
-                    ↓Directive2 [ngx.components.UIControlDirective-1725785309922]: 
+                    ↓Directive2 [ngx.components.UIControlDirective-1725785310492]: 
                       directiveName: If
                       directiveSource: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                           - MobileSmartSourceType: script:item == 'minlength'
-                      ↓Text1 [ngx.components.UIText-1725785309925]: 
+                      ↓Text1 [ngx.components.UIText-1725785310495]: 
                         i18n: true
                         textValue: 
                           - xmlizable: 
                             - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                             - MobileSmartSourceType: plain:* Password must contain at least 8 characters
-                ↓Style [ngx.components.UIStyle-1725785309928]: 
+                ↓Style [ngx.components.UIStyle-1725785310498]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -574,44 +658,44 @@ scriptContent:
                           	min-height: 42px;
                           	padding-top: 21px;
                           '
-                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309931]: 
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725785310501]: 
                   beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
                   selfClose: false
-                ↓Directive1 [ngx.components.UIControlDirective-1725785309934]: 
+                ↓Directive1 [ngx.components.UIControlDirective-1725785310504]: 
                   directiveName: If
                   directiveSource: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                       - MobileSmartSourceType: script:f2()
-                  ↓Text [ngx.components.UIText-1725785309937]: 
+                  ↓Text [ngx.components.UIText-1725785310507]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                         - MobileSmartSourceType: plain:* Both passwords must be the same
-              ↓FormItem1 [ngx.components.UIDynamicElement-1725785309940]: 
+              ↓FormItem1 [ngx.components.UIDynamicElement-1725785310510]: 
                 beanData: '{"ionBean":"FormItem","Lines":"plain:inset"}'
                 tagName: ion-item
-                ↓Label [ngx.components.UIDynamicElement-1725785309943]: 
+                ↓Label [ngx.components.UIDynamicElement-1725785310513]: 
                   beanData: '{"ionBean":"Label","Position":"plain:floating"}'
                   tagName: ion-label
-                  ↓Text [ngx.components.UIText-1725785309946]: 
+                  ↓Text [ngx.components.UIText-1725785310516]: 
                     i18n: true
                     textValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: plain:Confirm new password
-                ↓TextInput [ngx.components.UIDynamicElement-1725785309949]: 
+                        - MobileSmartSourceType: plain:Mot de passe
+                ↓TextInput [ngx.components.UIDynamicElement-1725785310519]: 
                   beanData: |
                     '{
                      "ionBean": "Input",
-                     "ControlName": "plain:newPassword2",
+                     "ControlName": "plain:password",
                      "Debounce": "plain:0",
                      "Required": "plain:true",
                      "Type": "script:local.showPass2 === true ? ''text'' : ''password''"
                     }'
                   tagName: ion-input
-                ↓Icon [ngx.components.UIDynamicElement-1725785309952]: 
+                ↓Icon [ngx.components.UIDynamicElement-1725785310522]: 
                   beanData: |
                     '{
                      "ionBean": "Icon",
@@ -619,8 +703,8 @@ scriptContent:
                      "IconSlot": "plain:end"
                     }'
                   tagName: ion-icon
-                  ↓Event [ngx.components.UIControlEvent-1725785309955]: 
-                    ↓changeTypePassword [ngx.components.UICustomAsyncAction-1725785309958]: 
+                  ↓Event [ngx.components.UIControlEvent-1725785310525]: 
+                    ↓changeTypePassword [ngx.components.UICustomAsyncAction-1725785310528]: 
                       actionValue: 
                         - xmlizable: 
                           - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -634,7 +718,7 @@ scriptContent:
                               			return;
                               		}
                               
-                  ↓Style [ngx.components.UIStyle-1725785309961]: 
+                  ↓Style [ngx.components.UIStyle-1725785310531]: 
                     styleContent: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -642,16 +726,16 @@ scriptContent:
                           →: |
                             '    margin-top: auto;
                             '
-              ↓SubmitButton [ngx.components.UIDynamicElement-1725785309964]: 
-                beanData: '{"ionBean":"SubmitButton"}'
+              ↓SubmitButton [ngx.components.UIDynamicElement-1725785310534]: 
+                beanData: '{"ionBean":"SubmitButton","IonColor":"plain:danger"}'
                 tagName: ion-button
-                ↓Text [ngx.components.UIText-1725785309967]: 
+                ↓Text [ngx.components.UIText-1725785310537]: 
                   i18n: true
                   textValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: plain:Change Password
-                ↓Style [ngx.components.UIStyle-1725785309970]: 
+                      - MobileSmartSourceType: plain:Supprimer définitivement mon compte et les données associées
+                ↓Style [ngx.components.UIStyle-1725785310540]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -691,16 +775,16 @@ scriptContent:
                           //--transition	//Transition of the button
                           margin-top: 42px;
                           '
-    ↓GridCol2 [ngx.components.UIDynamicElement-1725785309973]: 
+    ↓GridCol2 [ngx.components.UIDynamicElement-1725785310543]: 
       beanData: '{"ionBean":"GridCol"}'
       tagName: ion-col
-↓PasswordChangedError [ngx.components.UICompEvent-1725785309976]: 
+↓PasswordChangedError [ngx.components.UICompEvent-1725785310546]: 
   attrName: PasswordChangedError
-↓PasswordChangedOk [ngx.components.UICompEvent-1725785309979]: 
+↓PasswordChangedOk [ngx.components.UICompEvent-1725785310549]: 
   attrName: PasswordChangedOk
-↓resetKey [ngx.components.UICompVariable-1725785309982]: 
-↓SharedComponent_Event [ngx.components.UISharedComponentEvent-1725785309985]: 
-  ↓CustomAsyncAction [ngx.components.UICustomAsyncAction-1725785309988]: 
+↓resetKey [ngx.components.UICompVariable-1725785310552]: 
+↓SharedComponent_Event [ngx.components.UISharedComponentEvent-1725785310555]: 
+  ↓CustomAsyncAction [ngx.components.UICustomAsyncAction-1725785310558]: 
     actionValue: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -715,5 +799,6 @@ scriptContent:
             			return;
             		}
             '
-↓appName [ngx.components.UICompVariable-1725785309991]: 
-↓imgUrl [ngx.components.UICompVariable-1725785309994]: 
+↓appName [ngx.components.UICompVariable-1725785310561]: 
+↓imgUrl [ngx.components.UICompVariable-1725785310564]: 
+↓moretext [ngx.components.UICompVariable-1725785310567]: 

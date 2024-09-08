@@ -1,0 +1,60 @@
+scriptContent: 
+  - xmlizable: 
+    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+      →: |
+        '/*Begin_c8o_PageImport*/
+        /*End_c8o_PageImport*/
+        /*Begin_c8o_PageDeclaration*/
+        	public newPassword : string = "";
+        	/*End_c8o_PageDeclaration*/
+        /*Begin_c8o_PageConstructor*/
+        		/*End_c8o_PageConstructor*/
+        /*Begin_c8o_PageFunction*/
+        	/*End_c8o_PageFunction*/
+        '
+segment: path-to-deleteaccountpage
+title: Title for DeleteAccountPage
+↓UseSharedComponent [ngx.components.UIUseShared-1725785310654]: 
+  sharedcomponent: lib_UserManager.MobileApplication.Application.DeleteAccount
+  ↓resetKey [ngx.components.UIUseVariable-1725785310657]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.navParams.data.resetKey ?? this.local.resetKey
+  ↓appName [ngx.components.UIUseVariable-1725785310660]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.navParams.data.appName ?? this.local.appName
+  ↓imgUrl [ngx.components.UIUseVariable-1725785310663]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.navParams.data.imgUrl ?? this.local.imgUrl
+  ↓moretext [ngx.components.UIUseVariable-1725785310666]: 
+    varValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.navParams.data.htmlText ?? this.local.htmlText
+↓PageEvent [ngx.components.UIPageEvent-1725785310669]: 
+  ↓CallSequence [ngx.components.UIDynamicAction-1725785310672]: 
+    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager_ui_ngx.GetSymbols"}'
+    tagName: CallSequence
+    ↓computeMeta [ngx.components.UICustomAsyncAction-1725785310675]: 
+      actionValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+            →: |
+              		try {
+              			this.local.resetKey = props.parent.out?.res?.resetKey;
+              			this.local.appName = props.parent.out?.res?.appName;
+              			this.local.imgUrl = props.parent.out?.res?.imgUrl;
+              			this.local.htmlText = props.parent.out?.res?.htmlText;
+              		} catch (e) {
+              		
+              		} finally {
+              			return;
+              		}
+              
