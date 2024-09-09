@@ -39,7 +39,7 @@ title: Title for DeleteAccountPage
         - MobileSmartSourceType: script:this.navParams.data.htmlText ?? this.local.htmlText
 ↓PageEvent [ngx.components.UIPageEvent-1725785310669]: 
   ↓CallSequence [ngx.components.UIDynamicAction-1725785310672]: 
-    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager_ui_ngx.GetSymbols"}'
+    beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.GetSymbols"}'
     tagName: CallSequence
     ↓computeMeta [ngx.components.UICustomAsyncAction-1725785310675]: 
       actionValue: 

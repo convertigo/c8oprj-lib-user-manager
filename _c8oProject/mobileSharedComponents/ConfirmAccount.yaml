@@ -37,7 +37,7 @@
                       	align-items: center;
                       '
             ↓LazyImage [ngx.components.UIDynamicElement-1725785310024]: 
-              beanData: '{"ionBean":"LazyImage","Src":"source:{\"filter\":\"Asset\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"\",\"model\":{\"data\":[{\"asset\":\"''assets\\\/logo_convertigo_blue.svg''\"}],\"path\":\"\",\"prefix\":\"(this.imgUrl != undefined && this.imgUrl != '''') ? this.imgUrl : \",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}"}'
+              beanData: '{"ionBean":"LazyImage","Src":"source:{\"filter\":\"Asset\",\"project\":\"lib_UserManager\",\"input\":\"\",\"model\":{\"data\":[{\"asset\":\"''assets\\\/logo_convertigo_blue.svg''\"}],\"path\":\"\",\"prefix\":\"(this.imgUrl != undefined && this.imgUrl != '''') ? this.imgUrl : \",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}"}'
               tagName: ion-img
               ↓Style [ngx.components.UIStyle-1725785310027]: 
                 styleContent: 
@@ -84,7 +84,7 @@
             directiveSource: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"localObject":"local"}],"path":"?.error","prefix":"","suffix":" == true else ElseBlock_1676026390778","custom":"","useCustom":false}}
+                - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager","input":"","model":{"data":[{"localObject":"local"}],"path":"?.error","prefix":"","suffix":" == true else ElseBlock_1676026390778","custom":"","useCustom":false}}
             ↓Div [ngx.components.UIDynamicElement-1725785310048]: 
               beanData: '{"ionBean":"DivTag"}'
               tagName: div
@@ -150,7 +150,7 @@
               directiveSource: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"localObject":"local"}],"path":"?.confirmAccount","prefix":"","suffix":" == true else ElseBlock_1675961194367","custom":"","useCustom":false}}
+                  - MobileSmartSourceType: source:{"filter":"Local","project":"lib_UserManager","input":"","model":{"data":[{"localObject":"local"}],"path":"?.confirmAccount","prefix":"","suffix":" == true else ElseBlock_1675961194367","custom":"","useCustom":false}}
               ↓Div [ngx.components.UIDynamicElement-1725785310081]: 
                 beanData: '{"ionBean":"DivTag"}'
                 tagName: div
@@ -295,7 +295,7 @@
                     varValue: 
                       - xmlizable: 
                         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                        - MobileSmartSourceType: source:{"filter":"Shared","project":"lib_UserManager_ui_ngx","input":"","model":{"data":[{"priority":1674728184917,"regular":true}],"path":"?.resetKey","prefix":"","suffix":"","custom":"","useCustom":false}}
+                        - MobileSmartSourceType: source:{"filter":"Shared","project":"lib_UserManager","input":"","model":{"data":[{"priority":1674728184917,"regular":true}],"path":"?.resetKey","prefix":"","suffix":"","custom":"","useCustom":false}}
                   ↓newPassword [ngx.components.UIControlVariable-1725785310162]: 
                     comment: new variable
                     varValue: 
@@ -308,8 +308,8 @@
                       beanData: |
                         '{
                          "ionBean": "EmitEventAction",
-                         "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.ForgotPassword.PasswordChangedError",
-                         "data": "source:{\"filter\":\"Action\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1674728239387}],\"path\":\"?.out?.error\",\"prefix\":\"\",\"suffix\":\"?.message\",\"custom\":\"\",\"useCustom\":false}}"
+                         "event": "plain:lib_UserManager.MobileApplication.Application.ForgotPassword.PasswordChangedError",
+                         "data": "source:{\"filter\":\"Action\",\"project\":\"lib_UserManager\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1674728239387}],\"path\":\"?.out?.error\",\"prefix\":\"\",\"suffix\":\"?.message\",\"custom\":\"\",\"useCustom\":false}}"
                         }'
                     ↓SetLocal [ngx.components.UIDynamicAction-1725785310171]: 
                       beanData: |
@@ -323,7 +323,7 @@
                         beanData: |
                           '{
                            "ionBean": "EmitEventAction",
-                           "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.ForgotPassword.PasswordChangedOk",
+                           "event": "plain:lib_UserManager.MobileApplication.Application.ForgotPassword.PasswordChangedOk",
                            "data": "plain:"
                           }'
                       ↓SetLocal [ngx.components.UIDynamicAction-1725785310180]: 

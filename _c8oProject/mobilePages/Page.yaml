@@ -1,36 +1,11 @@
 ↑isRoot: true
-segment: path-to-page
+segment: loginPage
 title: Title for Page
 ↓Content [ngx.components.UIDynamicElement-1725785310573]: 
-  beanData: '{"ionBean":"Content"}'
+  beanData: '{"ionBean":"Content","Padding":"plain:ion-no-padding"}'
   tagName: ion-content
-  ↓Button [ngx.components.UIDynamicElement-1725785310576]: 
-    beanData: '{"ionBean":"Button"}'
-    tagName: ion-button
-    ↓Text [ngx.components.UIText-1725785310579]: 
-      textValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: plain:Show Login popup
-    ↓Event [ngx.components.UIControlEvent-1725785310582]: 
-      ↓ModalPage [ngx.components.UIDynamicAction-1725785310585]: 
-        beanData: |
-          '{
-           "ionBean": "ModalAction",
-           "page": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.ModalPopup",
-           "cssClass": "plain:"
-          }'
-  ↓Button1 [ngx.components.UIDynamicElement-1725785310588]: 
-    beanData: '{"ionBean":"Button"}'
-    tagName: ion-button
-    ↓Text [ngx.components.UIText-1725785310591]: 
-      textValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: plain:Logout
-    ↓Event [ngx.components.UIControlEvent-1725785310594]: 
-      ↓CallSequence [ngx.components.UIDynamicAction-1725785310597]: 
-        beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.SignOut"}'
+  ↓UseSharedComponent [ngx.components.UIUseShared-1725791855106]: 
+    sharedcomponent: lib_UserManager.MobileApplication.Application.LoginComponent
 ↓Subscribe_Handler [ngx.components.UIEventSubscriber-1725785310603]: 
   topic: login
   ↓Toast [ngx.components.UIDynamicAction-1725785310606]: 

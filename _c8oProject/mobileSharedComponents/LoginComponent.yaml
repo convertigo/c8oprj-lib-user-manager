@@ -6,391 +6,1223 @@ comment: |
   
   
   
-↓Grid [ngx.components.UIDynamicElement-1725785309448]: 
+↓Grid [ngx.components.UIDynamicElement-1725791792651]: 
   beanData: '{"ionBean":"Grid","Height":"plain:100%"}'
   tagName: ion-grid
-  ↓GridRow [ngx.components.UIDynamicElement-1725785309451]: 
-    beanData: '{"ionBean":"GridRow"}'
+  ↓GridRow [ngx.components.UIDynamicElement-1725791792654]: 
+    beanData: '{"ionBean":"GridRow","FlexAlignement":"plain:ion-align-items-stretch"}'
     tagName: ion-row
-    ↓GridCol [ngx.components.UIDynamicElement-1725785309454]: 
+    ↓GridCol [ngx.components.UIDynamicElement-1725791792660]: 
       beanData: |
         '{
          "ionBean": "GridCol",
-         "FlexAlignement": "plain:ion-align-self-center",
-         "Size": "plain:12"
+         "SizeLg": "plain:6",
+         "SizeMd": "plain:6",
+         "SizeSm": "plain:12",
+         "SizeXl": "plain:6",
+         "SizeXs": "plain:12"
         }'
       tagName: ion-col
-      ↓FormatLayout [ngx.components.UIDynamicAttr-1725785309457]: 
-        beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
-        comment: FormatLayout
-        tagName: div
-      ↓Directive [ngx.components.UIControlDirective-1725785309460]: 
-        directiveName: If
-        directiveSource: 
+      ↓Style [ngx.components.UIStyle-1725791792663]: 
+        styleContent: 
           - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-            - MobileSmartSourceType: script:this.logoImage
-        ↓Image [ngx.components.UIDynamicElement-1725785309463]: 
-          beanData: |
-            '{
-             "ionBean": "Image",
-             "url": "script:this.logoImage",
-             "width": "source:{\"filter\":\"Shared\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1572604124714,\"regular\":true}],\"path\":\"?.logoWidth\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}"
-            }'
-          selfClose: true
-          tagName: img
-      ↓Form [ngx.components.UIForm-1725785309466]: 
-        identifier: form1572604498892
-        ↓Event [ngx.components.UIControlEvent-1725785309469]: 
-          attrName: (ngSubmit)
-          eventName: onSubmit
-          ↓Login [ngx.components.UIDynamicAction-1725785309472]: 
-            beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_UserManager.SignIn"}'
-            ↓IfElse [ngx.components.UIDynamicIf-1725785309475]: 
-              beanData: '{"ionBean":"IfElseAction","condition":"script:out.user"}'
-              ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309478]: 
-                beanData: |
-                  '{
-                   "ionBean": "EmitEventAction",
-                   "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.LoginComponent.login",
-                   "data": "script:{error: false, message: '''', user: this.user}"
-                  }'
-              ↓Else_Handler [ngx.components.UIActionElseEvent-1725785309481]: 
-                ↓Toast [ngx.components.UIDynamicAction-1725785309484]: 
-                  beanData: |
-                    '{
-                     "ionBean": "ToastAction",
-                     "message": "script:stack[''Login''].out.error.message",
-                     "position": "plain:top",
-                     "cssClass": "plain:"
-                    }'
-                ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309487]: 
-                  beanData: |
-                    '{
-                     "ionBean": "EmitEventAction",
-                     "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.LoginComponent.login",
-                     "data": "script:{error: true, message: stack[''Login''].out.error.message}"
-                    }'
-        ↓Div [ngx.components.UIDynamicElement-1725785309490]: 
-          beanData: '{"ionBean":"DivTag"}'
-          tagName: div
-          ↓Directive [ngx.components.UIControlDirective-1725785309493]: 
-            directiveName: If
-            directiveSource: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                - MobileSmartSourceType: |
-                    script:this.enableGoogleLogin ||
-                    this.enableLinkedInLogin ||
-                    this.enableAzureADLogin
-                    
-            ↓Heading [ngx.components.UIDynamicTag-1725785309496]: 
-              beanData: '{"ionBean":"Heading"}'
-              tagName: h4
-              ↓Text [ngx.components.UIText-1725785309499]: 
-                textValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Login with 
-            ↓Grid [ngx.components.UIDynamicElement-1725785309502]: 
-              beanData: '{"ionBean":"Grid","Height":"plain:100%"}'
-              tagName: ion-grid
-              ↓GridRow [ngx.components.UIDynamicElement-1725785309505]: 
-                beanData: '{"ionBean":"GridRow"}'
-                tagName: ion-row
-                ↓Directive [ngx.components.UIControlDirective-1725785309508]: 
-                  directiveName: If
-                  directiveSource: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+            - com.twinsoft.convertigo.beans.common.FormatedContent: 
+              →: |
+                '    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position-x: 50%;
+                    background-position-y: 50%;
+                 	background-image: url(''../../../../../../DisplayObjects/mobile/assets/images/svg/tel/bg.svg'');
+                    z-index: auto;
+                    position: relative;
+                '
+      ↓Grid [ngx.components.UIDynamicElement-1725791792666]: 
+        beanData: '{"ionBean":"Grid","Height":"plain:100%"}'
+        tagName: ion-grid
+        ↓GridRow [ngx.components.UIDynamicElement-1725791792669]: 
+          beanData: '{"ionBean":"GridRow","Height":"plain:10%"}'
+          tagName: ion-row
+          ↓Image [ngx.components.UIDynamicElement-1725791792672]: 
+            beanData: '{"ionBean":"Image","url":"script:''assets\/images\/svg\/logo\/logo_convertigo_white.png''"}'
+            selfClose: true
+            tagName: img
+            ↓Style [ngx.components.UIStyle-1725791792675]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      '    position: absolute;
+                          left: 0px;
+                          right: 0px;
+                          top: 10px;
+                          margin: auto;
+                      '
+        ↓GridRow1 [ngx.components.UIDynamicElement-1725791792678]: 
+          beanData: '{"ionBean":"GridRow","Height":"plain:80%"}'
+          tagName: ion-row
+          ↓Image [ngx.components.UIDynamicElement-1725791792687]: 
+            beanData: '{"ionBean":"Image","url":"script:''assets\/images\/svg\/tel\/illus_tel_01.svg''"}'
+            selfClose: true
+            tagName: img
+            ↓Style [ngx.components.UIStyle-1725811225449]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      '	margin: auto
+                      '
+        ↓GridRow2 [ngx.components.UIDynamicElement-1725791792723]: 
+          beanData: '{"ionBean":"GridRow","Height":"plain:10%"}'
+          tagName: ion-row
+          ↓GridCol [ngx.components.UIDynamicElement-1725791792726]: 
+            beanData: '{"ionBean":"GridCol","Size":"plain:12"}'
+            tagName: ion-col
+            ↓Directive [ngx.components.UIControlDirective-1725791792729]: 
+              directiveName: If
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:window.screen.width < 768
+              ↓FormatLayout [ngx.components.UIDynamicAttr-1725791792732]: 
+                beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                comment: FormatLayout
+                tagName: div
+              ↓Button [ngx.components.UIDynamicElement-1725791792735]: 
+                beanData: '{"ionBean":"Button","IonColor":"plain:light"}'
+                tagName: ion-button
+                ↓Text [ngx.components.UIText-1725791792738]: 
+                  i18n: true
+                  textValue: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:this.enableGoogleLogin
-                  ↓GridCol [ngx.components.UIDynamicElement-1725785309511]: 
-                    beanData: '{"ionBean":"GridCol"}'
-                    tagName: ion-col
-                    ↓Attr [ngx.components.UIAttribute-1725785309514]: 
-                      attrName: 
-                      attrValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:text-center
-                    ↓Image [ngx.components.UIDynamicElement-1725785309517]: 
-                      beanData: |
-                        '{
-                         "ionBean": "Image",
-                         "url": "script:''data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABXFBMVEX\/\/\/\/qQzU0qFNChfT7vAXZ5f0vffNDhvTi7P77ugA1f\/PqQTLqPi8wp1AopUvqPzDpOSnpNiW0zvs7gvT\/vQD3tbEgo0btWEzpMyH5yMT96eftX1TyiYH4wLz+8O\/61dL\/\/PPv9P6wy\/vn9OqRzaDz+vVVtW5nvHzzlY7vcGbtYlf1rKf\/+fjrSDrwf3fyjIT0n5j\/9t37vyH+6bX2ni7M3fx4pff8zlpjmfb3+v\/b7t9UkPXO6dWi1a+Gr\/hWqKm638N+xpD83tzvbWPsUET0nJX608H8yz33pR\/sVTjtYjvygS71lTH6tibwcjnpNTX93pn+8Mz91Gv91n7vbzj+57Hyi3T\/++qkwPn92I38z13+8tbN26ThvilptFxQtXPQwECeu1OHtlC5vUOUt\/gfql7avi56tFKwvEjg2ZFvsMVOqJdPrIhMkOVQmdBVmNxTnsdOn7tNrXxEn6umuS4RAAAKYUlEQVR4nO2b+XfbxhGASQg6cRCUeIuHZN6iSMl0a7sSaZMSVblJm0ZJHDtxa6Vp4qZN4qTt\/\/9eFyB1EMSxO9hdgO5+vyTxi0l8mtmZ2V0oFhMIBAKBQCAQCAQCgUAgEAgEAgE\/Dsvlwlm+0yr22u3zg2x297zdK7aO05VCoXwY9sMF56zUKZ5n47lc0lARCQv0L4aRzCUnB72LTr4Q9jNCOSxULtqTrorMFCXuiJJApkp3t1gqlMN+XGIqnV48Z7i62Txzyd2j0hLFslxpZbvIzl\/ujoShTtrp5ViXSC9nJIj0ZrFUk\/FeOuqRLHSycSNBbncraXSLlQgHsnIRT8L1ZpJGrp2OpuNhvh03AMm5iKrudiLoWOrlVBp6Folc5BwrbZWen+Vo7EYpVytHFON365hr58MWm1E+jtP3M1GVo0j0jnw2SaW+OGF0S2Hrxco9JWh\/8EJR2yGHsZQ1GPqZGN10iH7llsoygFMU4yi0jcfZbpK5n4mRrYQjmJ6wKaGLqKFk6mErx6yELqDkLri3\/\/I5rwBOMdqcF2Nll3UNXVA8OOMq2OUbQRN1wrHe5Lvsm8QCSpLffJOPhyEY51dPS0znNDdBjhEs4ZwQUhdM8Itgh+yUkJJgkmOKhiKY6HATzMdDiSC\/NXgWSpvguAYLWf6NnmsED9thCHKMYKwYaDuoKNN7Q8NQ1QR2x+EZwVgaHEEFiSXi3Wy7d9RCFHsHE+vP\/Osy1whWgEdqCSOX7R2nK7bdTyHfabXjSW9JxeAYwfIBJISqoWYvKgWX7Wu5UOp1DffLDkXlubcvAjaEarJ97LerOywVuy7ZoRg8D71LxFVGMYxeHmdjfnjWmTjdOfKNYGFC2uqN7jHBWW76YCFX+UaQOEfVZIvs0KGcVuYd+UYwVsoR+SWSRfKz+MPO\/Qs6zhEs75LkqGJMYDU+v3tbcjhHMHZBkqOK0oJ\/0Wyy5xzB2BnJrl4N9HAVQw0hgjGSgTvZC3ZyW2gnuUcwVsHf9Sq5YtDT93I7Z3COIMGeic4Yecz7+v732NOMwvuHT4nLF3\/AFFRCuuYLyJUsv\/jozziCavhvFUDYe7Ipy\/LHGIa5qLz9QsgbU1CW\/+gveBz2owJ5MjWU\/\/TRByr4sD8zlDc\/8VqMRjvsJ4Xy6Y2gd6aq58v3JvqUvct7hvKLrlsYc8vZJxBX9wXRYnTJVGNZF2Es9tm8odz\/2ElxeXM09qpvM5Tl3zgMOEYk3pEE8cjuZ7UNexiTF2E\/J5zPF0Jo8sm8YOJgeUO4t5ik00ydi2KS3\/0sda6cBedH8cQk7McMgHOSWovxi1tFnrdf1Ll0NUQDTnfWKdoR+p0BUh66LMPZYpwqGku8CmMvPfwQfXO3oahLHMK5qduJTTTgGMWwnzIAe098DM0BR+X60idlXsm+hvKLL5c5SR\/6C8ryp8Qfu79KH6DhSwzDzSvij91eo84K0NC9398J9sk\/dntrhTbrGzBD\/0Ijb34WCcOV38IMPfs9OElZGO5sgwQddr8LgvLDSBhuvQYZXvlGUN588ioShjvPQIZO+3u74eeAz2Vh+Ph3EEOMZrFJ3g3ZGD7dhxj6TaWm4cuIGJ4yMwSUUibdYh1k+BWGIaDQMDHcArV8nJEG8rksDNcgk+me\/bjbQVCOjCFkqMHYHUKmUkZZ+uEbQsY2HMPL5Tb8epkMHzAyjE6WQkbv5TIExXCZugUrQ3m5DbFmmr2oGII2+TiT95sP3vDRUhuy2gE\/iMpcinWK8VVUDEG7J5yTqK\/3omG4AzJ80\/c37AO2wCwMYXt8txcx5hQBxZSFIeycxvMW\/8YQUGoYGALP2hbeaXMyBOwuWBjCzktxGiJkqmFh+B1I8OYNb29D8hNTBobAe4vYK3\/BlPwXgOE6GRgxhN092d4PdhT869vrOunH7m+Q8WDHXxF4f+hbalLfSJI+AH44Nq\/9DaF3wD6TaUr+2\/fIsElVx4FnvoY7p9DP9pzbUpffIkGkSJymZOw\/9Td8DP50j6km9U6aotco6jiw6p+k0FKKcD2MSqX+LmlTQ61RpeizyGv\/5gLbO1k8cjFM9acZapFhG0SMZrECm9lMXDoiahLSHZrEciViJCl0KjVxPtm\/y1AOK\/E7DEPgzGbhMJqiJiHNo0kn1ITsbJxiGAInGovFt4RRhn5vM5T0BjUjOxh1Bt7vLeyDW+rdW80uiIrNiJLQAjhDKbjfW8xX01T\/h4UAMs1TnBAGWoa2t2hT8rdOfqYim9ltH2MVBumGFvfO9lPvGg4ZOsvTIR2neR7jhDBAr7C4OzVFTcIdTWKwx1jF2SsHTNLY7Vumc2OMk2KG+vCGMXObBEzSm1qTuvyHp6C5FGmPNv7bJhPYUel9rJ1+6hsfP4n+TnF7DUdwK3CSmnNNKvWDr59EewRfPcURhL0NZWOv33fq8k6K4+DfdsPGFlaOQk9K5\/nnW3852lHErDIrO6DrbTtVCS+EpiKlcoPV6k3BUxohjMVqOq4hKjc0FDcwI0ilzphU3WeZBTQteOtf3cEUpNAqZgwz2IYoo4MOcNuYKUovhAiCIKLpZhxkp7H\/DKsPWpwG2hnOMSIwRItRGoG\/afCvNdwIrmzBfs3CmTF+sTHDqDdgYaw29cyP2ElKbRVaX43fMaaOUg1QVGso\/FLmp5\/x7t924AfBTpDlqRlGrUa226gOJd36El17jyX4lE4vvKVJlKfWk0oEjtVaI3PzQ9Sk5xiLcS3IEZsTdcI8ncaxMcKRrI6amn7v4zWMTKUzkc4xIg6iJdmojbxXZHU0ljL2n55+\/YtP01insKmwQzC8zTmiSNYGVQfNevUE2Zn\/g8Nfk\/677pWpsDdKfaiTL8Vby0yjOa4NB4OTk2odiQ0Go+Fw3GzoGc0t97XMc4+2Qb3MTDkhGW3sD4xCpWvaVMj8p\/Wfnn9Fv\/7ZVZFFjpqMCOZTCuiNX11q6hqLHLUYwoMIQdOfOy5G4G\/FYlHjG0VJ\/+npYtsA\/kIlJmQDKgXF6\/cLiqwW4RR4QQWiSf9emc9UOmczHooBCipMUZ\/fbQR48wKTaoNzFKXMf365y1Sqm0JXRc5RRJn6602mbj1j0uoXFHlHUdN+nCpuBb1Lw6R+zTuKqG2YA87WYz6CZkXl3BfNAef9Gj9BxJh7FNFug6egeYbK2zEz5lFk7jEi3\/QHQdOYvCrgyYBnSQ1+lA6hOnbanTMSZP62tTNDn00sLTJjti+xehBk249NOBl6Q519TdUbIWXoDYMm09UIux+gzFBiVlS1TDPkAE6pjhn1Rr0xDD+AU5ikKvHlDlsGDcqdQ5eaUfIzoRlHTdfGkViA89QHTYmKpKZL4bV4H07uXQNC9VD9HEbVz6Q+ChJI8xpxPIhK\/XTlZNj0uFTyjJ40xrpSDZ96ddg040HwLpWuS42xz2VqxKiOkGVG13w1NU3P6I3xMIK105d6FSVswwrQounsDlGSGs3ayOmKeHmoD0bD2hiZ6pl7mGbj2nA0WI5150+9Xq8izPtt664bgf4o7KcSCAQCgUAgEAgEAoFAIBAIBIL\/H\/4HRJt3MnxhcVgAAAAASUVORK5CYII=''",
-                         "width": "plain:64px"
-                        }'
-                      selfClose: true
-                      tagName: img
-                      ↓Event [ngx.components.UIControlEvent-1725785309520]: 
-                        ↓OAuthLoginGoogle [ngx.components.UIDynamicAction-1725785309523]: 
-                          beanData: |
-                            '{
-                             "ionBean": "OAuthLoginAction",
-                             "provider": "plain:openid",
-                             "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"listen([''lib_OAuth.GetOAuthCredentials''])?.GoogleClientID\"}",
-                             "scope": "plain:openid email",
-                             "response_type": "plain:code",
-                             "loginRequestable": "plain:lib_OAuth.loginGoogleWithCode",
-                             "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessTokenGoogle",
-                             "authorization_endpoint": "plain:https:\/\/accounts.google.com\/o\/oauth2\/v2\/auth",
-                             "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenGoogle.html"
-                            }'
-                          ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309526]: 
-                            beanData: |
-                              '{
-                               "ionBean": "EmitEventAction",
-                               "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.LoginComponent.login",
-                               "data": "script:out"
-                              }'
-                          ↓PublishEvent [ngx.components.UIDynamicAction-1725785309529]: 
-                            beanData: |
-                              '{
-                               "ionBean": "PublishEventAction",
-                               "topic": "plain:login",
-                               "data": "script:out"
-                              }'
-                ↓Style [ngx.components.UIStyle-1725785309532]: 
+                      - MobileSmartSourceType: plain:Skip
+                ↓Style [ngx.components.UIStyle-1725791792741]: 
                   styleContent: 
                     - xmlizable: 
                       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
                       - com.twinsoft.convertigo.beans.common.FormatedContent: 
                         →: |
-                          '	border: solid 1px gray
                           '
-                ↓Directive1 [ngx.components.UIControlDirective-1725785309535]: 
-                  directiveName: If
-                  directiveSource: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:this.enableLinkedInLogin
-                  ↓GridCol1 [ngx.components.UIDynamicElement-1725785309538]: 
-                    beanData: '{"ionBean":"GridCol"}'
-                    tagName: ion-col
-                    ↓Attr [ngx.components.UIAttribute-1725785309541]: 
-                      attrName: 
-                      attrValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:text-center
-                    ↓Image [ngx.components.UIDynamicElement-1725785309544]: 
-                      beanData: |
-                        '{
-                         "ionBean": "Image",
-                         "url": "script:''data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAaVBMVEUCdLP\/\/\/8Aa6\/D2em20eUAcbI\/i7\/l8fcAbbBIkcIAb7GUvdp4q8\/W5\/EAcLEAaq7t9vr2+\/3L3+2rzOKixd5po8wGebba6fMogrrz+fyDs9Rensni7va91eeLt9YTe7dRl8VvqM4whrzt0Z\/dAAAGCklEQVR4nO3dWZuiOhAG4CQYjVFZBXex\/f8\/8mD3mVZHpQqXSRVPfVdzMSivNNkJSl8m2+YR9+Tb7Mqkzv9Mi0PtnWEfXx2K1R1htlYmVv1IbNQ6+1tYWBf6vN4ap4pr4Ve\/fKe4r0vhxoQ+nw\/EbM7Cso\/Ahlj+Ec77CWyI8x\/hqK\/Ahph+C0sf+kQ+Fl+ehNv+FaPnuG0jnPRaOGmEQxv6ND4YO9QqDX0SH06qZn3+I23+TGcq6m9dcYqJ1K7n13CnBj0XDkTIPSLkHxHyjwj5R4T8I0L+6Sy0sXPG+ZjNuEA3YezUsJzMi\/m+PHrHA9lF6JPDIP2dsxoV44TDKCReGLvpmfeTRZnQv45ooRsv9G3yJfliCitMpnd8p2nVTfLxc3wtSGEyvw9ssiY+kIUTtgC13tO+iiihWbcAtS5J34sYoT+0ArVeUi5RMUI7AoQzyvUiQugmAFDrL8JEhNBnoHBEeB0OLPQPasKrlHSJsNDNEMKIbo0BCu0SAdSa7o0ICuMSJRyTrTBAoWtrzpyzJ3sRQaGJUMKCbLsGFCY5ShgxFt7rFt4mZyzEVBaNkGwfChbi7kO6Q5JwSVPAvCZzvsIY02ijvPgPbtOMUcKab40P9w5P2TJul+IaNXSbNJhreISBGd0\/UkwPGFFfFGRrQ5QQvohZ9W9O9qlgRqLAgRrKwzS48VLX3vre0S1IFVJofVuNQXosETuqb5ePiTNFtxw9BTkzE1ePuhiRpQ1Ez67ZB5Mza9L34Cn4OWAzvi1vdvQnSLvM49tkvLvkZcWQwSR3t7UYNvGbebRN09EimoydYeDrvp4mds6pynrHZK2JrInqQ0TIPyLkHxHyjwjD5V29MnJCGzvTNOjr+risK2WNMe61Fde0hLGzy81kN0tXWdZ0XrJVusgH+81RGf+0EiVs2tmtub+YBjjq5pSt8Zvi\/mhJmu+PyZNtfYxwOQGyvvfd0FGH64O8ORSti6\/S+fjBT\/my0A7bvvj7y+8IwTmryeUQXexLxFzz7Mt2N75FOHpRaJMDbi5dj7qvnacgdPUO+L8XmQ07zpEQECZf8OLHy+y7EYMLrcMtFLjIrlNjILTw8VBzS7Z1hwInsDCuMXPot1\/YYUY2rPBJYHMV8ZMlQYW2ehLYZcIrqBC1\/PhBCuyESUChM7ilqw+yQV7FgMJk8wpQr5CLB8IJ9\/bvxxk7BrkAJJxwDT+oAgS3R1k44YtXUGMfgQgnfEOOmIvIWohaPs9amNV9F+opok7kLcwRZQ1vIebpVebCKdxRZC5EVInMhRnccmMuRLTcaAmzrNuwG6a+oCJc7faHpTJJ4qrherCCD\/g\/iOW\/JISzsjK\/2xZZb9QUO7yxYCHcHm628vEe2beC+8EEhPPkXqWWjHG3JFjUhBdOHxT4Hvza72ygOj+48PEiY4d6ihx8Him0cNDSKEkGiA8A+4iBha27pdsacSuC7bbAwvanbTCPzc2gdltYIVCb2Rr+iBHt+xBqcyE2A1gBwMBC6Pf37RtUnQKO1QQVthWkyK+Gu\/lBhfBTfR4eN4YaNUGF8CgL4kY8EBZuER10uL6Amm0hhYgnMxH7HVAWIt7gE8NzjNAmXCGFiA3CEIUpZSFibynEPlyUhZjtFiuw8U1YiJuIBytEqOUXUIh7zxQ4JEVYeO+o24\/hLES90I61cIFZ8sNaiHobmghFKEIRilCEIhShCEUoQhGKUIQiFKEIRShCEYpQhCIUoQhFKEIRilCEIhShCEUoQhGKUIQiFKEIRShCEYpQhG8T0lmrr6ohlKeOOiKASoHf\/YYnnZsfEsobj3r7p9B6+8MnIkL+ESH\/iJB\/RMg\/IuQfEfKPCPmnEUYdXxHFLCZSec+vYa5Q4yV84xcK+zoTpqlWCrPXD9\/YsVZ63ucb0c0bIW4rHK5JG6Fe9\/ciurU+CTP8W8yYxarsW4jY2Zxp3Gkr4pOwZUdm1km+9z9VP\/MbfSQmP7su\/gj12vTtXrRmry+Felf162Z0VaSvhVrvK\/PMS5MpJjbV\/td1FurV4FB7wz9xvRlc7Ld4IWySbfOIe\/Lt9XaS\/wHXpZiRRkLEgQAAAABJRU5ErkJggg==''",
-                         "width": "plain:64px"
-                        }'
-                      selfClose: true
-                      tagName: img
-                      ↓Event [ngx.components.UIControlEvent-1725785309547]: 
-                        ↓OAuthLoginLinkedIN [ngx.components.UIDynamicAction-1725785309550]: 
-                          beanData: |
-                            '{
-                             "ionBean": "OAuthLoginAction",
-                             "provider": "plain:linkedin",
-                             "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"listen([''lib_OAuth.GetOAuthCredentials''])?.LinkedInClientID\"}",
-                             "scope": "script:this.scope ? this.scope: ''r_liteprofile,r_emailaddress''",
-                             "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenLinkedIn.html"
-                            }'
-                          ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309553]: 
-                            beanData: |
-                              '{
-                               "ionBean": "EmitEventAction",
-                               "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.LoginComponent.login",
-                               "data": "script:out"
-                              }'
-                          ↓PublishEvent [ngx.components.UIDynamicAction-1725785309556]: 
-                            beanData: |
-                              '{
-                               "ionBean": "PublishEventAction",
-                               "topic": "plain:login",
-                               "data": "script:out"
-                              }'
-                ↓Directive2 [ngx.components.UIControlDirective-1725785309559]: 
-                  directiveName: If
-                  directiveSource: 
-                    - xmlizable: 
-                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                      - MobileSmartSourceType: script:this.enableAzureADLogin
-                  ↓GridCol2 [ngx.components.UIDynamicElement-1725785309562]: 
-                    beanData: '{"ionBean":"GridCol"}'
-                    tagName: ion-col
-                    ↓Attr [ngx.components.UIAttribute-1725785309565]: 
-                      attrName: 
-                      attrValue: 
-                        - xmlizable: 
-                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                          - MobileSmartSourceType: plain:text-center
-                    ↓Image [ngx.components.UIDynamicElement-1725785309568]: 
-                      beanData: |
-                        '{
-                         "ionBean": "Image",
-                         "url": "script:''data:image\/jpeg;base64,\/9j\/4AAQSkZJRgABAQAAAQABAAD\/2wCEAAkGBw0HDQ0NBw0NBw0NDQ0NDQcNDQ8NDQ0NFREWFhURFRUYHjQsGBoxGxYVITQtJywrLi4uFx8\/STctNygtLisBCgoKDg0OFg0NFTceFSUwNyw1KzcwNy43Ky8tNzA3Ly0tLy0vLi0rKy0rKy0tKysrLSsrLSsrKy0rLS0rLSsrK\/\/AABEIAOEA4QMBEQACEQEDEQH\/xAAbAAEAAwEBAQEAAAAAAAAAAAAABQYHAQMEAv\/EAD8QAAECAgINCgUDBQEAAAAAAAACAwEEBnMFBxEWMjNTVHKxstHSEhMUNZGSk5SiwhUXITR0IjFhQVFicaFC\/8QAGwEBAQADAQEBAAAAAAAAAAAAAAYDBAUCAQf\/xAA0EQEAAAMDCAgHAQEBAAAAAAAAAQIDBVJxBBUxM1OBocERExQyNJHR4QYSUWFysfAWQSH\/2gAMAwEAAhEDEQA\/ANxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmdI7PTstOzLcvMuNIQ5cS3Dk3IQ5MP4OLlGUVZas0ss3RBWZDkOTz5PJPPThGMYI2+ayOdu9iNxg7VWvtrN2S7OBfNZHO3exG4dqrXzN2S7OBfNZHO3exG4dqrXzN2S7ODt81kc7d7Ebh2qtfM3ZLs4OXzWRzt3sRuHaq18zdkuzg7fLZHO3exG4dqrXzN2S7OBfLZHO3exG4dqrXzN2S7OBfNZHO3exG4dqrXzN2S7OBfNZHO3exG4dqrXzN2S7OBfNZHO3exG4dqrXzN2S7OBfLZHO3exG4dqrXzN2S7OC10AspM2RXNQnnlTMEJYiiCrn6bsV3f2h\/EDfyCtPUjNCePTo5uNbOTUqMKcaUvR09PJKUxnHZJhtUouLCovQTFSbn1TyFRuf8AIHm1q9SjSlmpx6I9PKKeqRjCH\/io\/H53OXPTuOBnLKtow\/PN9T4\/O5y56dwzjlW0Pnm+p8fnc5c9O4ZxyraHzzfU+PzucuencM45VtD55vqfH53OXPTuGccq2h8831Pj87nLnp3DOOVbQ+eb6nx+dzlz07hnHKtofPN9T4\/O5y56dwzllW0Pnm+p8fnc5c9O4ZyyraHzzfU+PzucuencM5ZVtD55vqfH53OXPTuGcsq2h8831espZ2dW60lUwuMIuIhGH6frCKofwZKNoZTNUlhGp\/50wfYTzdOlo5XtkAAZFSzrGbrfaknsq10+K2s7wtPBEmBugAAAAAAAAAAAu1rHDnNGX1uHSs3vT7ubgW93aW\/kl6efbNfkQ2Fni29RLjyilquiCjkuwAAAAAAAAAAAA9pLHM1re1Ay0NbJjD9vsNLWC8bYAAyGlnWM3W+1JPZVrp8VtZ3haeCKMDdcA6AAAAAAAAAAXa1jhzmjL63DpWb3p93NwLe7tLfyS9PPtmvyIbCzxbeolx5RS1XRBRyXYAAAAAAAAAAAAe0ljma1vagZaGtkxh+32GlrBeNsAAZFSzrGbrfaknsq10+K2s7wtPBEmBugAAAAAAAAAAAu1rHDnNGX1uHSs3vT7ubgW93aW\/kmKefbNV8NhZ4tvUS48oparogoxLsAAAAAAAAAAAAPeSxzNa3tQMtDWyYw\/b7DS1cvG2AAMipZ1jN1sNlJPZVrp8VtZ3haeCJMDdAAAAAAAAAAABdrWOHOaMvrcOlZven3c3At7u0t\/JMU8+2ar4bCzxbeolx5RS1XRBRiXYAAAAAAAAAAAAe8ljma1vagZaGtkxh+32Glq5eNsAAZFSzrGbrfaknsq10+K2s7wtPBEmBugAAAAAAAAAAAu1rHDnNGX1uHSs3vT7ubgW93aW\/kl6efbNV8NhZ4tvUS48oparogo5LsAAAAAAAAAAAAPeSxzNa3tQMtDWyYw\/b7DS1cvG2AAMipZ1jN1sNlJPZVrp8VtZ3haeCJMDdAAAAAAAAAAABdrWOHOaMvrcOlZven3c3At7u0t\/JL08+2ar4bCzxbeolx5RS1XRBRyXYAAAAAAAAAAAAe0ljma1vagZaGtkxh+32GlrBeNsAAZDSzrGbrYbKSfyrXT4razvC08ESa7dAAHQAADgHQAAABdrWOHOaMvrcOlZven3c3At7u0t\/JL08+2a\/IhsLPFt6iXHlFLVdEFHJdgAAAAAAAAAAAB7SWOZrW9qBloa2TGH7fYaWsF42wABkVLOsZuthspJ7KtdPitrO8LTwRJgboAAAAAAAAAAALtaxw5zRl9bh0rN70+7m4Fvd2lv5Jenn2zVfDYWeLb1EuPKKWq6IKOS7AAAAAAAAAAAAD2ksczWt7UDLQ1smMP2+w0tYLxtgADIqWdYzdb7Uk9lWunxW1neFp4IkwN0AAAAAAAAAAAF2tY4c5oy+tw6Vm96fdzcC3u7S38kvTz7ZqvhsLPFt6iXHlFLVdEFHJdgAAAAAAAAAAAB7SWOZrW9qBloa2TGH7fYaWsF42wABkVLOsZuthspJ7KtdPitrO8LTwRJgboAAAAAAAAAAALtaxw5zRl9bh0rN70+7m4Fvd2lv5Jenn2zX5ENhZ4tvUS48oparogo5LsAAAAAAAAAAAAPeSxzNa3tQMtDWyYw\/b7DS1cvG2AAMipZ1jN1vtST2Va6fFbWd4WngiTA3QAAAAAAAAAAAXa1jhzmjL63DpWb3p93NwLe7tLfyS9PPtmvyIbCzxbeolx5RS1XRBRyXYAAAAAAAAAAAAe8ljma1vagZaGtkxh+32Glq5eNsAAU2y9CV2RmXn0zSWYOq5XNRZiqKfpCFy7yvr+xza2QRqTxnhP0dP293dya2IUaUtLq+no+\/s+T5eLzxPl48ZjzbNf4e7Pn6XZcfY+Xi88T5ePGM2zX+HuZ+l2XH2Pl4vPEeXjxjNs1\/h7mfpdlx9j5eLzxPl48YzbNf4e5n6XZcfY+Xi88T5ePGM2zX+HuZ+l2XH2Pl4vPE+XjxjNs1\/h7mfpdlx9j5eLzxPl48YzbNf4e5n6XZcfY+Xi88T5ePGM2zX+HuZ+l2XH2Pl4vPE+XjxjNs1\/h7mfpdlx9j5eLzxPl48YzbNf4e5n6XZcfY+Xi88T5ePGM2zX+HuZ+l2XH2TlFaNqsCp+K34TXPQbhcg3Fvk8nlf5Ru4X\/DayXJY0YzRjN09LnWhaEMrhLCEny9HT\/3p09H2h9H20gsTGy7SG0uQl+S5BfKinl3f0xhc\/f8Ak+ZdknaZISfN0dEelyZ5fmggryVZ1DwY8RysxR2nD3eOq+5eSrOk+DHiGYo7Th7nVfcvJVnSfBjxDMUdpw9zqvuXkqzpPgx4hmKO04e51X3LyVZ0nwY8QzFHacPc6r7l5Ks6T4MeIZijtOHudV9y8lWdJ8GPEMxR2nD3Oq+5eSrOk+DHiGYo7Th7nVfcvJVnSfBjxDMUdpw9zqvuXkqzpPgx4hmKO04e51X3LyVZ0nwY8QzFHacPc6r7v2xQxTS0L6TBXIWlXJ5mMLtyN25hHunYkZJ4TdZoj06Pc6r7rcd9mAAFaslTOWse84w60+tTauTFSYN8mMbl36XVfydClZtSpJCeE0OiP99HKr2vSo1JqU0semGHq+a\/+UyMz3WuIyZpq3ocfRhz7Qux4epf\/KZGZ7rXEM01b0OPoZ9oXY8PUv8A5TIzPdb4hmmrehx9DPtC7Hh6l\/8AKZGZ7rfEM01b0OPoZ9oXY8PUv\/lMjM91viGaat6HH0M+0LseHqX\/AMpkZnutcQzTVvQ4+hn2hdjw9S\/+UyMz3WuIZpq3ocfQz7Qux4epf\/KZGZ7rfEM01b0OPoZ9oXY8PUv\/AJTIzPdb4hmmrehx9DPtC7Hh6l\/8pkZnut8QzTVvQ4+hn2hdjw9S\/wDlMjM91viGaat6HH0M+0LseHqlrAUhZs5F2Esh1rmoIirnIJhd5V25cuRj\/Y1spySfJ+j5owj0t3I8vp5V83yQjDo+v3fdZCdTIpgp2Clwirk3E3Lt25GP9f8ARx8ty2TJJIVKkIxhGPR\/46lChNVjGWWL4L4mcm72J3nM\/wBFk9ybh6trN1S9D+3F8TOTd7E7x\/osnuTcPUzdUvQ\/txfEzk3exO8f6LJ7k3D1M3VL0P7cXxM5N3sTvH+iye5Nw9TN1S9D+3F8TOTd7E7x\/osnuTcPUzdUvQ\/txfEzk3exO8f6LJ7k3D1M3VL0P7cXxM5N3sTvH+iye5Nw9TN1S9D+3F8TOTd7E7x\/osnuTcPUzdUvQ\/txfEzk3exO8f6LJ7k3D1M3VL0P7cXxM5N3sTvH+iye5Nw9TN1S9D+3F8TOTd7E7x\/osnuTcPUzdUvQ\/tz9Is+0tUEwQ7CKowhduJ\/rH\/Z7kt+hPNCSEkemP\/n\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\/+VET8QSTT0JISQ6Y\/NyisLPmhCpHpj\/xXeYcya+4okuzVtnHyi6vWSXoeZzDmTX3FDs1bZx8onWSXoeZzDmTX3FDs1bZx8onWSXoeZ0dzJr7ih2ats4+UTrJL0PM6O5k19xQ7NW2cfKJ1kl6HmdHcya+4odmrbOPlE6yS9DzOYcya+4odmrbOPlE6yS9DzOYcya+4odmrbOPlE6yS9DzOYcya+4odmrbOPlE6yS9DzOYcya+4odmrbOPlE6yS9DzOjuZNfcUOzVtnHyidZJeh5vSXYcg4i6hcP1p+vJj\/eBlyfJ6sKskYyR0w\/5H6vM9SX5Y\/wDv\/F1P0VOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf\/\/Z''",
-                         "width": "plain:64px"
-                        }'
-                      selfClose: true
-                      tagName: img
-                      ↓Event [ngx.components.UIControlEvent-1725785309571]: 
-                        ↓OAuthLoginAzureAD [ngx.components.UIDynamicAction-1725785309574]: 
-                          beanData: |
-                            '{
-                             "ionBean": "OAuthLoginAction",
-                             "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"listen([''lib_OAuth.GetOAuthCredentials''])?.AzureAdClientID\"}",
-                             "tenantid": "source:{\"filter\":\"Shared\",\"project\":\"lib_UserManager_ui_ngx\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1572604124714,\"regular\":true}],\"path\":\"?.tenantid\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}",
-                             "scope": "script:''openid+profile+email+https:\/\/graph.microsoft.com\/Files.ReadWrite+https:\/\/graph.microsoft.com\/User.Read'' + this.scope",
-                             "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getToken.html"
-                            }'
-                          ↓EmitEvent [ngx.components.UIDynamicEmit-1725785309577]: 
-                            beanData: |
-                              '{
-                               "ionBean": "EmitEventAction",
-                               "event": "plain:lib_UserManager_ui_ngx.MobileApplication.Application.LoginComponent.login",
-                               "data": "script:out"
-                              }'
-                          ↓PublishEvent [ngx.components.UIDynamicAction-1725785309580]: 
-                            beanData: |
-                              '{
-                               "ionBean": "PublishEventAction",
-                               "topic": "plain:login",
-                               "data": "script:out"
-                              }'
-            ↓Heading1 [ngx.components.UIDynamicTag-1725785309583]: 
-              beanData: '{"ionBean":"Heading"}'
-              tagName: h4
-              ↓Text [ngx.components.UIText-1725785309586]: 
+                            border-radius: 24px;
+                            border: solid 1px #ffffff;
+                          '
+                ↓Event [ngx.components.UIControlEvent-1725791792744]: 
+                  ↓setVal [ngx.components.UICustomAction-1725791792747]: 
+                    actionValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                          →: |
+                            		    page["show"] = true;
+                            		    resolve();
+                            
+        ↓Attr [ngx.components.UIAttribute-1725811833561]: 
+          attrName: 
+          attrValue: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+              - MobileSmartSourceType: plain:ion-no-padding
+    ↓Directive [ngx.components.UIControlDirective-1725791792750]: 
+      directiveName: If
+      directiveSource: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:window.screen.width > 767 
+      ↓GridCol1 [ngx.components.UIDynamicElement-1725791792753]: 
+        beanData: |
+          '{
+           "ionBean": "GridCol",
+           "SizeLg": "plain:6",
+           "SizeMd": "plain:6",
+           "SizeSm": "plain:12",
+           "SizeXl": "plain:6",
+           "SizeXs": "plain:12"
+          }'
+        tagName: ion-col
+        ↓Div [ngx.components.UIDynamicElement-1725791792759]: 
+          beanData: '{"ionBean":"DivTag"}'
+          tagName: div
+          ↓Style [ngx.components.UIStyle-1725791792762]: 
+            styleContent: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                  →: |
+                    '	/*position: absolute;
+                     	top: 50%;
+                     	height: 50vh !important;
+                     	transform: translateY(-50%);
+                      	left: 5%; 
+                      	right: 5%;*/
+                      	
+                      	
+                    
+                     	height:100vh;
+                     	display: flex;
+                      	margin-left: 5%; 
+                      	margin-right: 5%;
+                      	display: flex;
+                      	flex-direction: column;
+                    
+                    	justify-content: center;
+                      	position : relative;
+                      
+                      
+                    
+                    '
+          ↓DivTextDescription [ngx.components.UIDynamicElement-1725791792765]: 
+            beanData: '{"ionBean":"DivTag"}'
+            tagName: div
+            ↓ImageConvertigo2 [ngx.components.UIDynamicElement-1725791792768]: 
+              beanData: '{"ionBean":"Image","url":"script:''assets\/images\/svg\/logo\/logo_no_code_studio.svg''"}'
+              selfClose: true
+              tagName: img
+              ↓Style [ngx.components.UIStyle-1725791792771]: 
+                styleContent: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                      →: |
+                        '	/*margin-left:0.5em;
+                        	margin-right:0.5em;*/
+                        	width: 80%;
+                        	display:block;
+                            margin:auto;
+                            max-width:353px;
+                        '
+            ↓Span [ngx.components.UIDynamicElement-1725791792774]: 
+              beanData: '{"ionBean":"SpanTag"}'
+              isEnabled: false
+              tagName: span
+              ↓FormatLayout [ngx.components.UIDynamicAttr-1725791792777]: 
+                beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-left"}'
+                comment: FormatLayout
+                tagName: div
+              ↓Style [ngx.components.UIStyle-1725791792780]: 
+                styleContent: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                      →: |
+                        'font-size: 48px;
+                        color: #0CBBE7;
+                        background: linear-gradient(0.25turn, #0cbbe7, #ff8206);
+                        	background-clip: text;
+                        	-webkit-text-fill-color: transparent;
+                        '
+              ↓Text [ngx.components.UIText-1725791792783]: 
+                i18n: true
                 textValue: 
                   - xmlizable: 
                     - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Or use your login / password
-          ↓email [ngx.components.UIDynamicElement-1725785309589]: 
-            beanData: '{"ionBean":"GenericItem"}'
-            tagName: ion-item
-            ↓Label [ngx.components.UIDynamicElement-1725785309592]: 
-              beanData: '{"ionBean":"Label","Position":"plain:fixed"}'
-              tagName: ion-label
-              ↓Text [ngx.components.UIText-1725785309595]: 
-                textValue: 
+                    - MobileSmartSourceType: plain:titleLogin
+              ↓FontStyle [ngx.components.UIFontStyle-1725791792786]: 
+                fontFamily: Saira
+                ruleTargets: class1725791792774
+                styleContent: 
                   - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Email
-            ↓TextInput [ngx.components.UIDynamicElement-1725785309598]: 
-              beanData: |
-                '{
-                 "ionBean": "Input",
-                 "ControlName": "plain:user",
-                 "DoubleBinding": "script:local.user",
-                 "Debounce": "plain:0",
-                 "EnterKeyHint": "plain:enter",
-                 "InputMode": "plain:email",
-                 "Placeholder": "plain:myemail@domain.com",
-                 "Required": "plain:true",
-                 "Type": "plain:email",
-                 "Value": "plain:test@mail.com"
-                }'
-              tagName: ion-input
-          ↓password [ngx.components.UIDynamicElement-1725785309601]: 
-            beanData: '{"ionBean":"GenericItem"}'
-            tagName: ion-item
-            ↓Label [ngx.components.UIDynamicElement-1725785309604]: 
-              beanData: '{"ionBean":"Label","Position":"plain:fixed"}'
-              tagName: ion-label
-              ↓Text [ngx.components.UIText-1725785309607]: 
-                textValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Password
-            ↓TextInput [ngx.components.UIDynamicElement-1725785309610]: 
-              beanData: |
-                '{
-                 "ionBean": "Input",
-                 "ControlName": "plain:password",
-                 "Debounce": "plain:0",
-                 "Required": "plain:true",
-                 "Type": "plain:password",
-                 "Value": "plain:test"
-                }'
-              tagName: ion-input
-          ↓LoginButton [ngx.components.UIDynamicElement-1725785309613]: 
-            beanData: '{"ionBean":"SubmitButton"}'
-            tagName: ion-button
-            ↓Text [ngx.components.UIText-1725785309616]: 
-              textValue: 
-                - xmlizable: 
-                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: plain:login
-            ↓Attr [ngx.components.UIAttribute-1725785309619]: 
-              attrName: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                      →: |
+                        'font-family: Saira;
+                        '
+            ↓Attr [ngx.components.UIAttribute-1725791792789]: 
+              attrName: '[ngClass]'
               attrValue: 
                 - xmlizable: 
                   - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                  - MobileSmartSourceType: plain:float-right
-          ↓Directive1 [ngx.components.UIControlDirective-1725785309622]: 
-            directiveName: If
-            directiveSource: 
+                  - MobileSmartSourceType: script:'styledivnormal'
+            ↓Style2 [ngx.components.UIStyle-1725791792792]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      	margin-right:0px !important;
+                      	margin-left:0px !important;
+                      	text-align:center;
+                      
+            ↓Tag [ngx.components.UIElement-1725791792795]: 
+              selfClose: true
+              tagName: br
+          ↓DivBody [ngx.components.UIDynamicElement-1725791792810]: 
+            beanData: '{"ionBean":"DivTag"}'
+            tagName: div
+            ↓Form [ngx.components.UIForm-1725791792813]: 
+              identifier: form1645091280596
+              ↓Event [ngx.components.UIControlEvent-1725791792816]: 
+                attrName: (ngSubmit)
+                eventName: onSubmit
+                ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1725815946903]: 
+                  ↓SetGlobal [ngx.components.UIDynamicAction-1725815946906]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:false"
+                      }'
+                ↓IfContinue [ngx.components.UIDynamicIf-1725815946909]: 
+                  beanData: '{"ionBean":"IfElseAction","condition":"script:this.local.continue"}'
+                  ↓SetGlobal [ngx.components.UIDynamicAction-1725815946912]: 
+                    beanData: |
+                      '{
+                       "ionBean": "SetGlobalAction",
+                       "Property": "plain:doingLogin",
+                       "Value": "script:true"
+                      }'
+                  ↓IfAD [ngx.components.UIDynamicIf-1725815946924]: 
+                    beanData: '{"ionBean":"IfElseAction","condition":"script:this.local.loginad == true"}'
+                    ↓LoginAd [ngx.components.UIDynamicAction-1725815946927]: 
+                      beanData: |
+                        '{
+                         "ionBean": "CallSequenceAction",
+                         "requestable": "plain:lib_UserManager.SignInAD",
+                         "cachePolicy": "plain:priority_server",
+                         "cacheTtl": "plain:99999999999999999999"
+                        }'
+                      ↓IfElse [ngx.components.UIDynamicIf-1725815946930]: 
+                        beanData: '{"ionBean":"IfElseAction","condition":"script:out.ok == ''true''"}'
+                      ↓user [ngx.components.UIControlVariable-1725859723804]: 
+                        comment: new variable
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:
+                      ↓password [ngx.components.UIControlVariable-1725859723806]: 
+                        comment: new variable
+                        varValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:
+                    ↓Else_Handler [ngx.components.UIActionElseEvent-1725815946948]: 
+                      ↓Login [ngx.components.UIDynamicAction-1725815946951]: 
+                        beanData: |
+                          '{
+                           "ionBean": "CallSequenceAction",
+                           "requestable": "plain:lib_UserManager.SignIn",
+                           "cachePolicy": "plain:priority_server",
+                           "cacheTtl": "plain:99999999999999999999"
+                          }'
+                        ↓IfElse [ngx.components.UIDynamicIf-1725815946954]: 
+                          beanData: '{"ionBean":"IfElseAction","condition":"script:out.ok == ''true''"}'
+                        ↓user [ngx.components.UIControlVariable-1725859769022]: 
+                          comment: new variable
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: plain:
+                        ↓password [ngx.components.UIControlVariable-1725859769024]: 
+                          comment: new variable
+                          varValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                              - MobileSmartSourceType: plain:
+                  ↓Else_Handler [ngx.components.UIActionElseEvent-1725815946972]: 
+                    ↓setContinueTrue [ngx.components.UICustomAction-1725815946975]: 
+                      actionValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              		    this.local.continue = true;
+                              		    if(!this.local.forceContinue){
+                              		        setTimeout(()=>{
+                              	                page["pass"].setFocus()
+                              	                //page["pass"]._elementRef.nativeElement.focus();
+                              	            },50)
+                              	            resolve();
+                              		    }
+                              
+              ↓Div [ngx.components.UIDynamicElement-1725791792894]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓email [ngx.components.UIDynamicElement-1725791792897]: 
+                  beanData: '{"ionBean":"GenericItem"}'
+                  tagName: ion-item
+                  ↓Label [ngx.components.UIDynamicElement-1725791792900]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Label",
+                       "Position": "plain:fixed",
+                       "IconSlot": "plain:start"
+                      }'
+                    tagName: ion-label
+                    ↓Text [ngx.components.UIText-1725791792903]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: 'script:this.local.identifier != undefined ? this.local.identifier : ''email'' | translate'
+                    ↓Attr [ngx.components.UIAttribute-1725791792906]: 
+                      attrName: 
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:ion-no-padding
+                    ↓Style [ngx.components.UIStyle-1725791792909]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '/**
+                               * Custom properties (sometimes referred to as CSS variables or cascading variables)
+                               * are entities defined by CSS authors that contain specific values to be reused throughout a document.
+                               * They are set using custom property notation, e.g.: --main-color: black;
+                               * and are accessed using the var() function, e.g.: color: var(--main-color);
+                               * You can find below your component''s properties you can customize within the page.
+                               * If you''d like to make some customizations for whole app, please see your app Style & Theme components.
+                               * For more informations see https://ionicframework.com/docs/theming.
+                              **/
+                              //--color	//Color of the label
+                              min-width:106px;
+                              '
+                  ↓Style [ngx.components.UIStyle-1725791792939]: 
+                    styleContent: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                          →: |
+                            '	background-color: transparent;
+                            '
+                  ↓Attr2 [ngx.components.UIAttribute-1725791792942]: 
+                    attrName: '[ngClass]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: script:'stylegenerictextnormal'
+                    isEnabled: false
+                  ↓TextInput [ngx.components.UIDynamicElement-1725791792945]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Input",
+                       "ControlName": "plain:email",
+                       "DoubleBinding": "script",
+                       "Debounce": "plain:0",
+                       "Type": "plain:email"
+                      }'
+                    identifier: email
+                    tagName: ion-input
+                    ↓Style [ngx.components.UIStyle-1725791792948]: 
+                      isEnabled: false
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              'position: static;
+                              '
+                    ↓Attr [ngx.components.UIAttribute-1725791792951]: 
+                      attrName: 
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:autofocus
+                    ↓Attr1 [ngx.components.UIAttribute-1725791792954]: 
+                      attrName: 
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:ion-no-padding
+                  ↓Attr [ngx.components.UIAttribute-1725791792957]: 
+                    attrName: 
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:ion-no-padding
+                  ↓Attr1 [ngx.components.UIAttribute-1725791792960]: 
+                    attrName: '*ngIf'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:!this.local.hideConvertigoLogin
+                ↓Style [ngx.components.UIStyle-1725791792966]: 
+                  styleContent: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                        →: |
+                          	--margin-right:0px !important;
+                          	--margin-left:0px !important;
+                          
+                ↓divVisibleForLoginButton [ngx.components.UIDynamicElement-1725791792969]: 
+                  beanData: '{"ionBean":"DivTag"}'
+                  tagName: div
+                  ↓Attr [ngx.components.UIAttribute-1725791792972]: 
+                    attrName: '[ngStyle]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: 'script:(this.local.continue || this.local.forceContinue) ? {''display'':''block''} : {''display'':''none''}'
+                  ↓password [ngx.components.UIDynamicElement-1725791792975]: 
+                    beanData: '{"ionBean":"GenericItem"}'
+                    tagName: ion-item
+                    ↓Label [ngx.components.UIDynamicElement-1725791792978]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Label",
+                         "Position": "plain:fixed",
+                         "IconSlot": "plain:start"
+                        }'
+                      tagName: ion-label
+                      ↓Text [ngx.components.UIText-1725791792981]: 
+                        i18n: true
+                        textValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:'password' | translate
+                      ↓Style [ngx.components.UIStyle-1725791792984]: 
+                        styleContent: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                            - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                              →: |
+                                '/**
+                                 * Custom properties (sometimes referred to as CSS variables or cascading variables)
+                                 * are entities defined by CSS authors that contain specific values to be reused throughout a document.
+                                 * They are set using custom property notation, e.g.: --main-color: black;
+                                 * and are accessed using the var() function, e.g.: color: var(--main-color);
+                                 * You can find below your component''s properties you can customize within the page.
+                                 * If you''d like to make some customizations for whole app, please see your app Style & Theme components.
+                                 * For more informations see https://ionicframework.com/docs/theming.
+                                **/
+                                //--color	//Color of the label
+                                min-width:106px;
+                                '
+                    ↓TextInput [ngx.components.UIDynamicElement-1725791792987]: 
+                      beanData: |
+                        '{
+                         "ionBean": "Input",
+                         "ControlName": "plain:password",
+                         "DoubleBinding": "script",
+                         "Debounce": "plain:0",
+                         "Type": "plain:password"
+                        }'
+                      identifier: pass
+                      tagName: ion-input
+                      ↓Attr [ngx.components.UIAttribute-1725791792990]: 
+                        attrName: 
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:autofocus
+                        isEnabled: false
+                      ↓Attr1 [ngx.components.UIAttribute-1725791792993]: 
+                        attrName: slot
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: plain:end
+                        isEnabled: false
+                    ↓Style [ngx.components.UIStyle-1725791792996]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	background-color: transparent;
+                              '
+                  ↓AD [ngx.components.UIDynamicElement-1725791793002]: 
+                    beanData: '{"ionBean":"GenericItem","Lines":"plain:none"}'
+                    tagName: ion-item
+                    ↓Label [ngx.components.UIDynamicElement-1725791793005]: 
+                      beanData: '{"ionBean":"Label"}'
+                      tagName: ion-label
+                      ↓Text [ngx.components.UIText-1725791793008]: 
+                        i18n: true
+                        textValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:'login_AD' | translate
+                    ↓Style [ngx.components.UIStyle-1725791793011]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	background-color: transparent;
+                              	.item-inner{
+                              		border-bottom: unset !important;
+                              	}
+                              	box-shadow: unset !important;
+                              '
+                    ↓Attr2 [ngx.components.UIAttribute-1725791793014]: 
+                      attrName: '[ngClass]'
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:'stylegenerictextnormal'
+                      isEnabled: false
+                    ↓CheckBox [ngx.components.UIDynamicElement-1725791793017]: 
+                      beanData: |
+                        '{
+                         "ionBean": "CheckBox",
+                         "ControlName": "plain:name1645091280788",
+                         "DoubleBinding": "script"
+                        }'
+                      tagName: ion-checkbox
+                      ↓Attr [ngx.components.UIAttribute-1725791793020]: 
+                        attrName: '[(ngModel)]'
+                        attrValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                            - MobileSmartSourceType: script:this.local.loginad
+                      ↓Event [ngx.components.UIControlEvent-1725791793023]: 
+                        attrName: (ngModelChange)
+                        eventName: (ngModelChange)
+                        ↓CustomAction [ngx.components.UICustomAction-1725791793026]: 
+                          actionValue: 
+                            - xmlizable: 
+                              - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                              - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                                →: |
+                                  		this.local.loginad = event;
+                                  		window["localStorage"]["setItem"]('__c8o_forms__loginad', event);
+                                  
+                                  		resolve();
+                                  
+                    ↓Attr [ngx.components.UIAttribute-1725791793029]: 
+                      attrName: '*ngIf'
+                      attrValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:this.local.ad == true
+                  ↓SubmitButton2 [ngx.components.UIDynamicElement-1725859416501]: 
+                    beanData: '{"ionBean":"SubmitButton"}'
+                    tagName: ion-button
+                    ↓Text1 [ngx.components.UIText-1725791793038]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: script:'login' | translate
+                ↓divVisibleForContinueButton [ngx.components.UIDynamicElement-1725791793044]: 
+                  beanData: '{"ionBean":"DivTag"}'
+                  tagName: div
+                  ↓Attr [ngx.components.UIAttribute-1725791793047]: 
+                    attrName: '[ngStyle]'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: 'script:(!(this.local.continue || this.local.forceContinue)) ? {''display'':''block''} : {''display'':''none''}'
+                  ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793050]: 
+                    beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                    comment: FormatLayout
+                    tagName: div
+                  ↓SubmitButton1 [ngx.components.UIDynamicElement-1725815646960]: 
+                    beanData: '{"ionBean":"SubmitButton"}'
+                    tagName: ion-button
+                    ↓Text [ngx.components.UIText-1725815741106]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Continue
+                    ↓Style [ngx.components.UIStyle-1725791793056]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	--border-radius: 24px;
+                              	min-width:287px !important;
+                              	margin-top: 30px;
+                              '
+                  ↓Attr1 [ngx.components.UIAttribute-1725791793065]: 
+                    attrName: '*ngIf'
+                    attrValue: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                        - MobileSmartSourceType: plain:!this.local.hideConvertigoLogin
+              ↓Style [ngx.components.UIStyle-1725791793068]: 
+                styleContent: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                      →: |
+                        '	ion-item {
+                        	  --padding-start: 0px;
+                        	}
+                        '
+            ↓Style [ngx.components.UIStyle-1725791793071]: 
+            ↓Directive [ngx.components.UIControlDirective-1725791793074]: 
+              directiveName: If
+              directiveSource: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: script:!this.local.forceContinue && ( this.local.google == true || this.local.xsoft == true || this.local.linkedin == true)
+              ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793077]: 
+                beanData: |
+                  '{
+                   "ionBean": "FormatLayout",
+                   "TextAlignment": "plain:ion-text-center",
+                   "TextTransformation": "plain:ion-text-uppercase"
+                  }'
+                comment: FormatLayout
+                tagName: div
+              ↓FormatLayout1 [ngx.components.UIDynamicAttr-1725791793080]: 
+                beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                comment: FormatLayout
+                tagName: div
+              ↓Div [ngx.components.UIDynamicElement-1725791793083]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓Text [ngx.components.UIText-1725791793086]: 
+                  i18n: true
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:or
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793089]: 
+                  beanData: |
+                    '{
+                     "ionBean": "FormatLayout",
+                     "TextAlignment": "plain:ion-text-center",
+                     "TextTransformation": "plain:ion-text-uppercase"
+                    }'
+                  selfClose: false
+                ↓Attr1 [ngx.components.UIAttribute-1725791793092]: 
+                  attrName: '*ngIf'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:!this.local.hideConvertigoLogin
+              ↓FormatLayout2 [ngx.components.UIDynamicAttr-1725791793095]: 
+                beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                comment: FormatLayout
+                tagName: div
+              ↓Div1 [ngx.components.UIDynamicElement-1725791793098]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓Attr1 [ngx.components.UIAttribute-1725791793101]: 
+                  attrName: '*ngIf'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:this.local.hideConvertigoLogin
+                ↓Style [ngx.components.UIStyle-1725791793104]: 
+                  styleContent: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                        →: |
+                          	margin-top:20px;
+                          
+              ↓DivLoginGoogle [ngx.components.UIDynamicElement-1725791793107]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓ButtonGoogle [ngx.components.UIDynamicElement-1725791793110]: 
+                  beanData: |
+                    '{
+                     "ionBean": "Button",
+                     "IonColor": "plain:light",
+                     "IconSlot": "plain:start"
+                    }'
+                  tagName: ion-button
+                  ↓Style [ngx.components.UIStyle-1725791793113]: 
+                    styleContent: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                          →: |
+                            '/**
+                             * Custom properties (sometimes referred to as CSS variables or cascading variables)
+                             * are entities defined by CSS authors that contain specific values to be reused throughout a document.
+                             * They are set using custom property notation, e.g.: --main-color: black;
+                             * and are accessed using the var() function, e.g.: color: var(--main-color);
+                             * You can find below your component''s properties you can customize within the page.
+                             * If you''d like to make some customizations for whole app, please see your app Style & Theme components.
+                             * For more informations see https://ionicframework.com/docs/theming.
+                            **/
+                            //--background	//Background of the button
+                            //--background-activated	//Background of the button when pressed. Note: setting this will interfere with the Material Design ripple
+                            //--background-activated-opacity	//Opacity of the button when pressed
+                            //--background-focused	//Background of the button when focused with the tab key
+                            //--background-focused-opacity	//Opacity of the button when focused with the tab key
+                            //--background-hover	//Background of the button on hover
+                            //--background-hover-opacity	//Opacity of the background on hover
+                            //--border-color	//Border color of the button
+                            //--border-radius	//Border radius of the button
+                            //--border-style	//Border style of the button
+                            //--border-width	//Border width of the button
+                            //--box-shadow	//Box shadow of the button
+                            //--color	//Text color of the button
+                            //--color-activated	//Text color of the button when pressed
+                            //--color-focused	//Text color of the button when focused with the tab key
+                            //--color-hover	//Text color of the button when hover
+                            //--opacity	//Opacity of the button
+                            //--padding-bottom	//Bottom padding of the button
+                            //--padding-end	//Right padding if direction is left-to-right, and left padding if direction is right-to-left of the button
+                            //--padding-start	//Left padding if direction is left-to-right, and right padding if direction is right-to-left of the button
+                            //--padding-top	//Top padding of the button
+                            //--ripple-color	//Color of the button ripple effect
+                            //--transition	//Transition of the button
+                            min-width:287px !important;
+                            --border-radius: 24px;
+                            '
+                  ↓Event [ngx.components.UIControlEvent-1725791793116]: 
+                    ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1725791793119]: 
+                      ↓SetGlobal [ngx.components.UIDynamicAction-1725791793122]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetGlobalAction",
+                           "Property": "plain:doingLogin",
+                           "Value": "script:false"
+                          }'
+                    ↓SetGlobal [ngx.components.UIDynamicAction-1725791793125]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetGlobalAction",
+                         "Property": "plain:doingLogin",
+                         "Value": "script:true"
+                        }'
+                    ↓OAuthLogin [ngx.components.UIDynamicAction-1725791793128]: 
+                      beanData: |
+                        '{
+                         "ionBean": "OAuthLoginAction",
+                         "provider": "plain:openid",
+                         "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"C8Oforms\",\"input\":\"\",\"model\":{\"data\":[{\"sequence\":\"lib_OAuth.GetOAuthCredentials\",\"marker\":\"\"}],\"path\":\"?.GoogleClientID\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}",
+                         "scope": "plain:openid https:\/\/www.googleapis.com\/auth\/userinfo.email https:\/\/www.googleapis.com\/auth\/userinfo.profile",
+                         "response_type": "plain:code",
+                         "loginRequestable": "plain:lib_OAuth.loginGoogleWithCode",
+                         "checkAccessTokenRequestable": "plain:lib_OAuth.checkAccessTokenGoogle",
+                         "authorization_endpoint": "plain:https:\/\/accounts.google.com\/o\/oauth2\/v2\/auth",
+                         "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenGoogle.html"
+                        }'
+                      ↓If [ngx.components.UIDynamicAction-1725791793131]: 
+                        beanData: '{"ionBean":"IfAction","condition":"script:parent.out.decodedToken != undefined"}'
+                  ↓Icon [ngx.components.UIDynamicElement-1725791793173]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Icon",
+                       "IconSlot": "plain:start",
+                       "IconSource": "plain:assets\/images\/svg\/login\/google-logo.svg"
+                      }'
+                    tagName: ion-icon
+                    ↓Style [ngx.components.UIStyle-1725791793176]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	margin-right: 12px;
+                              '
+                  ↓Label [ngx.components.UIDynamicElement-1725791793179]: 
+                    beanData: '{"ionBean":"Label","IconSlot":"plain:end"}'
+                    tagName: ion-label
+                    ↓Text [ngx.components.UIText-1725791793182]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Continue with Google
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793185]: 
+                  beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                  selfClose: false
+                ↓Style [ngx.components.UIStyle-1725791793188]: 
+                  styleContent: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                        →: |
+                          'ion-button{
+                            span{
+                              text-align:left;
+                              width:100%;
+                            }
+                          }
+                          '
+                ↓Attr [ngx.components.UIAttribute-1725791793191]: 
+                  attrName: '*ngIf'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:this.local.google == true
+              ↓DivLoginXsoft [ngx.components.UIDynamicElement-1725791793194]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓ButtonXsoft [ngx.components.UIDynamicElement-1725791793197]: 
+                  beanData: '{"ionBean":"Button","IonColor":"plain:light"}'
+                  tagName: ion-button
+                  ↓Label [ngx.components.UIDynamicElement-1725791793200]: 
+                    beanData: '{"ionBean":"Label","IconSlot":"plain:end"}'
+                    tagName: ion-label
+                    ↓Text1 [ngx.components.UIText-1725791793203]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Continue with Microsoft
+                  ↓Icon [ngx.components.UIDynamicElement-1725791793206]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Icon",
+                       "IconSlot": "plain:start",
+                       "IconSource": "plain:assets\/images\/svg\/login\/microsoft-logo.svg"
+                      }'
+                    tagName: ion-icon
+                    ↓Style [ngx.components.UIStyle-1725791793209]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	margin-right: 12px;
+                              '
+                  ↓Style [ngx.components.UIStyle-1725791793212]: 
+                    styleContent: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                          →: |
+                            '/**
+                             * Custom properties (sometimes referred to as CSS variables or cascading variables)
+                             * are entities defined by CSS authors that contain specific values to be reused throughout a document.
+                             * They are set using custom property notation, e.g.: --main-color: black;
+                             * and are accessed using the var() function, e.g.: color: var(--main-color);
+                             * You can find below your component''s properties you can customize within the page.
+                             * If you''d like to make some customizations for whole app, please see your app Style & Theme components.
+                             * For more informations see https://ionicframework.com/docs/theming.
+                            **/
+                            //--background	//Background of the button
+                            //--background-activated	//Background of the button when pressed. Note: setting this will interfere with the Material Design ripple
+                            //--background-activated-opacity	//Opacity of the button when pressed
+                            //--background-focused	//Background of the button when focused with the tab key
+                            //--background-focused-opacity	//Opacity of the button when focused with the tab key
+                            //--background-hover	//Background of the button on hover
+                            //--background-hover-opacity	//Opacity of the background on hover
+                            //--border-color	//Border color of the button
+                            //--border-radius	//Border radius of the button
+                            //--border-style	//Border style of the button
+                            //--border-width	//Border width of the button
+                            //--box-shadow	//Box shadow of the button
+                            //--color	//Text color of the button
+                            //--color-activated	//Text color of the button when pressed
+                            //--color-focused	//Text color of the button when focused with the tab key
+                            //--color-hover	//Text color of the button when hover
+                            //--opacity	//Opacity of the button
+                            //--padding-bottom	//Bottom padding of the button
+                            //--padding-end	//Right padding if direction is left-to-right, and left padding if direction is right-to-left of the button
+                            //--padding-start	//Left padding if direction is left-to-right, and right padding if direction is right-to-left of the button
+                            //--padding-top	//Top padding of the button
+                            //--ripple-color	//Color of the button ripple effect
+                            //--transition	//Transition of the button
+                            	font-family: "Roboto";
+                            	--border-radius: 24px;
+                            	min-width:287px !important;
+                            '
+                  ↓Event [ngx.components.UIControlEvent-1725791793215]: 
+                    ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1725791793218]: 
+                      ↓SetGlobal [ngx.components.UIDynamicAction-1725791793221]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetGlobalAction",
+                           "Property": "plain:doingLogin",
+                           "Value": "script:false"
+                          }'
+                    ↓SetGlobal [ngx.components.UIDynamicAction-1725791793224]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetGlobalAction",
+                         "Property": "plain:doingLogin",
+                         "Value": "script:true"
+                        }'
+                    ↓OAuthLogin [ngx.components.UIDynamicAction-1725791793227]: 
+                      beanData: |
+                        '{
+                         "ionBean": "OAuthLoginAction",
+                         "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"C8Oforms\",\"input\":\"listen([''lib_OAuth.GetOAuthCredentials''])?.AzureAdClientID\",\"model\":{\"data\":[{\"sequence\":\"lib_OAuth.GetOAuthCredentials\",\"marker\":\"\"}],\"path\":\"?.AzureAdClientID\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}",
+                         "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getToken.html"
+                        }'
+                      ↓CustomAction [ngx.components.UICustomAction-1725791793230]: 
+                        actionValue: 
+                          - xmlizable: 
+                            - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                            - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                              →: |
+                                		console.log(props.parent.out);
+                                		resolve();
+                                
+                      ↓If [ngx.components.UIDynamicAction-1725791793233]: 
+                        beanData: '{"ionBean":"IfAction","condition":"script:parent.out.login == ''ok''"}'
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793272]: 
+                  beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                  selfClose: false
+                ↓Attr [ngx.components.UIAttribute-1725791793275]: 
+                  attrName: '*ngIf'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:this.local.xsoft == true
+              ↓DivLoginLinkedin [ngx.components.UIDynamicElement-1725791793278]: 
+                beanData: '{"ionBean":"DivTag"}'
+                tagName: div
+                ↓ButtonLinkedin [ngx.components.UIDynamicElement-1725791793281]: 
+                  beanData: '{"ionBean":"Button","IonColor":"plain:light"}'
+                  tagName: ion-button
+                  ↓Icon [ngx.components.UIDynamicElement-1725791793284]: 
+                    beanData: |
+                      '{
+                       "ionBean": "Icon",
+                       "IconSlot": "plain:start",
+                       "IconSource": "plain:assets\/images\/svg\/login\/linkedin-logo.svg"
+                      }'
+                    tagName: ion-icon
+                    ↓Style [ngx.components.UIStyle-1725791793287]: 
+                      styleContent: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                            →: |
+                              '	margin-right: 12px;
+                              '
+                  ↓Style [ngx.components.UIStyle-1725791793290]: 
+                    styleContent: 
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                          →: |
+                            '/**
+                             * Custom properties (sometimes referred to as CSS variables or cascading variables)
+                             * are entities defined by CSS authors that contain specific values to be reused throughout a document.
+                             * They are set using custom property notation, e.g.: --main-color: black;
+                             * and are accessed using the var() function, e.g.: color: var(--main-color);
+                             * You can find below your component''s properties you can customize within the page.
+                             * If you''d like to make some customizations for whole app, please see your app Style & Theme components.
+                             * For more informations see https://ionicframework.com/docs/theming.
+                            **/
+                            //--background	//Background of the button
+                            //--background-activated	//Background of the button when pressed. Note: setting this will interfere with the Material Design ripple
+                            //--background-activated-opacity	//Opacity of the button when pressed
+                            //--background-focused	//Background of the button when focused with the tab key
+                            //--background-focused-opacity	//Opacity of the button when focused with the tab key
+                            //--background-hover	//Background of the button on hover
+                            //--background-hover-opacity	//Opacity of the background on hover
+                            //--border-color	//Border color of the button
+                            //--border-radius	//Border radius of the button
+                            //--border-style	//Border style of the button
+                            //--border-width	//Border width of the button
+                            //--box-shadow	//Box shadow of the button
+                            //--color	//Text color of the button
+                            //--color-activated	//Text color of the button when pressed
+                            //--color-focused	//Text color of the button when focused with the tab key
+                            //--color-hover	//Text color of the button when hover
+                            //--opacity	//Opacity of the button
+                            //--padding-bottom	//Bottom padding of the button
+                            //--padding-end	//Right padding if direction is left-to-right, and left padding if direction is right-to-left of the button
+                            //--padding-start	//Left padding if direction is left-to-right, and right padding if direction is right-to-left of the button
+                            //--padding-top	//Top padding of the button
+                            //--ripple-color	//Color of the button ripple effect
+                            //--transition	//Transition of the button
+                            	font-family: "Roboto";
+                            	--border-radius: 24px;
+                            	min-width:287px !important;
+                            '
+                  ↓Event [ngx.components.UIControlEvent-1725791793293]: 
+                    ↓Finally_Handler [ngx.components.UIActionFinallyEvent-1725791793296]: 
+                      ↓SetGlobal [ngx.components.UIDynamicAction-1725791793299]: 
+                        beanData: |
+                          '{
+                           "ionBean": "SetGlobalAction",
+                           "Property": "plain:doingLogin",
+                           "Value": "script:false"
+                          }'
+                    ↓SetGlobal [ngx.components.UIDynamicAction-1725791793302]: 
+                      beanData: |
+                        '{
+                         "ionBean": "SetGlobalAction",
+                         "Property": "plain:doingLogin",
+                         "Value": "script:true"
+                        }'
+                    ↓OAuthLogin [ngx.components.UIDynamicAction-1725791793305]: 
+                      beanData: |
+                        '{
+                         "ionBean": "OAuthLoginAction",
+                         "provider": "plain:linkedin",
+                         "clientid": "source:{\"filter\":\"Sequence\",\"project\":\"C8Oforms\",\"input\":\"listen([''lib_OAuth.GetOAuthCredentials''])?.AzureAdClientID\",\"model\":{\"data\":[{\"sequence\":\"lib_OAuth.GetOAuthCredentials\",\"marker\":\"\"}],\"path\":\"?.LinkedInClientID\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}",
+                         "scope": "plain:r_liteprofile r_emailaddress",
+                         "callbackurl": "plain:https:\/\/c8ocloud.convertigo.net\/convertigo\/projects\/lib_OAuth\/getTokenLinkedIn.html"
+                        }'
+                      ↓If [ngx.components.UIDynamicAction-1725791793308]: 
+                        beanData: '{"ionBean":"IfAction","condition":"script:parent.out.login == ''ok''"}'
+                        ↓CallSequence [ngx.components.UIDynamicAction-1725791793311]: 
+                          beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:C8Oforms.LoginLinkedIn"}'
+                          ↓lang [ngx.components.UIControlVariable-1725791793314]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: script:this.global['__secretL']
+                          ↓IfElse [ngx.components.UIDynamicIf-1725791793317]: 
+                            beanData: '{"ionBean":"IfElseAction","condition":"script:out.ok == ''true''"}'
+                          ↓decodedToken [ngx.components.UIControlVariable-1725791793335]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: source:{"filter":"Action","project":"C8Oforms","input":"","model":{"data":[{"priority":1725791793305}],"path":"?.out","prefix":"","suffix":"?.AuthUser","custom":"","useCustom":false}}
+                          ↓name [ngx.components.UIControlVariable-1725791793338]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: source:{"filter":"Action","project":"C8Oforms","input":"","model":{"data":[{"priority":1725791793305}],"path":"?.out","prefix":"","suffix":"?.currentObject?.localizedFirstName","custom":"","useCustom":false}}
+                          ↓surname [ngx.components.UIControlVariable-1725791793341]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: source:{"filter":"Action","project":"C8Oforms","input":"","model":{"data":[{"priority":1725791793305}],"path":"?.out","prefix":"","suffix":"?.currentObject?.localizedLastName","custom":"","useCustom":false}}
+                          ↓displayName [ngx.components.UIControlVariable-1725791793344]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: source:{"filter":"Action","project":"C8Oforms","input":"","model":{"data":[{"priority":1725791793305}],"path":"?.out","prefix":"","suffix":"?.currentObject?.localizedFirstName + ' ' + ","custom":"stack['1725791793305']?.out?.currentObject?.localizedFirstName + ' ' + stack['1725791793305']?.out?.currentObject?.localizedLastName","useCustom":true}}
+                          ↓mail [ngx.components.UIControlVariable-1725791793347]: 
+                            comment: new variable
+                            varValue: 
+                              - xmlizable: 
+                                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                                - MobileSmartSourceType: source:{"filter":"Action","project":"C8Oforms","input":"","model":{"data":[{"priority":1725791793305}],"path":"?.out","prefix":"","suffix":"?.emailAddress","custom":"","useCustom":false}}
+                  ↓Label [ngx.components.UIDynamicElement-1725791793353]: 
+                    beanData: '{"ionBean":"Label","IconSlot":"plain:end"}'
+                    tagName: ion-label
+                    ↓Text [ngx.components.UIText-1725791793356]: 
+                      i18n: true
+                      textValue: 
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                          - MobileSmartSourceType: plain:Continue_with_LinkedIn
+                ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793359]: 
+                  beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+                  selfClose: false
+                ↓Attr [ngx.components.UIAttribute-1725791793362]: 
+                  attrName: '*ngIf'
+                  attrValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: plain:this.local.linkedin == true
+          ↓DividerPasswordLost [ngx.components.UIDynamicElement-1725791793365]: 
+            beanData: '{"ionBean":"DivTag"}'
+            tagName: div
+            ↓Style [ngx.components.UIStyle-1725791793368]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      '	border-top: 1px solid #cecece;
+                      	margin-left: auto;
+                        	margin-right: auto;
+                        	margin-top:20px;
+                        	
+                      	max-width:253px !important;
+                      '
+            ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793371]: 
+              beanData: '{"ionBean":"FormatLayout","TextAlignment":"plain:ion-text-center"}'
+              comment: FormatLayout
+              tagName: div
+            ↓Tag [ngx.components.UIElement-1725791793374]: 
+              tagName: a
+              ↓Paragraph [ngx.components.UIDynamicElement-1725791793377]: 
+                beanData: '{"ionBean":"Paragraph"}'
+                tagName: p
+                ↓Text [ngx.components.UIText-1725791793380]: 
+                  i18n: true
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:'forgotPassword' | translate
+              ↓Style [ngx.components.UIStyle-1725791793383]: 
+                styleContent: 
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                      →: |
+                        '/* Mot de passe oublié: */
+                        font-family: Helvetica;
+                        font-size: 12px;
+                        color: #048EAE;
+                        
+                        }
+                        .class1603722110002:hover{
+                        	cursor:pointer;
+                        '
+              ↓Event [ngx.components.UIControlEvent-1725791793386]: 
+                ↓ModalPage [ngx.components.UIDynamicAction-1725791793389]: 
+                  beanData: |
+                    '{
+                     "ionBean": "ModalAction",
+                     "page": "plain:lib_UserManager.MobileApplication.Application.ForgotPasswordPage",
+                     "cssClass": "plain:alwaysFullScreen"
+                    }'
+            ↓Style1 [ngx.components.UIStyle-1725791793392]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      padding-bottom:20px;
+                      
+            ↓Attr [ngx.components.UIAttribute-1725791793395]: 
+              attrName: '*ngIf'
+              attrValue: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                  - MobileSmartSourceType: plain:!this.local.hidePasswordForgotten
+          ↓FormatLayout [ngx.components.UIDynamicAttr-1725791793398]: 
+            beanData: |
+              '{
+               "ionBean": "FormatLayout",
+               "FlexContainerAlignment": "plain:ion-justify-content-center",
+               "FlexItemAlignment": "plain:ion-align-self-auto"
+              }'
+            selfClose: false
+        ↓DivMenuVersion [ngx.components.UIDynamicElement-1725791793401]: 
+          beanData: '{"ionBean":"DivTag"}'
+          tagName: div
+          ↓Style [ngx.components.UIStyle-1725791793404]: 
+            styleContent: 
               - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                - MobileSmartSourceType: script:this.enableCancelDismiss
-            ↓Button [ngx.components.UIDynamicElement-1725785309625]: 
-              beanData: '{"ionBean":"Button"}'
-              tagName: ion-button
-              ↓Text [ngx.components.UIText-1725785309628]: 
-                textValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:Cancel
-              ↓Event [ngx.components.UIControlEvent-1725785309631]: 
-                ↓CloseModal [ngx.components.UIDynamicAction-1725785309634]: 
-                  beanData: '{"ionBean":"CloseModalAction"}'
-              ↓Attr [ngx.components.UIAttribute-1725785309637]: 
-                attrName: 
-                attrValue: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                    - MobileSmartSourceType: plain:float-right
-↓PageEvent [ngx.components.UIPageEvent-1725785309640]: 
-  ↓GetPlatform [ngx.components.UICustomAction-1725785309643]: 
-    actionValue: 
-      - xmlizable: 
-        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
-        - com.twinsoft.convertigo.beans.common.FormatedContent: 
-          →: |
-            		page["LoginComponent.pageWidth"] = page.getInstance(Platform).width();
-            		page["LoginComponent.pageHeight"] = page.getInstance(Platform).height();
-            		resolve();
-            
-  ↓CallSequence [ngx.components.UIDynamicAction-1725785309646]: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                  →: |
+                    '	position: absolute;
+                        bottom: 0px;
+                       
+                    	float:right;
+                    	padding-right: 10px;
+                    	right:0;
+                    '
+          ↓DivMenuVersion [ngx.components.UIDynamicElement-1725791793407]: 
+            beanData: '{"ionBean":"DivTag"}'
+            tagName: div
+            ↓Style [ngx.components.UIStyle-1725791793410]: 
+              styleContent: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+                  - com.twinsoft.convertigo.beans.common.FormatedContent: 
+                    →: |
+                      '	//bottom: 0 !important;
+                      
+                      	
+                      '
+↓SharedComponent_Event [ngx.components.UISharedComponentEvent-1725860714166]: 
+  ↓CallSequence [ngx.components.UIDynamicAction-1725860733421]: 
     beanData: '{"ionBean":"CallSequenceAction","requestable":"plain:lib_OAuth.GetOAuthCredentials"}'
-↓enableGoogleLogin [ngx.components.UICompVariable-1725785309649]: 
-  comment: Set to false to disable loggin with google
-  value: true
-↓enableLinkedInLogin [ngx.components.UICompVariable-1725785309652]: 
-  comment: Set to false to disable login with LinkedIn
-  value: true
-↓enableAzureADLogin [ngx.components.UICompVariable-1725785309655]: 
-  comment: Set to false to disable login with AzureAD
-  value: true
-↓logoImage [ngx.components.UICompVariable-1725785309658]: 
-  comment: A logo image to be displayed over the login form (64x64)
-  value: '''data:image/png;base64,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'''
-↓enableCancelDismiss [ngx.components.UICompVariable-1725785309661]: 
-  comment: Set to true if you want a cancel button to be displayed causing a Modal Page dismiss
-  value: true
-↓login [ngx.components.UICompEvent-1725785309664]: 
-  attrName: login
-  comment: |
-    This event will be fired when a login occurs :
-    	Check out.error and out.message  for login errors
-    	The out.user will be user logged in
-    
-↓logoWidth [ngx.components.UICompVariable-1725785309667]: 
-  value: '''300'''
-↓scope [ngx.components.UICompVariable-1725785309670]: 
-  comment: |
-    Additional Scope to be added to the standard Scope. This will be concatenated to to the scopr string. For Azure AD start with a + sign
-    
-  value: 
-↓tenantid [ngx.components.UICompVariable-1725785309673]: 
-  comment: |
-    The tenant ID you want to restrict to, leave blank for no tenant.
-    
-  value: 
+    ↓ComputeSSOLoginsToEnable [ngx.components.UICustomAction-1725860809222]: 
+      actionValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+          - com.twinsoft.convertigo.beans.common.FormatedContent: 
+            →: |
+              '		page.c8o.log.debug(''[MB] ''+ props.actionFunction +'': ''+ props.actionName);
+              		page.local.google = true
+              		page.local.xsoft = true
+              		page.local.linkedin = true
+              		resolve();
+              '

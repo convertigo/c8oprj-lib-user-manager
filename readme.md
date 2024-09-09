@@ -164,53 +164,5 @@ The component will check user / password and if successful will autenticate the 
 
 
 
-**variables**
-
-<table>
-<tr>
-<th>name</th><th>comment</th>
-</tr>
-<tr>
-<td>enableAzureADLogin</td><td>Set to false to disable login with AzureAD</td>
-</tr>
-<tr>
-<td>enableCancelDismiss</td><td>Set to true if you want a cancel button to be displayed causing a Modal Page dismiss</td>
-</tr>
-<tr>
-<td>enableGoogleLogin</td><td>Set to false to disable loggin with google</td>
-</tr>
-<tr>
-<td>enableLinkedInLogin</td><td>Set to false to disable login with LinkedIn</td>
-</tr>
-<tr>
-<td>logoImage</td><td>A logo image to be displayed over the login form (64x64)</td>
-</tr>
-<tr>
-<td>logoWidth</td><td></td>
-</tr>
-<tr>
-<td>scope</td><td>Additional Scope to be added to the standard Scope. This will be concatenated to to the scopr string. For Azure AD start with a + sign
-</td>
-</tr>
-<tr>
-<td>tenantid</td><td>The tenant ID you want to restrict to, leave blank for no tenant.
-</td>
-</tr>
-</table>
-
-**events**
-
-<table>
-<tr>
-<th>name</th><th>comment</th>
-</tr>
-<tr>
-<td>login</td><td>This event will be fired when a login occurs :
-	Check out.error and out.message  for login errors
-	The out.user will be user logged in
-</td>
-</tr>
-</table>
-
 
 
