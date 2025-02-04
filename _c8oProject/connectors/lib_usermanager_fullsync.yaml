@@ -18,6 +18,12 @@ databaseName: lib_usermanager_fullsync
     description: View function name
   ↓_use_key [variables.RequestableVariable-1582125233230]: 
     description: (string) – Return only documents that match the specified key. Optional
+  ↓_use_startkey [variables.RequestableVariable-1738663115288]: 
+    description: (string) – Return records starting with the specified key. Optional
+  ↓_use_endkey [variables.RequestableVariable-1738663115290]: 
+    description: (string) – Stop returning records when the specified key is reached. Optional
+  ↓_use_descending [variables.RequestableVariable-1738663588277]: 
+    description: (boolean) – Return the documents in descending by key order. Default is false
 ↓PostDocument [transactions.couchdb.PostDocumentTransaction]: 
   ↓_use_json_base [variables.RequestableVariable-1572600355393]: 
     description: (string) – JSON use as a base for the document (js object). Optional
@@ -85,6 +91,17 @@ databaseName: lib_usermanager_fullsync
           }\r\n
       }\r\n
         "
+          },
+          "getDraftedAccounts": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              if(doc.account && doc.account.status == \"passwordlost\" && doc.account.timeStamp != undefined){\r\n
+                  emit(doc.account.timeStamp, doc._rev);\r\n
+              }\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"
           }
         }
       }'

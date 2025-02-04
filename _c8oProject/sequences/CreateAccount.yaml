@@ -51,6 +51,13 @@ comment: Creates a user account and sends validation email, to active this accou
     nodeName: status
     nodeText: draft
     output: false
+  ↓status1 [steps.ElementStep-1738665392712]: 
+    expression: (new Date()).getTime()
+    nodeName: timeStamp
+    output: false
+    ↓type [steps.XMLAttributeStep-1738665625109]: 
+      nodeName: type
+      nodeText: number
 ↓Call_Transaction [steps.TransactionStep-1674725834482]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostDocument
   ↓_id [variables.StepVariable-1674725834485]: 
