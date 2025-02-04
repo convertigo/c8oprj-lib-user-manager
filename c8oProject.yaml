@@ -41,7 +41,7 @@
   ↓HashAndSalt [sequences.GenericSequence]: 🗏 sequences/HashAndSalt.yaml
   ↓ListUsers [sequences.GenericSequence]: 🗏 sequences/ListUsers.yaml
   ↓ModifyPassword [sequences.GenericSequence]: 🗏 sequences/ModifyPassword.yaml
-  ↓removeDraftedAccounts [sequences.GenericSequence]: 🗏 sequences/removeDraftedAccounts.yaml
+  ↓RemoveDraftedAccounts [sequences.GenericSequence]: 🗏 sequences/RemoveDraftedAccounts.yaml
   ↓SetUserAttribute [sequences.GenericSequence]: 🗏 sequences/SetUserAttribute.yaml
   ↓SignIn [sequences.GenericSequence]: 🗏 sequences/SignIn.yaml
   ↓SignInAD [sequences.GenericSequence]: 🗏 sequences/SignInAD.yaml

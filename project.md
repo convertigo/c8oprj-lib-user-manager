@@ -906,12 +906,12 @@ User email to set the new password on
 
 </p></blockquote></details>
 
-<details><summary><b>removeDraftedAccounts</b></summary><blockquote><p>
+<details><summary><b>RemoveDraftedAccounts</b> : Remove any drafts accounts not confirmed by email</summary><blockquote><p>
 
 
-## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") removeDraftedAccounts
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") RemoveDraftedAccounts
 
-
+Remove any drafts accounts not confirmed by email. Has to be scheduled.
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -929,7 +929,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;doDelete
 </td>
 <td>
-
+Perform effectively deletions operations if true
 </td>
 </tr>
 <tr>
@@ -937,7 +937,7 @@ comment
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;hours
 </td>
 <td>
-
+Any account aged more than this number of hours, will be deleted. 
 </td>
 </tr>
 </table>

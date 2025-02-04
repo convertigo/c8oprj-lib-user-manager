@@ -1,3 +1,4 @@
+comment: Remove any drafts accounts not confirmed by email. Has to be scheduled.
 ↓Sequence_JS [steps.SimpleStep-1738666113465]: 
   expression: |
     _use_endkey = (new Date()).getTime() - (hours * 60 * 60 * 1000);
@@ -50,6 +51,8 @@
               - java.lang.String: 
                 - ↑value: ./id/text()
 ↓hours [variables.RequestableVariable-1738663174845]: 
+  comment: Any account aged more than this number of hours, will be deleted. 
   value: 0
 ↓doDelete [variables.RequestableVariable-1738674676971]: 
+  comment: Perform effectively deletions operations if true
   value: false

@@ -47,6 +47,7 @@ For more technical informations : [documentation](./project.md)
     - [HashAndSalt](#hashandsalt)
     - [ListUsers](#listusers)
     - [ModifyPassword](#modifypassword)
+    - [RemoveDraftedAccounts](#removedraftedaccounts)
     - [SetUserAttribute](#setuserattribute)
     - [SignIn](#signin)
     - [SignInAD](#signinad)
@@ -63,13 +64,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
+     lib_UserManager=git@github.com:convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
+     lib_UserManager=git@github.com:convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
      ```
      </td></tr>
     </table>
@@ -346,6 +347,24 @@ Modify a password for a given user
 </tr>
 <tr>
 <td>user</td><td>User email to set the new password on</td>
+</tr>
+</table>
+
+### RemoveDraftedAccounts
+
+Remove any drafts accounts not confirmed by email. Has to be scheduled.
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>doDelete</td><td>Perform effectively deletions operations if true</td>
+</tr>
+<tr>
+<td>hours</td><td>Any account aged more than this number of hours, will be deleted. </td>
 </tr>
 </table>
 
