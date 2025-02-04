@@ -3,6 +3,7 @@
     _use_endkey = (new Date()).getTime() - (hours * 60 * 60 * 1000);
     _use_endkey += "";
 ↓Call_Transaction [steps.TransactionStep-1738662994893]: 
+<<<<<<< HEAD
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
   ↓_use_ddoc [variables.StepVariable-1738663006788]: 
     description: Design document name
@@ -53,3 +54,20 @@
   value: 0
 ↓doDelete [variables.RequestableVariable-1738674676971]: 
   value: false
+=======
+  output: true
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
+  ↓_use_ddoc [variables.StepVariable-1738663006788]: 
+    description: Design document name
+    value: Design_document
+  ↓_use_view [variables.StepVariable-1738663006790]: 
+    description: View function name
+    value: getDraftedAccounts
+  ↓_use_startkey [variables.StepVariable-1738663120525]: 
+    description: (string) – Return records starting with the specified key. Optional
+    value: 0
+  ↓_use_endkey [variables.StepVariable-1738663120527]: 
+    description: (string) – Stop returning records when the specified key is reached. Optional
+↓hours [variables.RequestableVariable-1738663174845]: 
+  value: 0
+>>>>>>> branch '8.0.X' of git@github.com:convertigo/c8oprj-lib-user-manager.git

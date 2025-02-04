@@ -926,6 +926,7 @@ comment
 </tr>
 <tr>
 <td>
+<<<<<<< HEAD
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;doDelete
 </td>
 <td>
@@ -934,6 +935,8 @@ comment
 </tr>
 <tr>
 <td>
+=======
+>>>>>>> branch '8.0.X' of git@github.com:convertigo/c8oprj-lib-user-manager.git
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;hours
 </td>
 <td>
