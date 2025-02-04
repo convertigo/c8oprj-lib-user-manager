@@ -53,6 +53,13 @@ comment: Adds an user to the Internal Convertigo User database
     expression: 'askForPasswordReset == ''false'' ? ''confirmed'' : ''draft'''
     nodeName: status
     output: false
+  ↓status1 [steps.ElementStep-1738662471898]: 
+    expression: (new Date()).getTime()
+    nodeName: timeStamp
+    output: false
+    ↓type [steps.XMLAttributeStep-1738665615498]: 
+      nodeName: type
+      nodeText: number
 ↓Call_Transaction [steps.TransactionStep-1572600688269]: 
   sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostDocument
   ↓_id [variables.StepVariable-1572600688273]: 

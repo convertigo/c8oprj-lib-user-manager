@@ -32,7 +32,7 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
               - ↑value: ./document/couchdb_output/rows/item
       ↓jThen [steps.ThenStep-1674730624399]: 
         ↓jElement [steps.ElementStep-1674730624414]: 
-          expression: '''{account: {status:"confirmed", passwordResetKey:null}}'''
+          expression: '''{account: {status:"confirmed", passwordResetKey:null, timeStamp: null}}'''
           nodeName: jSonData
           output: false
         ↓Call_Transaction [steps.TransactionStep-1674730624417]: 
