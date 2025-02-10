@@ -1,0 +1,84 @@
+accessibility: Private
+comment: The `GenerateSecureToken` sequence creates a JWT token with a specified expiration and includes a password hash in the payload. It encodes the token using HMAC SHA256 and appends it to the user's document, managing JWT tokens for secure user authentication.
+↓inputVars [steps.InputVariablesStep-1739197683828]: 
+↓GenerateSecureToken [steps.SimpleStep-1739180528208]: 
+  expression: |
+    '// Importer les classes nécessaires
+    var Base64 = java.util.Base64;
+    var Mac = javax.crypto.Mac;
+    var SecretKeySpec = javax.crypto.spec.SecretKeySpec;
+    var Date = java.util.Date;
+    
+    // Fonction pour créer un JWT token
+    function generateJwtToken(username, secretKey) {
+        // Header du JWT
+        var header = {
+            alg: "HS256",
+            typ: "JWT"
+        };
+    
+        // Payload du JWT
+        var payload = {
+            user: username,
+            iss: "c8oApp",
+            exp: Math.floor((new Date().getTime() + (tokenExpiration * 24 * 60 * 60 * 1000)) / 1000),  // Expiration dans 30 jours (en secondes),
+            //exp: Math.floor((new Date().getTime()) / 1000), 
+            pwd_hash: passwordHash  // Ajouter le hash du mot de passe
+        };
+    
+        // Convertir en JSON
+        var headerJson = JSON.stringify(header);
+        var payloadJson = JSON.stringify(payload);
+    
+        // Encoder en Base64 URL-safe
+        var encoder = Base64.getUrlEncoder().withoutPadding();
+        var headerBase64 = encoder.encodeToString(new java.lang.String(headerJson).getBytes("UTF-8"));
+        var payloadBase64 = encoder.encodeToString(new java.lang.String(payloadJson).getBytes("UTF-8"));
+    
+        // Construire la chaîne à signer
+        var dataToSign = headerBase64 + "." + payloadBase64;
+    
+        // Générer la signature HMAC SHA256
+        var mac = Mac.getInstance("HmacSHA256");
+        var keySpec = new SecretKeySpec(new java.lang.String(secretKey).getBytes("UTF-8"), "HmacSHA256");
+        mac.init(keySpec);
+        var signatureBytes = mac.doFinal(new java.lang.String(dataToSign).getBytes("UTF-8"));
+    
+    
+        // Encoder la signature en Base64 URL-safe
+        var signatureBase64 = encoder.encodeToString(signatureBytes);
+    
+        // Retourner le JWT complet
+        return dataToSign + "." + signatureBase64;
+    }
+    var secretKey = com.twinsoft.convertigo.engine.EnginePropertiesManager.getProperty(com.twinsoft.convertigo.engine.EnginePropertiesManager.PropertyName.CRYPTO_PASSPHRASE);
+    var JWToken = generateJwtToken(userName, secretKey);
+    '
+↓element [steps.ElementStep-1739180656412]: 
+  expression: JWToken
+  nodeName: JWToken
+↓create_use_json_base [steps.SimpleStep-1739197655785]: 
+  expression: 'var _use_json_base = JSON.stringify({''JWTokens'': [JWToken]});'
+↓Call_Transaction [steps.TransactionStep-1739197660721]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+  ↓_use_json_base [variables.StepVariable-1739197660724]: 
+    description: (string) – JSON use as a base for the document (js object). Optional
+  ↓_id [variables.StepVariable-1739197660727]: 
+    description: Document id
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1739197683828
+          - java.lang.String: 
+            - ↑value: ./userName/text()
+  ↓_use_merge [variables.StepVariable-1739197660730]: 
+    description: |
+      '(string) – JSON used to specify special behavior of the ''merge'' Policy. Optional <br/>
+       In this strict JSON string, you can:<br/><br/>• <b>delete</b>: delete the target key. <br/>• <b>override</b>: replace the value of the target key, don''t merge this. <br/>• <b>prepend</b>: prepend the value or the array in the existing array or value of the target key. <br/>• <b>append</b>: append the value or the array in the existing array or value of the target key. <br/><br/>A target key is the path of the object to reach, separated by the "_separator" (default is dot). The target key is the same for the 2 documents to merge. <br/>Samples: <br/>{"a.b.c": "override", "a.b.d": "delete"} <br/>{"_separator": "+", "a+b+c": "override"} <br/><br/>'
+    value: '{''JWTokens'': ''append''}'
+↓userName [variables.RequestableVariable-1739182576394]: 
+↓passwordHash [variables.RequestableVariable-1739185444666]: 
+↓tokenExpiration [variables.RequestableVariable-1739198118402]: 
+  value: ${lib_UserManager.tokenValidityDays=30}

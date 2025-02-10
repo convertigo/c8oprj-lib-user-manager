@@ -30,11 +30,13 @@
   version: 8.0.0.1
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
+  ↓CheckSecureToken [sequences.GenericSequence]: 🗏 sequences/CheckSecureToken.yaml
   ↓ConfirmAccount [sequences.GenericSequence]: 🗏 sequences/ConfirmAccount.yaml
   ↓CreateAccount [sequences.GenericSequence]: 🗏 sequences/CreateAccount.yaml
   ↓DeleteUser [sequences.GenericSequence]: 🗏 sequences/DeleteUser.yaml
   ↓ForgotPassword [sequences.GenericSequence]: 🗏 sequences/ForgotPassword.yaml
   ↓ForgotPasswordWithBrand [sequences.GenericSequence]: 🗏 sequences/ForgotPasswordWithBrand.yaml
+  ↓GenerateSecureToken [sequences.GenericSequence]: 🗏 sequences/GenerateSecureToken.yaml
   ↓GetUAllserAttributes [sequences.GenericSequence]: 🗏 sequences/GetUAllserAttributes.yaml
   ↓GetUserAttribute [sequences.GenericSequence]: 🗏 sequences/GetUserAttribute.yaml
   ↓GetUserByAttributeNameAndValue [sequences.GenericSequence]: 🗏 sequences/GetUserByAttributeNameAndValue.yaml
@@ -46,6 +48,7 @@
   ↓SignInAD [sequences.GenericSequence]: 🗏 sequences/SignInAD.yaml
   ↓SignInADBulk [sequences.GenericSequence]: 🗏 sequences/SignInADBulk.yaml
   ↓SignInAdPostGroups [sequences.GenericSequence]: 🗏 sequences/SignInAdPostGroups.yaml
+  ↓SignOut [sequences.GenericSequence]: 🗏 sequences/SignOut.yaml
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 

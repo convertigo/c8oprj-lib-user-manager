@@ -36,11 +36,13 @@ For more technical informations : [documentation](./project.md)
 - [Installation](#installation)
 - [Sequences](#sequences)
     - [AddUser](#adduser)
+    - [CheckSecureToken](#checksecuretoken)
     - [ConfirmAccount](#confirmaccount)
     - [CreateAccount](#createaccount)
     - [DeleteUser](#deleteuser)
     - [ForgotPassword](#forgotpassword)
     - [ForgotPasswordWithBrand](#forgotpasswordwithbrand)
+    - [GenerateSecureToken](#generatesecuretoken)
     - [GetUAllserAttributes](#getuallserattributes)
     - [GetUserAttribute](#getuserattribute)
     - [GetUserByAttributeNameAndValue](#getuserbyattributenameandvalue)
@@ -52,6 +54,7 @@ For more technical informations : [documentation](./project.md)
     - [SignInAD](#signinad)
     - [SignInADBulk](#signinadbulk)
     - [SignInAdPostGroups](#signinadpostgroups)
+    - [SignOut](#signout)
 
 
 ## Installation
@@ -63,13 +66,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=rememberMe
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/rememberMe.zip
      ```
      </td></tr>
     </table>
@@ -108,6 +111,21 @@ Adds an user to the Internal Convertigo User database
 </tr>
 <tr>
 <td>user</td><td>The user id as a valid email address</td>
+</tr>
+</table>
+
+### CheckSecureToken
+
+The `CheckSecureToken` sequence verifies the validity of a JWT by checking its structure, expiration, and signature. It extracts the payload, validates the password hash, and manages associated JWT tokens for the user. Additionally, it refreshes the JWT token.
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>token</td><td></td>
 </tr>
 </table>
 
@@ -252,6 +270,27 @@ Has to be called with email fields not empty to send an email reset link to the 
 </tr>
 </table>
 
+### GenerateSecureToken
+
+The `GenerateSecureToken` sequence creates a JWT token with a specified expiration and includes a password hash in the payload. It encodes the token using HMAC SHA256 and appends it to the user's document, managing JWT tokens for secure user authentication.
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>passwordHash</td><td></td>
+</tr>
+<tr>
+<td>tokenExpiration</td><td></td>
+</tr>
+<tr>
+<td>userName</td><td></td>
+</tr>
+</table>
+
 ### GetUAllserAttributes
 
 Gets a given attribute from an user account
@@ -385,6 +424,9 @@ Performs a user sign in for a given user with its id (email) and password
 <td>password</td><td>The user's password</td>
 </tr>
 <tr>
+<td>rememberMe</td><td>Stay logged in for an extended period, even after closing the browser</td>
+</tr>
+<tr>
 <td>user</td><td>The userID (user's email)</td>
 </tr>
 </table>
@@ -456,6 +498,21 @@ Sign in using an ActiveDirectory account. Will also return the list of groups th
 </table>
 
 ### SignInAdPostGroups
+
+### SignOut
+
+The `SignOut` sequence logs out the authenticated user by removing their associated JWT token from the user's document and clearing the authenticated user session.
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>token</td><td></td>
+</tr>
+</table>
 
 
 

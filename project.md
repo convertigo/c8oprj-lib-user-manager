@@ -46,7 +46,7 @@ see [documentation](http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd)
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_FullSyncGrp
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/8.0.0#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/3e0e5200b206704ff65b5ea0af859a5f9c6626ae#readme)
 </p></blockquote></details>
 
 <details><summary><b>lib_OAuth</b></summary><blockquote><p>
@@ -55,7 +55,7 @@ see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/8.0.0#re
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_OAuth
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/8.0.0#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/192ab775967a11b5f0ab858417550532465e04b2#readme)
 </p></blockquote></details>
 </p></blockquote></details>
 
@@ -263,6 +263,14 @@ comment
 
 </td>
 </tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;_use_merge
+</td>
+<td>
+
+</td>
+</tr>
 </table>
 
 </p></blockquote></details>
@@ -344,6 +352,36 @@ Email where to send the reset password link to
 </td>
 <td>
 The user id as a valid email address
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
+<details><summary><b>CheckSecureToken</b> : The `CheckSecureToken` sequence verifies the validity of a JWT by checking its structure, expiration, and signature</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") CheckSecureToken
+
+The `CheckSecureToken` sequence verifies the validity of a JWT by checking its structure, expiration, and signature. It extracts the payload, validates the password hash, and manages associated JWT tokens for the user. Additionally, it refreshes the JWT token.
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;token
+</td>
+<td>
+
 </td>
 </tr>
 </table>
@@ -676,6 +714,52 @@ The Target application name to be used into the email template
 
 </p></blockquote></details>
 
+<details><summary><b>GenerateSecureToken</b> : The `GenerateSecureToken` sequence creates a JWT token with a specified expiration and includes a password hash in the payload</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") GenerateSecureToken
+
+The `GenerateSecureToken` sequence creates a JWT token with a specified expiration and includes a password hash in the payload. It encodes the token using HMAC SHA256 and appends it to the user's document, managing JWT tokens for secure user authentication.
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;passwordHash
+</td>
+<td>
+
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;tokenExpiration
+</td>
+<td>
+
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;userName
+</td>
+<td>
+
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
 <details><summary><b>GetUAllserAttributes</b> : Gets a given attribute from an user account</summary><blockquote><p>
 
 
@@ -957,6 +1041,14 @@ The user's password
 </tr>
 <tr>
 <td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;rememberMe
+</td>
+<td>
+Stay logged in for an extended period, even after closing the browser
+</td>
+</tr>
+<tr>
+<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
 </td>
 <td>
@@ -1128,6 +1220,36 @@ The active directory user user to sign in. May be a valid domain account ex: 'DO
 
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SignInAdPostGroups
 
+
+</p></blockquote></details>
+
+<details><summary><b>SignOut</b> : The `SignOut` sequence logs out the authenticated user by removing their associated JWT token from the user's document and clearing the authenticated user session</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SignOut
+
+The `SignOut` sequence logs out the authenticated user by removing their associated JWT token from the user's document and clearing the authenticated user session.
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;token
+</td>
+<td>
+
+</td>
+</tr>
+</table>
 
 </p></blockquote></details>
 </p></blockquote></details>

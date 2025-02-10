@@ -1,0 +1,57 @@
+comment: The `SignOut` sequence logs out the authenticated user by removing their associated JWT token from the user's document and clearing the authenticated user session.
+↓authenticatedUserID [steps.GetAuthenticatedUserStep-1739196425038]: 
+↓Call_Transaction [steps.TransactionStep-1739196437438]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
+  ↓_use_docid [variables.StepVariable-1739196437441]: 
+    description: Document ID
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1739196425038
+          - java.lang.String: 
+            - ↑value: ./text()
+    value: 
+↓myVariable [steps.JsonSourceStep-1739196507227]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1739196437438
+        - java.lang.String: 
+          - ↑value: ./document/couchdb_output
+  variableName: doc
+↓filterCurrentToken [steps.SimpleStep-1739196489405]: 
+  expression: |
+    'try{
+    	if(token != null && token != "" && doc.JWTokens != null){
+    		doc.JWTokens = doc.JWTokens.filter((tok)=>{return tok != token});
+    	}
+    }
+    catch(e){
+    	
+    }
+    var _use_json_base = JSON.stringify({''JWTokens'': doc.JWTokens});'
+↓Call_Transaction1 [steps.TransactionStep-1739196705939]: 
+  sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+  ↓_use_json_base [variables.StepVariable-1739196705942]: 
+    description: (string) – JSON use as a base for the document (js object). Optional
+  ↓_id [variables.StepVariable-1739196705945]: 
+    description: Document id
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1739196425038
+          - java.lang.String: 
+            - ↑value: ./text()
+  ↓_use_merge [variables.StepVariable-1739196705948]: 
+    description: |
+      '(string) – JSON used to specify special behavior of the ''merge'' Policy. Optional <br/>
+       In this strict JSON string, you can:<br/><br/>• <b>delete</b>: delete the target key. <br/>• <b>override</b>: replace the value of the target key, don''t merge this. <br/>• <b>prepend</b>: prepend the value or the array in the existing array or value of the target key. <br/>• <b>append</b>: append the value or the array in the existing array or value of the target key. <br/><br/>A target key is the path of the object to reach, separated by the "_separator" (default is dot). The target key is the same for the 2 documents to merge. <br/>Samples: <br/>{"a.b.c": "override", "a.b.d": "delete"} <br/>{"_separator": "+", "a+b+c": "override"} <br/><br/>'
+    value: '{''JWTokens'': ''override''}'
+↓Remove_authenticated_user [steps.RemoveAuthenticatedUserStep-1739196801748]: 
+↓token [variables.RequestableVariable-1739196400223]: 
