@@ -37,6 +37,10 @@ databaseName: lib_usermanager_fullsync
     description: (string) – JSON use as a base for the document (js object). Optional
   ↓_id [variables.RequestableVariable-1582120940452]: 
     description: Document id
+  ↓_use_merge [variables.RequestableVariable-1739195881268]: 
+    description: |
+      '(string) – JSON used to specify special behavior of the ''merge'' Policy. Optional <br/>
+       In this strict JSON string, you can:<br/><br/>• <b>delete</b>: delete the target key. <br/>• <b>override</b>: replace the value of the target key, don''t merge this. <br/>• <b>prepend</b>: prepend the value or the array in the existing array or value of the target key. <br/>• <b>append</b>: append the value or the array in the existing array or value of the target key. <br/><br/>A target key is the path of the object to reach, separated by the "_separator" (default is dot). The target key is the same for the 2 documents to merge. <br/>Samples: <br/>{"a.b.c": "override", "a.b.d": "delete"} <br/>{"_separator": "+", "a+b+c": "override"} <br/><br/>'
 ↓Design_document [couchdb.DesignDocument]: 
   docdata: 
     →: |

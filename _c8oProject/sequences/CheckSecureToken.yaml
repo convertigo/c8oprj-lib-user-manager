@@ -1,0 +1,183 @@
+accessibility: Hidden
+comment: The `CheckSecureToken` sequence verifies the validity of a JWT by checking its structure, expiration, and signature. It extracts the payload, validates the password hash, and manages associated JWT tokens for the user. Additionally, it refreshes the JWT token.
+↓CheckSecureToken [steps.SimpleStep-1739182783417]: 
+  expression: |
+    'var Base64 = java.util.Base64;
+    var Mac = javax.crypto.Mac;
+    var SecretKeySpec = javax.crypto.spec.SecretKeySpec;
+    
+    var validateJwtToken = (token, secretKey) => {
+        // 1. Séparer les trois parties du token
+        var parts = token.split(".");
+        if (parts.length !== 3) {
+            throw new Error("Invalid token format");
+        }
+    
+        // 2. Décoder le header et le payload
+        var headerJson = new java.lang.String(Base64.getUrlDecoder().decode(parts[0]), "UTF-8");
+        var payloadJson = new java.lang.String(Base64.getUrlDecoder().decode(parts[1]), "UTF-8");
+    
+        var header = JSON.parse(headerJson);
+        var payload = JSON.parse(payloadJson);
+    
+        // 3. Vérifier l''expiration du token (optionnel mais recommandé)
+        var currentTime = Math.floor(new Date().getTime() / 1000);
+        if (payload.exp && currentTime > payload.exp) {
+            throw new Error("Token has expired");
+        }
+    
+        // 4. Recréer la signature à partir des deux premières parties
+        var dataToSign = parts[0] + "." + parts[1];
+    
+        var mac = Mac.getInstance("HmacSHA256");
+        var keySpec = new SecretKeySpec(new java.lang.String(secretKey).getBytes("UTF-8"), "HmacSHA256");
+        mac.init(keySpec);
+    
+        var expectedSignature = Base64.getUrlEncoder().withoutPadding()
+                                     .encodeToString(mac.doFinal(new java.lang.String(dataToSign).getBytes("UTF-8")));
+    
+        // 5. Comparer la signature attendue et la signature du token
+        if (expectedSignature != parts[2]) {
+            throw new Error("Invalid token signature");
+        }
+    
+        // 6. Si tout est valide, retourner les données du payload
+        return payload;
+    }
+    let validated = false;
+    try {
+    	var secretKey = com.twinsoft.convertigo.engine.EnginePropertiesManager.getProperty(com.twinsoft.convertigo.engine.EnginePropertiesManager.PropertyName.CRYPTO_PASSPHRASE);
+        var payload = validateJwtToken(token, secretKey);
+        validated = true;
+    } catch (e) {
+        var error = e.message;
+    }
+    '
+↓jIfThenElse [steps.IfThenElseStep-1739193842667]: 
+  condition: error != undefined
+  ↓jThen [steps.ThenStep-1739193842669]: 
+    ↓Error_structure [steps.XMLErrorStep-1739197949548]: 
+      code: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: 14
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: error
+  ↓jElse [steps.ElseStep-1739193842671]: 
+    ↓element [steps.ElementStep-1739193938090]: 
+      expression: payload
+      nodeName: payload
+      output: false
+    ↓element1 [steps.ElementStep-1739194015477]: 
+      expression: payload.pwd_hash
+      nodeName: hashPassword
+      output: false
+    ↓element2 [steps.ElementStep-1739194116432]: 
+      expression: payload.user
+      nodeName: user
+      output: false
+    ↓Call_Transaction [steps.TransactionStep-1739194177443]: 
+      sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
+      ↓_use_docid [variables.StepVariable-1739194177446]: 
+        description: Document ID
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1739194116432
+              - java.lang.String: 
+                - ↑value: ./text()
+    ↓myVariable [steps.JsonSourceStep-1739194536042]: 
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1739194177443
+            - java.lang.String: 
+              - ↑value: ./document/couchdb_output
+      variableName: doc
+    ↓jIfThenElse [steps.IfThenElseStep-1739194723830]: 
+      condition: doc.account.hashPassword == payload.pwd_hash && doc.JWTokens.find((x)=>{return x == token}) != null
+      ↓jThen [steps.ThenStep-1739194724740]: 
+        ↓authenticatedUserID [steps.SetAuthenticatedUserStep-1739194754603]: 
+          output: true
+          userid: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: JS
+                - →→: payload.user
+        ↓element [steps.XMLElementStep-1739194918468]: 
+          nodeName: authenticated
+          nodeText: true
+        ↓filterCurrentToken [steps.SimpleStep-1739200777751]: 
+          expression: |
+            'try{
+            	if(token != null && token != "" && doc.JWTokens != null){
+            		doc.JWTokens = doc.JWTokens.filter((tok)=>{return tok != token});
+            	}
+            }
+            catch(e){
+            	
+            }
+            var _use_json_base = JSON.stringify({''JWTokens'': doc.JWTokens});'
+        ↓Call_Transaction1 [steps.TransactionStep-1739200759609]: 
+          sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+          ↓_use_json_base [variables.StepVariable-1739200759612]: 
+            description: (string) – JSON use as a base for the document (js object). Optional
+          ↓_id [variables.StepVariable-1739200759615]: 
+            description: Document id
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1739194116432
+                  - java.lang.String: 
+                    - ↑value: ./text()
+          ↓_use_merge [variables.StepVariable-1739200759618]: 
+            description: |
+              '(string) – JSON used to specify special behavior of the ''merge'' Policy. Optional <br/>
+               In this strict JSON string, you can:<br/><br/>• <b>delete</b>: delete the target key. <br/>• <b>override</b>: replace the value of the target key, don''t merge this. <br/>• <b>prepend</b>: prepend the value or the array in the existing array or value of the target key. <br/>• <b>append</b>: append the value or the array in the existing array or value of the target key. <br/><br/>A target key is the path of the object to reach, separated by the "_separator" (default is dot). The target key is the same for the 2 documents to merge. <br/>Samples: <br/>{"a.b.c": "override", "a.b.d": "delete"} <br/>{"_separator": "+", "a+b+c": "override"} <br/><br/>'
+            value: '{''JWTokens'': ''override''}'
+        ↓define_params [steps.SimpleStep-1739200355349]: 
+          expression: |
+            var userName = payload.user;
+            var passwordHash = payload.pwd_hash;
+        ↓Call_Sequence [steps.SequenceStep-1739200263273]: 
+          sourceSequence: lib_UserManager.GenerateSecureToken
+          ↓userName [variables.StepVariable-1739200282980]: 
+          ↓passwordHash [variables.StepVariable-1739200282982]: 
+        ↓element1 [steps.XMLElementStep-1739200576501]: 
+          nodeName: JWToken
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1739200263273
+                - java.lang.String: 
+                  - ↑value: ./document/JWToken/text()
+      ↓jElse [steps.ElseStep-1739194724742]: 
+        ↓Error_structure [steps.XMLErrorStep-1739197931991]: 
+          code: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: PLAIN
+                - →→: 15
+          message: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+              - SmartType: 
+                - ↑mode: PLAIN
+                - →→: Invalid Token
+↓token [variables.RequestableVariable-1739182802896]: 
