@@ -9,6 +9,7 @@ The lib_UserManager enables your projects to include user management and authent
 
 - user login with user/password using a salted password security
 - user login using OpenID (Google, Azure & linkedin)
+- remember me feature
 
 When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
 
@@ -27,6 +28,7 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
 | lib_UserManager.smtp.user            | SMTP server user account                  |
 | lib_UserManager.smtp.password.secret | SMTP server password                      |
+| lib_UserManager.tokenValidityDays	   | Remember me token validity in days (30 by default) |
 
 
 
