@@ -97,18 +97,6 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - SmartType: 
         - ↑mode: JS
         - →→: ldapServer
-↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1594128996623]: 
-  comment: override authenticatedUser by sAMAccountName
-  userid: 
-    - xmlizable: 
-      - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
-      - SmartType: 
-        - ↑mode: SOURCE
-        - com.twinsoft.convertigo.beans.common.XMLVector: 
-          - java.lang.String: 
-            - ↑value: 1594128996620
-          - java.lang.String: 
-            - ↑value: ./attribute[@name='sAMAccountName']/text()
 ↓jSimpleSource [steps.SimpleSourceStep-1594128996626]: 
   output: true
   sourceDefinition: 
@@ -130,6 +118,18 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - java.lang.String: 
           - ↑value: ./authenticatedUserID/text()
   ↓jThen [steps.ThenStep-1594128996632]: 
+    ↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1594128996623]: 
+      comment: override authenticatedUser by sAMAccountName
+      userid: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: SOURCE
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1594128996620
+              - java.lang.String: 
+                - ↑value: ./attribute[@name='sAMAccountName']/text()
     ↓Element [steps.XMLElementStep-1594128996635]: 
       nodeName: user
       sourceDefinition: 
@@ -329,6 +329,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - java.lang.String: 
                 - ↑value: .
   ↓jElse [steps.ElseStep-1594128996704]: 
+    ↓Remove_authenticated_user [steps.RemoveAuthenticatedUserStep-1739373136043]: 
     ↓Error_structure [steps.XMLErrorStep-1594128996707]: 
       code: 
         - xmlizable: 
