@@ -130,6 +130,18 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - java.lang.String: 
           - ↑value: ./authenticatedUserID/text()
   ↓jThen [steps.ThenStep-1594128996632]: 
+    ↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1739786453758]: 
+      comment: override authenticatedUser by sAMAccountName
+      userid: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: SOURCE
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1594128996620
+              - java.lang.String: 
+                - ↑value: ./attribute[@name='sAMAccountName']/text()
     ↓Element [steps.XMLElementStep-1594128996635]: 
       nodeName: user
       sourceDefinition: 
@@ -348,6 +360,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
           - SmartType: 
             - ↑mode: PLAIN
             - →→: Invalid username or password
+    ↓Remove_authenticated_user [steps.RemoveAuthenticatedUserStep-1739786465047]: 
 ↓user [variables.RequestableVariable-1594128996710]: 
   comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
 ↓password [variables.RequestableVariable-1594128996713]: 
