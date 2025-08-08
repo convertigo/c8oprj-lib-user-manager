@@ -37,6 +37,7 @@
   ↓ForgotPassword [sequences.GenericSequence]: 🗏 sequences/ForgotPassword.yaml
   ↓ForgotPasswordWithBrand [sequences.GenericSequence]: 🗏 sequences/ForgotPasswordWithBrand.yaml
   ↓GenerateSecureToken [sequences.GenericSequence]: 🗏 sequences/GenerateSecureToken.yaml
+  ↓GetDomainUsersGroupName [sequences.GenericSequence]: 🗏 sequences/GetDomainUsersGroupName.yaml
   ↓GetUAllserAttributes [sequences.GenericSequence]: 🗏 sequences/GetUAllserAttributes.yaml
   ↓GetUserAttribute [sequences.GenericSequence]: 🗏 sequences/GetUserAttribute.yaml
   ↓GetUserByAttributeNameAndValue [sequences.GenericSequence]: 🗏 sequences/GetUserByAttributeNameAndValue.yaml

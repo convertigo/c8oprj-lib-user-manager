@@ -55,7 +55,7 @@ see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/3e0e5200
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_OAuth
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/8.0.0#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-oauth/tree/806a726567d0362b59148046731dc34ec484ba10#readme)
 </p></blockquote></details>
 </p></blockquote></details>
 
@@ -778,6 +778,68 @@ comment
 </td>
 <td>
 
+</td>
+</tr>
+</table>
+
+</p></blockquote></details>
+
+<details><summary><b>GetDomainUsersGroupName</b> : Gives the localized Domain Users group,  where all users automatically belong</summary><blockquote><p>
+
+
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") GetDomainUsersGroupName
+
+Gives the localized Domain Users group,  where all users automatically belong
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;adminPassword
+</td>
+<td>
+The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;adminUser
+</td>
+<td>
+A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;domainNameUser
+</td>
+<td>
+
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;ldapBasePath
+</td>
+<td>
+The active directory user user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;ldapServer
+</td>
+<td>
+The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
 </td>
 </tr>
 </table>

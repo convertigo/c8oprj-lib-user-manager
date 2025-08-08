@@ -153,6 +153,19 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     ↓Complex [steps.XMLComplexStep-1582387540263]: 
       nodeName: groups
       output: false
+      ↓Call_Sequence [steps.SequenceStep-1754645831923]: 
+        sourceSequence: lib_UserManager.GetDomainUsersGroupName
+      ↓item [steps.XMLElementStep-1754646168492]: 
+        nodeName: item
+        output: false
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1754645831923
+              - java.lang.String: 
+                - ↑value: ./document/field/text()
       ↓Iterator [steps.IteratorStep-1582387466103]: 
         sourceDefinition: 
           - xmlizable: 
@@ -374,10 +387,10 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
     value: test
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1582356986603]: 
-    value: TWINSOFT2K\charlesg
+    value: aaron.may
   ↓password [variables.TestCaseVariable-1582356986606]: 
     value: 
       - ↑ciphered: true
       - ↑traceable: false
-      - →→: xd8e180806a1c1d83a6255212121ab827
+      - →→: xef5264be55a6f832948740b69a0aba32
     visibility: '-1'
