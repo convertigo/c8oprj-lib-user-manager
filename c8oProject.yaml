@@ -27,7 +27,7 @@
     | lib_UserManager.smtp.password.secret | SMTP server password                      |
     
     '
-  version: 8.0.0.5
+  version: 8.0.0.6
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓CheckSecureToken [sequences.GenericSequence]: 🗏 sequences/CheckSecureToken.yaml
