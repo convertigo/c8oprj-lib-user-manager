@@ -212,9 +212,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: 1582356986531
+                - ↑value: 1588067546232
               - java.lang.String: 
-                - ↑value: ./user/text()
+                - ↑value: ./text()
     ↓IterateOnExistingGroups [steps.IteratorStep-1582446344229]: 
       comment: Remove this user from all the ad groups he may belong
       sourceDefinition: 
@@ -244,9 +244,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582356986531
+                    - ↑value: 1588067546232
                   - java.lang.String: 
-                    - ↑value: ./user/text()
+                    - ↑value: ./text()
           ↓group [variables.StepVariable-1582446375264]: 
             sourceDefinition: 
               - xmlizable: 
@@ -311,9 +311,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
                   - java.lang.String: 
-                    - ↑value: 1582356986531
+                    - ↑value: 1588067546232
                   - java.lang.String: 
-                    - ↑value: ./user/text()
+                    - ↑value: ./text()
           ↓group [variables.StepVariable-1582446631008]: 
             sourceDefinition: 
               - xmlizable: 
