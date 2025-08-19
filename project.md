@@ -842,6 +842,14 @@ The active directory user user to sign in. May be a valid domain account ex: 'DO
 The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
 </td>
 </tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;sAMAccountName
+</td>
+<td>
+
+</td>
+</tr>
 </table>
 
 </p></blockquote></details>

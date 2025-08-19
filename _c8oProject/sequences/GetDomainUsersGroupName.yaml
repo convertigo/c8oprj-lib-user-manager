@@ -1,198 +1,69 @@
 comment: Gives the localized Domain Users group,  where all users automatically belong
-↓GetPrimaryGroup [steps.SimpleStep-1754555295204]: 
-  comment: Work in progress disabled for now
+↓GetPrimaryGroup [steps.SimpleStep-1755529419614]: 
   expression: |
-    '//todo
-    // Import Java classes
-    var TWSLDAPAPI = JavaImporter(
-    	Packages.com.twinsoft.util.TWSLDAP,
-    	Packages.java.util.Base64,
-    	Packages.java.util.Hashtable
-    );
-    
-    
-    function toLdapHex(byteArray) {
-        var hex = "";
-        for (var i = 0; i < byteArray.length; i++) {
-            var byte = byteArray[i] & 0xFF; // force unsigned
-            var hexByte = byte.toString(16).toLowerCase();
-            if (hexByte.length < 2) {
-                hexByte = "0" + hexByte;
-            }
-            hex += "\\" + hexByte;
-        }
-        return hex;
-    }
-    
-    function replaceSIDRID(sidString, newRID) {
-        if (typeof sidString !== "string" || !sidString.startsWith("S-")) {
-            throw new Error("Invalid SID format");
-        }
-    
-        var parts = sidString.split("-");
-        if (parts.length < 4) {
-            throw new Error("SID must contain at least one subAuthority");
-        }
-    
-        parts[parts.length - 1] = String(newRID);
-        return parts.join("-");
-    }
-    
-    function encodeSID(sidString) {
-        if (!sidString.startsWith("S-")) {
-            throw "Invalid SID format";
-        }
-    
-        var parts = sidString.substring(2).split("-");
-        var revision = parseInt(parts[0], 10);
-        var identifierAuthority = parseInt(parts[1], 10);
-        var subAuthorities = parts.slice(2).map(function (v) {
-            return parseInt(v, 10);
-        });
-    
-        if (subAuthorities.length > 255) {
-            throw "Too many sub-authorities";
-        }
-    
-        var byteLength = 8 + (subAuthorities.length * 4);
-        var sidBytes = [];
-    
-        // 1 byte: revision
-        sidBytes.push(revision & 0xFF);
-    
-        // 1 byte: subAuthority count
-        sidBytes.push(subAuthorities.length & 0xFF);
-    
-        // 6 bytes: identifier authority (big-endian)
-        for (var i = 5; i >= 0; i--) {
-            sidBytes.push((identifierAuthority >> (8 * i)) & 0xFF);
-        }
-    
-        // subAuthorities: 4 bytes each, little-endian
-        for (var i = 0; i < subAuthorities.length; i++) {
-            var rid = subAuthorities[i];
-            sidBytes.push((rid) & 0xFF);
-            sidBytes.push((rid >> 8) & 0xFF);
-            sidBytes.push((rid >> 16) & 0xFF);
-            sidBytes.push((rid >> 24) & 0xFF);
-        }
-    
-        return sidBytes;
-    }
-    
-    
-    function decodeSID(sidBytes) {
-        var revision = sidBytes[0];
-        var subAuthorityCount = sidBytes[1];
-    
-        // Identifier Authority is 6 bytes (big-endian)
-        var idAuthority = 0;
-        for (var i = 2; i <= 7; i++) {
-            idAuthority = (idAuthority << 8) | (sidBytes[i] & 0xFF);
-        }
-    
-        var sid = "S-" + revision + "-" + idAuthority;
-    
-        // Each subAuthority is 4 bytes (little-endian)
-        for (var i = 0; i < subAuthorityCount; i++) {
-            var offset = 8 + (i * 4);
-            var subAuth = (sidBytes[offset] & 0xFF) |
-                          ((sidBytes[offset + 1] & 0xFF) << 8) |
-                          ((sidBytes[offset + 2] & 0xFF) << 16) |
-                          ((sidBytes[offset + 3] & 0xFF) << 24);
-    
-            // Ensure unsigned representation
-            sid += "-" + (subAuth >>> 0);
-        }
-    
-        return sid;
-    }
-    
-    
-    with (TWSLDAPAPI) {
-    	// LDAP server setup
-    	var ldapHost = ldapServer;
-    	var bindDn = adminUser;
-    	var bindPassword = adminPassword;
-    	var baseDn = ldapBasePath;
-    	var userLogin = user;
-    
-    	// 1. Create LDAP connection
-    	var ldap = new TWSLDAP();
-    
-    	
-    	// === 2. Search for user to get objectSID and primaryGroupID ===
-    	var userFilter = "(objectClass=domain)";
-    	var userAttributes = ["objectSid"];
-    	ldap.search(
-    		ldapHost,
-    		bindDn,
-    		bindPassword,
-    		baseDn,
-    		userFilter,
-    		userAttributes,
-    		60000, 10);
-    
-    	res = ldap.hasMoreResults()
-    	if (!res) {
-    	    throw "User not found";
+    'with (JavaImporter(
+    	javax.naming.Context,
+    	javax.naming.directory.InitialDirContext,
+    	javax.naming.directory.SearchControls,
+    	java.util.Hashtable
+    )) {
+    	function sidToString(sid) {
+    		function u8(i) { return sid[i] & 0xFF; }
+    		if (!sid || sid.length < 8) throw "SID too short";
+    		var rev = u8(0), cnt = u8(1);
+    		if (sid.length !== 8 + 4 * cnt) throw "Bad length";
+    		var auth = 0; for (var i = 2; i < 8; i++) auth = (auth << 8) | u8(i);
+    		var parts = [], off = 8;
+    		for (var j = 0; j < cnt; j++) {
+    			var v = (u8(off)) | (u8(off + 1) << 8) | (u8(off + 2) << 16) | (u8(off + 3) << 24);
+    			parts.push((v >>> 0)); off += 4;
+    		}
+    		return "S-" + rev + "-" + auth + "-" + parts.join("-");
     	}
     	
-    	var userEntry = ldap.getNextResult();
-    	var sidAttr = ldap.getResultEx("objectSID")[0];
-    	
-    	log.debug("User Entry: " + userEntry);
-    	if (sidAttr == null) {
-    	    throw "Missing objectSID or primaryGroupID";
+    	var env = new Hashtable();
+    	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+    	env.put(Context.PROVIDER_URL, "" + ldapServer);
+    	env.put(Context.SECURITY_AUTHENTICATION, "simple");
+    	env.put(Context.SECURITY_PRINCIPAL, "" + adminUser);
+    	env.put(Context.SECURITY_CREDENTIALS, "" + adminPassword);
+    
+    	var ctx = new InitialDirContext(env);
+    
+    	var sc = new SearchControls();
+    	sc.setSearchScope(SearchControls.SUBTREE_SCOPE);
+    	sc.setReturningAttributes(["objectSid;binary", "primaryGroupID"]);
+    
+    	var baseDN = ldapBasePath;
+    	var filter = "(sAMAccountName=" + sAMAccountName + ")";
+    	var results = ctx.search(baseDN, filter, sc);
+    
+    	if (results.hasMore()) {
+    		var sr = results.next();
+    		var attrs = sr.getAttributes();
+    		var attr = attrs.get("objectSid;binary");
+    		var sidBytes = attr.get();
+    
+    		var osid = sidToString(sidBytes);
+    		// log.debug("SID = " + osid); //S-1-5-21-2675315662-178584939-3677002858-1430
+    		var grpId = attrs.get("primaryGroupID").get();
+    		var grpSid = osid.replace(/-\d+$/, "-" + grpId);
+    		
+    		sc.setReturningAttributes(["cn"]);
+    		filter = "(objectSid=" + grpSid + ")";
+    		results = ctx.search(baseDN, filter, sc);
+    		if (results.hasMore()) {
+    			sr = results.next();
+    			attrs = sr.getAttributes();
+    			grpName = attrs.get("cn").get();
+    		} else {
+    			log.warn("No result for " + filter);
+    		}
+    	} else {
+    		log.warn("No result for " + filter);
     	}
-    	
-    	//var jsidBytes = sidAttr.getBytes("UTF-16"); // binary encoded as string
-    	var sidBytes =[];
-    	for(i=0; i< sidAttr.bytes.length(); i++) {
-    		sidBytes.push(sidAttr.bytes[i])
-    	}
-    	
-    	log.debug("sidBytes: " + sidBytes);
-    	log.debug("HEX sidBytes: " + toLdapHex(sidBytes));
-    	
-    	var SID = decodeSID(sidBytes);
-    	log.debug("SID : " + SID)
-    
-    	// replace last segment with primaryGroupID to get the PrimaryGroupSID
-    	pgSID = SID + "-513"
-    	log.debug("pgSID : " + pgSID)
-    
-    	// Reencode pgSID
-    	bpgSID = encodeSID(pgSID)
-    	
-    	// Make it LDAP HEX
-    	hexPgSID = toLdapHex(bpgSID);
-    	log.debug("hexPgSID : " + hexPgSID)
-    	
-    	// Now Search in AD an object where SID is hexPgSid
-    	groupFilter = "(objectSid=" + pgSID + ")";
-    	groupAttributes = ["cn"];
-    	ldap.search(
-    		ldapHost,
-    		bindDn,
-    		bindPassword,
-    		baseDn,
-    		groupFilter,
-    		groupAttributes,
-    		60000, 10);	
-    
-    	res = ldap.hasMoreResults()
-    	if (!res) {
-    	    throw "Primary Group not found";
-    	}
-    			
-    	PrimaryGroup =ldap.getNextResult();
-    	log.debug("PrimaryGroup : " + PrimaryGroup)
-    }
-    
-    '
-  isEnabled: false
-↓field [steps.JsonFieldStep-1754643832646]: 
+    }'
+↓DomainUsersGroup [steps.JsonFieldStep-1754643832646]: 
   key: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -203,8 +74,8 @@ comment: Gives the localized Domain Users group,  where all users automatically 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: PLAIN
-        - →→: Utilisateurs du domaine
+        - ↑mode: JS
+        - →→: grpName
 ↓adminUser [variables.RequestableVariable-1754555181924]: 
   comment: A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
   value: ${lib_UserManager.adminUser}
@@ -223,6 +94,7 @@ comment: Gives the localized Domain Users group,  where all users automatically 
   value: ${lib_UserManager.ldapBasePath}
 ↓domainNameUser [variables.RequestableVariable-1754555181936]: 
   value: ${lib_UserManager.ldapDomainName}
+↓sAMAccountName [variables.RequestableVariable-1755593659205]: 
 ↓TestOK [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1754555242546]: 
+  ↓sAMAccountName [variables.TestCaseVariable-1754555242546]: 
     value: aaron.may

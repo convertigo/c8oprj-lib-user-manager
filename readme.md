@@ -9,7 +9,6 @@ The lib_UserManager enables your projects to include user management and authent
 
 - user login with user/password using a salted password security
 - user login using OpenID (Google, Azure & linkedin)
-- remember me feature
 
 When using user/password, the library will use the **lib_usermanager_fullsync** database to store userids and salted/hashed password
 
@@ -28,7 +27,6 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
 | lib_UserManager.smtp.user            | SMTP server user account                  |
 | lib_UserManager.smtp.password.secret | SMTP server password                      |
-| lib_UserManager.tokenValidityDays	   | Remember me token validity in days (30 by default) |
 
 
 
@@ -45,6 +43,7 @@ For more technical informations : [documentation](./project.md)
     - [ForgotPassword](#forgotpassword)
     - [ForgotPasswordWithBrand](#forgotpasswordwithbrand)
     - [GenerateSecureToken](#generatesecuretoken)
+    - [GetDomainUsersGroupName](#getdomainusersgroupname)
     - [GetUAllserAttributes](#getuallserattributes)
     - [GetUserAttribute](#getuserattribute)
     - [GetUserByAttributeNameAndValue](#getuserbyattributenameandvalue)
@@ -69,13 +68,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=IncludeDomainUsersGroup
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/IncludeDomainUsersGroup.zip
      ```
      </td></tr>
     </table>
@@ -291,6 +290,36 @@ The `GenerateSecureToken` sequence creates a JWT token with a specified expirati
 </tr>
 <tr>
 <td>userName</td><td></td>
+</tr>
+</table>
+
+### GetDomainUsersGroupName
+
+Gives the localized Domain Users group,  where all users automatically belong
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>adminPassword</td><td>The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.</td>
+</tr>
+<tr>
+<td>adminUser</td><td>A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.</td>
+</tr>
+<tr>
+<td>domainNameUser</td><td></td>
+</tr>
+<tr>
+<td>ldapBasePath</td><td>The active directory user user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'</td>
+</tr>
+<tr>
+<td>ldapServer</td><td>The Active Directory server ldap url as ldap(s)://server:port. Mandatory.</td>
+</tr>
+<tr>
+<td>sAMAccountName</td><td></td>
 </tr>
 </table>
 

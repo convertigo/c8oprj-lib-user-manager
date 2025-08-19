@@ -187,6 +187,15 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       output: false
       ↓Call_Sequence [steps.SequenceStep-1754644517012]: 
         sourceSequence: lib_UserManager.GetDomainUsersGroupName
+        ↓sAMAccountName [variables.StepVariable-1755594590867]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1594128996638
+                - java.lang.String: 
+                  - ↑value: ./text()
       ↓element [steps.XMLElementStep-1754646822772]: 
         nodeName: item
         output: false
@@ -197,7 +206,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - java.lang.String: 
                 - ↑value: 1754644517012
               - java.lang.String: 
-                - ↑value: ./document/field/text()
+                - ↑value: ./document/DomainUsersGroup/text()
       ↓Iterator [steps.IteratorStep-1594128996644]: 
         sourceDefinition: 
           - xmlizable: 

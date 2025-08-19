@@ -85,6 +85,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - SmartType: 
         - ↑mode: JS
         - →→: user
+  output: true
   password: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -98,7 +99,6 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - ↑mode: JS
         - →→: ldapServer
 ↓jSimpleSource [steps.SimpleSourceStep-1582358680358]: 
-  output: true
   sourceDefinition: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -155,6 +155,15 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       output: false
       ↓Call_Sequence [steps.SequenceStep-1754645831923]: 
         sourceSequence: lib_UserManager.GetDomainUsersGroupName
+        ↓sAMAccountName [variables.StepVariable-1755594521475]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1588067546232
+                - java.lang.String: 
+                  - ↑value: ./text()
       ↓item [steps.XMLElementStep-1754646168492]: 
         nodeName: item
         output: false
@@ -165,7 +174,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - java.lang.String: 
                 - ↑value: 1754645831923
               - java.lang.String: 
-                - ↑value: ./document/field/text()
+                - ↑value: ./document/DomainUsersGroup/text()
       ↓Iterator [steps.IteratorStep-1582387466103]: 
         sourceDefinition: 
           - xmlizable: 
