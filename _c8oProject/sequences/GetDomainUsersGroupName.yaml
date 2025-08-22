@@ -62,7 +62,9 @@ comment: Gives the localized Domain Users group,  where all users automatically 
     	} else {
     		log.warn("No result for " + filter);
     	}
-    }'
+    	ctx.close();
+    }
+    '
 ↓DomainUsersGroup [steps.JsonFieldStep-1754643832646]: 
   key: 
     - xmlizable: 

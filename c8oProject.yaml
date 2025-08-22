@@ -27,7 +27,7 @@
     | lib_UserManager.smtp.password.secret | SMTP server password                      |
     
     '
-  version: 8.0.0.8
+  version: 8.0.0.9
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓CheckSecureToken [sequences.GenericSequence]: 🗏 sequences/CheckSecureToken.yaml
@@ -37,6 +37,7 @@
   ↓ForgotPassword [sequences.GenericSequence]: 🗏 sequences/ForgotPassword.yaml
   ↓ForgotPasswordWithBrand [sequences.GenericSequence]: 🗏 sequences/ForgotPasswordWithBrand.yaml
   ↓GenerateSecureToken [sequences.GenericSequence]: 🗏 sequences/GenerateSecureToken.yaml
+  ↓GetAllAdGroups [sequences.GenericSequence]: 🗏 sequences/GetAllAdGroups.yaml
   ↓GetDomainUsersGroupName [sequences.GenericSequence]: 🗏 sequences/GetDomainUsersGroupName.yaml
   ↓GetUAllserAttributes [sequences.GenericSequence]: 🗏 sequences/GetUAllserAttributes.yaml
   ↓GetUserAttribute [sequences.GenericSequence]: 🗏 sequences/GetUserAttribute.yaml

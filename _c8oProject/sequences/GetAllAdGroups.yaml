@@ -1,0 +1,138 @@
+comment: Get all groups available in the AD
+↓GetAllAdGroups [steps.SimpleStep-1755755432439]: 
+  expression: |
+    'with (JavaImporter(
+    	javax.naming.Context,
+    	javax.naming.ldap.InitialLdapContext,
+    	javax.naming.directory.SearchControls,
+    	javax.naming.ldap.PagedResultsControl,
+    	javax.naming.ldap.Control,
+    	java.util.Hashtable
+    )) {
+    	
+    	// Build a Java array of a given component type from a JS array (Rhino-safe)
+    	function jarray(componentType, jsArr) {
+    	  var ArrayRef = java.lang.reflect.Array;
+    	  var out = ArrayRef.newInstance(componentType, jsArr.length);
+    	  for (var i = 0; i < jsArr.length; i++) {
+    	    ArrayRef.set(out, i, jsArr[i]);
+    	  }
+    	  return out;
+    	}
+    	
+    	adGroups = [];
+    	var env = new Hashtable();
+    	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+    	env.put(Context.PROVIDER_URL, "" + ldapServer);
+    	env.put(Context.SECURITY_AUTHENTICATION, "simple");
+    	env.put(Context.SECURITY_PRINCIPAL, "" + adminUser);
+    	env.put(Context.SECURITY_CREDENTIALS, "" + adminPassword);
+    	
+    	// 👇 add this line
+    	env.put(Context.REFERRAL, "ignore"); // or "throw" (default). "ignore" avoids PartialResultException.
+    
+    
+    	var ctx = new InitialLdapContext(env, null);
+    	
+    	
+    	// get search base from RootDSE
+    	root = ctx.getAttributes("", ["defaultNamingContext"]);
+    	base = root.get("defaultNamingContext").get();
+    
+    	// Setup search
+    	var sc = new SearchControls();
+    	sc.setSearchScope(SearchControls.SUBTREE_SCOPE);
+    	sc.setReturningAttributes(["cn"]);
+    	var filter = "(objectCategory=group)";
+    		
+    	var cookie = null;
+    	do {
+    		// Configure paging to 10000	
+    		prc = new PagedResultsControl(100000, cookie, false)
+    		controls =  jarray(javax.naming.ldap.Control, [prc]);
+    		ctx.setRequestControls(controls)
+    		log.debug("**** set request control done cookie is .... " + cookie)
+    	
+    		// Search
+    		var results = ctx.search(base, filter, sc);
+    		log.debug("**** search is done ... ")
+    
+    		
+    		// Explore results
+    		
+    		while (true) {
+    	        var more;
+    	        try {
+    	          more = results.hasMore(); // this is where your error occurred
+    	        } catch (e) {
+    	          // Rhino wraps Java exceptions; detect PartialResultException
+    	          var je = e.javaException || e;
+    	          if (je instanceof javax.naming.PartialResultException) {
+    	            // Stop consuming entries for this page; we''ll still read the cookie below
+    	            break;
+    	          }
+    	          throw e; // unexpected exception
+    	        }
+    	        if (!more) break;
+    	
+    	        var sr;
+    	        try {
+    	          sr = results.next();
+    	        } catch (e2) {
+    	          var je2 = e2.javaException || e2;
+    	          if (je2 instanceof javax.naming.PartialResultException) break;
+    	          throw e2;
+    	        }		
+    		   a = sr.getAttributes();
+    		   //log.debug("Group : " + a.get("distinguishedName"))
+    		   adGroups.push((a.get("cn")+"").split(":")[1].trim())
+    		}
+    		log.debug("**** Groups are added  ")
+    				
+    		// Read response controls to get next cookie
+    	    cookie = null;
+    	    var respCtrls = ctx.getResponseControls();
+    	    if (respCtrls != null) {
+    	      for (var i = 0; i < respCtrls.length; i++) {
+    	        var c = respCtrls[i];
+    	        if (c instanceof javax.naming.ldap.PagedResultsResponseControl) {
+    	          cookie = c.getCookie(); // byte[]
+    			  log.debug("**** New cookie is  " + cookie)
+    	        }
+    	      }
+    	    }
+    	} while (cookie != null && cookie.length > 0);
+    	ctx.setRequestControls(null);
+    	ctx.close();
+    }'
+↓adGroups [steps.JsonToXmlStep-1755792412733]: 
+  jsonObject: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+      - SmartType: 
+        - ↑mode: JS
+        - →→: adGroups
+  key: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+      - SmartType: 
+        - ↑mode: PLAIN
+        - →→: adGroups
+↓adminUser [variables.RequestableVariable-1755755412959]: 
+  comment: A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
+  value: ${lib_UserManager.adminUser}
+↓adminPassword [variables.RequestableVariable-1755755412962]: 
+  comment: The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: x530464aa1e63d0f98506f75047888822cd14101585f94218a48f6594c8d671cc5363d6aa941b84b949231422a2651cd9
+  visibility: '-1'
+↓ldapServer [variables.RequestableVariable-1755755412965]: 
+  comment: The Active Directory server ldap url as ldap(s)://server:port. Mandatory.
+  value: ${lib_UserManager.ldapServer}
+↓ldapBasePath [variables.RequestableVariable-1755755412968]: 
+  comment: 'The active directory user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
+  value: ${lib_UserManager.ldapBasePath}
+↓domainNameUser [variables.RequestableVariable-1755755412971]: 
+  value: ${lib_UserManager.ldapDomainName}
