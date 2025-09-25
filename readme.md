@@ -27,7 +27,10 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
 | lib_UserManager.smtp.user            | SMTP server user account                  |
 | lib_UserManager.smtp.password.secret | SMTP server password                      |
-
+| lib_UserManager.LDAP_USER_ID_ATTRIBUTE | LDAP User ID attribute to search.       |
+| lib_UserManager.LDAP_GROUP_OBJECT_CLASS | Object class identifying groups        |
+| lib_UserManager.ldapBasePathGroup	   | Base path used to search for LDAP groups |
+| lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE | The display name attribute for groups |
 
 
 
@@ -43,6 +46,7 @@ For more technical informations : [documentation](./project.md)
     - [ForgotPassword](#forgotpassword)
     - [ForgotPasswordWithBrand](#forgotpasswordwithbrand)
     - [GenerateSecureToken](#generatesecuretoken)
+    - [GetAllAdGroups](#getalladgroups)
     - [GetDomainUsersGroupName](#getdomainusersgroupname)
     - [GetUAllserAttributes](#getuallserattributes)
     - [GetUserAttribute](#getuserattribute)
@@ -55,7 +59,7 @@ For more technical informations : [documentation](./project.md)
     - [SignIn](#signin)
     - [SignInAD](#signinad)
     - [SignInADBulk](#signinadbulk)
-    - [SignInAdPostGroups](#signinadpostgroups)
+    - [SignInLDAPBulk](#signinldapbulk)
     - [SignOut](#signout)
 
 
@@ -68,13 +72,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=IncludeDomainUsersGroup
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager.git:branch=8.0.X
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/IncludeDomainUsersGroup.zip
+     lib_UserManager=https://github.com/convertigo/c8oprj-lib-user-manager/archive/8.0.X.zip
      ```
      </td></tr>
     </table>
@@ -290,6 +294,33 @@ The `GenerateSecureToken` sequence creates a JWT token with a specified expirati
 </tr>
 <tr>
 <td>userName</td><td></td>
+</tr>
+</table>
+
+### GetAllAdGroups
+
+Get all groups available in the AD
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>adminPassword</td><td>The Active Directory admin account password. If not  provided or invalid, the group membership information will not be provided.</td>
+</tr>
+<tr>
+<td>adminUser</td><td>A valid ActiveDirectory Admin Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.</td>
+</tr>
+<tr>
+<td>domainNameUser</td><td></td>
+</tr>
+<tr>
+<td>ldapBasePath</td><td>The active directory user user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'</td>
+</tr>
+<tr>
+<td>ldapServer</td><td>The Active Directory server ldap url as ldap(s)://server:port. Mandatory.</td>
 </tr>
 </table>
 
@@ -547,7 +578,48 @@ Sign in using an ActiveDirectory account. Will also return the list of groups th
 </tr>
 </table>
 
-### SignInAdPostGroups
+### SignInLDAPBulk
+
+**variables**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>adminPassword</td><td>The LDAP service account password. If not  provided or invalid, the group membership information will not be provided.</td>
+</tr>
+<tr>
+<td>adminUser</td><td>A valid LDAP service Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.</td>
+</tr>
+<tr>
+<td>domainNameUser</td><td>Domain name to prefix to user in case of azure AD</td>
+</tr>
+<tr>
+<td>groupAttribute</td><td>Object class identifying groups</td>
+</tr>
+<tr>
+<td>groupDisplayAttribute</td><td>The display name attribute for groups</td>
+</tr>
+<tr>
+<td>ldapBasePath</td><td>The LDAP user user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'</td>
+</tr>
+<tr>
+<td>ldapBasePathGroup</td><td>Base path used to search for LDAP groups</td>
+</tr>
+<tr>
+<td>ldapServer</td><td>The LDAP server url as ldap(s)://server:port. Mandatory.</td>
+</tr>
+<tr>
+<td>password</td><td>The LDAP users password</td>
+</tr>
+<tr>
+<td>user</td><td>The LDAP user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'</td>
+</tr>
+<tr>
+<td>userIdAttribute</td><td>User ID attribute to search</td>
+</tr>
+</table>
 
 ### SignOut
 

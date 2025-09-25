@@ -25,7 +25,10 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.smtp.sender          | SMTP sender mail address                  |
 | lib_UserManager.smtp.user            | SMTP server user account                  |
 | lib_UserManager.smtp.password.secret | SMTP server password                      |
-
+| lib_UserManager.LDAP_USER_ID_ATTRIBUTE | LDAP User ID attribute to search.       |
+| lib_UserManager.LDAP_GROUP_OBJECT_CLASS | Object class identifying groups        |
+| lib_UserManager.ldapBasePathGroup	   | Base path used to search for LDAP groups |
+| lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE | The display name attribute for groups |
 
 
 <details><summary><span style="color:DarkGoldenRod"><i>References</i></span></summary><blockquote><p>
@@ -46,7 +49,7 @@ see [documentation](http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd)
 ## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/references/images/ProjectSchemaReference_16x16.png?raw=true "ProjectSchemaReference") lib_FullSyncGrp
 
 
-see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/3e0e5200b206704ff65b5ea0af859a5f9c6626ae#readme)
+see [readme](https://github.com/convertigo/c8oprj-lib-fullsync-grp/tree/8.0.0#readme)
 </p></blockquote></details>
 
 <details><summary><b>lib_OAuth</b></summary><blockquote><p>
@@ -1409,11 +1412,113 @@ The active directory user user to sign in. May be a valid domain account ex: 'DO
 
 </p></blockquote></details>
 
-<details><summary><b>SignInAdPostGroups</b></summary><blockquote><p>
+<details><summary><b>SignInLDAPBulk</b></summary><blockquote><p>
 
 
-## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SignInAdPostGroups
+## ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/sequences/images/genericsequence_color_16x16.png?raw=true "GenericSequence") SignInLDAPBulk
 
+
+
+<span style="color:DarkGoldenRod">Variables</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;adminPassword
+</td>
+<td>
+The LDAP service account password. If not  provided or invalid, the group membership information will not be provided.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;adminUser
+</td>
+<td>
+A valid LDAP service Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;domainNameUser
+</td>
+<td>
+Domain name to prefix to user in case of azure AD
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;groupAttribute
+</td>
+<td>
+Object class identifying groups
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;groupDisplayAttribute
+</td>
+<td>
+The display name attribute for groups
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;ldapBasePath
+</td>
+<td>
+The LDAP user user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;ldapBasePathGroup
+</td>
+<td>
+Base path used to search for LDAP groups
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;ldapServer
+</td>
+<td>
+The LDAP server url as ldap(s)://server:port. Mandatory.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;password
+</td>
+<td>
+The LDAP users password
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;user
+</td>
+<td>
+The LDAP user to sign in. May be a valid domain account ex: 'DOMAIN\user' or the user's email ex: 'user@domain.com' or just the users full name ex:  'John doe'
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;userIdAttribute
+</td>
+<td>
+User ID attribute to search
+</td>
+</tr>
+</table>
 
 </p></blockquote></details>
 

@@ -1,0 +1,580 @@
+↓inputVars [steps.InputVariablesStep-1758721986139]: 
+↓SignInLDAP [steps.SimpleStep-1758722094891]: 
+  expression: |
+    'var JavaImporter = JavaImporter(
+        javax.naming.Context,
+        javax.naming.directory.DirContext,
+        javax.naming.ldap.InitialLdapContext,
+        javax.naming.ldap.LdapContext,
+        javax.naming.directory.SearchControls,
+        javax.naming.NamingException
+    );
+    
+    with (JavaImporter) {
+        var uidUser = String(user);
+        var userPassword = String(password);
+        var verbose = false;
+        var ldapAdminUser = String(adminUser);
+        var ldapAdminPassword = String(adminPassword);
+        var ldapUrl = String(ldapServer);
+        var ldapAdminUserBasePath = ldapBasePath ? String(ldapBasePath) : "";
+        var useSSL = false;
+        var ldapHost = "localhost";
+        var ldapPort = 389;
+        var error = false;
+        var errorMessage = null;
+        var errorDetails = null;
+        var groups = [];
+        var groupsToInsert = [];
+        var loggedIn = false;
+        var userEmail = null;
+        var userCN = null;
+    
+        if (ldapUrl.startsWith("ldaps://")) {
+            useSSL = true;
+            ldapUrl = ldapUrl.substring(8);
+        } else if (ldapUrl.startsWith("ldap://")) {
+            ldapUrl = ldapUrl.substring(7);
+        }
+    
+        var parts = ldapUrl.split(":");
+        if (parts.length > 1) {
+            ldapHost = parts[0];
+            ldapPort = parseInt(parts[1], 10);
+        } else {
+            ldapHost = ldapUrl;
+        }
+    
+        try {
+            // Configuration de l''environnement pour la connexion LDAP
+            var env = new java.util.Hashtable();
+            env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+            env.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
+            env.put(Context.SECURITY_AUTHENTICATION, "simple");
+            env.put(Context.SECURITY_PRINCIPAL, ldapAdminUser);
+            env.put(Context.SECURITY_CREDENTIALS, ldapAdminPassword);
+    
+            if (useSSL) {
+                env.put(Context.SECURITY_PROTOCOL, "ssl");
+            }
+    
+            // Connexion initiale pour obtenir le DN de l''utilisateur
+            var conn = new InitialLdapContext(env, null);
+            var searchControls = new SearchControls();
+            searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+    
+            // Requête op_1 # Recherche de l''utilisateur
+            var searchResult = conn.search(ldapAdminUserBasePath, "(" + String(userIdAttribute) + "=" + uidUser + ")", searchControls);
+            if (searchResult.hasMore()) {
+                var entry = searchResult.next();
+                var dn = entry.getNameInNamespace();
+                if (verbose) log.warn("  Requête op_1 = DN: " + dn);
+                var mailAttr = entry.getAttributes().get("mail");
+                if (mailAttr != null) {
+                    userEmail = mailAttr.get();
+                }
+                var cnAttr = entry.getAttributes().get("cn");
+                if (cnAttr != null) {
+                    userCN = cnAttr.get();
+                }
+    
+                // Fermer la connexion initiale
+                conn.close();
+    
+                // Nouvelle connexion avec l''UID et le mot de passe de l''utilisateur pour vérifier les informations d''identification
+                var userEnv = new java.util.Hashtable();
+                userEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+                userEnv.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
+                userEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
+                userEnv.put(Context.SECURITY_PRINCIPAL, dn);
+                userEnv.put(Context.SECURITY_CREDENTIALS, userPassword);
+    
+                try {
+                    var userConn = new InitialLdapContext(userEnv, null);
+                    loggedIn = true;
+                    userConn.close();
+                } catch (e) {
+                    error = true;
+                    errorMessage = "LDAP Connexion error with " + dn;
+                    errorDetails = e;
+                    log.error("[signInLDAPBulk] " + errorMessage + ": " + errorDetails);
+                    throw new Error(errorMessage);
+                }
+    
+                // Re-connexion avec le gestionnaire pour effectuer la recherche des DroitPérimètre
+                var managerEnv = new java.util.Hashtable();
+                managerEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+                managerEnv.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
+                managerEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
+                managerEnv.put(Context.SECURITY_PRINCIPAL, ldapAdminUser);
+                managerEnv.put(Context.SECURITY_CREDENTIALS, ldapAdminPassword);
+    
+                var managerConn = new InitialLdapContext(managerEnv, null);
+    
+                // Requête op_2 # Récupère les groupes de l''utilisateur
+                var op2Result = managerConn.search(String(ldapBasePathGroup), "(&(objectClass=" + String(groupAttribute) + ")(uniqueMember=" + dn + "))", searchControls);
+                if (op2Result.hasMore()) {
+                    var entries = op2Result;
+                    if (verbose) log.warn("  Requête op_2 = " + entries.size() + " DroitPérimètre :");
+                    while (entries.hasMore()) {
+                        var e = entries.next();
+                        var groupAttr = e.getAttributes().get(String(groupDisplayAttribute));
+                        if (groupAttr != null) {
+                            var groupValue = groupAttr.get();
+                            log.warn(" = " + groupValue);
+                            groups.push(groupValue);
+                            groupsToInsert.push({user: uidUser, group: "ad:" + groupValue});
+                        }
+                    }
+                } else {
+                    log.warn("  Requête op_2 = 0 DroitPérimètre");
+                }
+    
+                // Fermer la connexion
+                managerConn.close();
+            } else {
+                log.warn("  Requête op_1 = Le compte " + uidUser + " n''existe pas !");
+            }
+        } catch (e) {
+            loggedIn = false;
+            if (error == false) {
+                error = true;
+                errorMessage = "LDAP error";
+                errorDetails = e;
+            }
+            log.warn("Erreur LDAP: " + e.message);
+        }
+    }
+    '
+↓jIfThenElse [steps.IfThenElseStep-1758730688821]: 
+  condition: error == true || loggedIn == false
+  ↓jThen [steps.ThenStep-1758730689923]: 
+    ↓Error_structure [steps.XMLErrorStep-1758724216287]: 
+      code: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: '-1'
+      details: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: errorDetails
+      message: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: errorMessage
+  ↓jElse [steps.ElseStep-1758730689925]: 
+    ↓groups0 [steps.JsonToXmlStep-1758730516035]: 
+      jsonObject: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: groups
+      key: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: groups
+    ↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1758730745835]: 
+      userid: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: uidUser
+    ↓user [steps.JsonFieldStep-1758730947674]: 
+      key: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: user
+      value: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: uidUser
+    ↓authenticatedUserID [steps.JsonFieldStep-1758730964736]: 
+      key: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: authenticatedUserID
+      value: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: uidUser
+    ↓mail [steps.JsonFieldStep-1758731194969]: 
+      key: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: mail
+      value: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: userEmail
+    ↓displayName [steps.JsonFieldStep-1758731196061]: 
+      key: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: PLAIN
+            - →→: displayName
+      value: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+          - SmartType: 
+            - ↑mode: JS
+            - →→: userCN
+    ↓Call_Sequence1 [steps.SequenceStep-1758731273831]: 
+      sourceSequence: lib_FullSyncGrp.GroupsOf
+      ↓user [variables.StepVariable-1758731273834]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1758721986139
+              - java.lang.String: 
+                - ↑value: ./user/text()
+    ↓IterateOnExistingGroups [steps.IteratorStep-1758731325118]: 
+      comment: Remove this user from all the ad groups he may belong
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1758731273831
+            - java.lang.String: 
+              - ↑value: ./document/group
+      ↓IfExist [steps.IfExistStep-1758731325121]: 
+        comment: Only handle groups starting by 'ad:'
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1758731325118
+              - java.lang.String: 
+                - ↑value: .[starts-with('ad:')]
+        ↓Call_Sequence [steps.SequenceStep-1758731325124]: 
+          comment: Remove the user from the group
+          sourceSequence: lib_FullSyncGrp.RemoveUserFromGroup
+          ↓user [variables.StepVariable-1758731325127]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1758721986139
+                  - java.lang.String: 
+                    - ↑value: ./user/text()
+          ↓group [variables.StepVariable-1758731325130]: 
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1758731325118
+                  - java.lang.String: 
+                    - ↑value: ./text()
+    ↓Complex1 [steps.XMLComplexStep-1758733149791]: 
+      nodeName: groups
+      ↓Attribute [steps.XMLAttributeStep-1758733149794]: 
+        nodeName: type
+        nodeText: array
+      ↓jIterator [steps.SimpleIteratorStep-1758733164534]: 
+        expression: groups
+        ↓Complex [steps.XMLComplexStep-1758733149800]: 
+          ↓Attribute [steps.XMLAttributeStep-1758733149803]: 
+            nodeName: type
+            nodeText: object
+          ↓Element1 [steps.XMLElementStep-1758733149806]: 
+            nodeName: user
+            sourceDefinition: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                - com.twinsoft.convertigo.beans.common.XMLVector: 
+                  - java.lang.String: 
+                    - ↑value: 1758721986139
+                  - java.lang.String: 
+                    - ↑value: ./user/text()
+            ↓Attribute [steps.XMLAttributeStep-1758733149809]: 
+              nodeName: type
+              nodeText: string
+          ↓gr [steps.JsonFieldStep-1758733259885]: 
+            key: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                - SmartType: 
+                  - ↑mode: PLAIN
+                  - →→: group
+            value: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
+                - SmartType: 
+                  - ↑mode: JS
+                  - →→: '''ad:''+item'
+    ↓Call_Sequence [steps.SequenceStep-1758732126626]: 
+      sourceSequence: lib_FullSyncGrp.SetUserInGroupBulk
+      ↓bulkOBj [variables.StepMultiValuedVariable-1758732126629]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1758733149791
+              - java.lang.String: 
+                - ↑value: .
+↓SignInLDAPUnbounding [steps.SimpleStep-1758791558001]: 
+  expression: |
+    '// javaImporter javaXnaming ldap
+    var LDAPConnection = com.unboundid.ldap.sdk.LDAPConnection;
+    var SearchRequest = com.unboundid.ldap.sdk.SearchRequest;
+    var SearchScope = com.unboundid.ldap.sdk.SearchScope;
+    var ResultCode = com.unboundid.ldap.sdk.ResultCode;
+    var LDAPConnectionOptions = com.unboundid.ldap.sdk.LDAPConnectionOptions;
+    var SSLUtil = com.unboundid.util.ssl.SSLUtil;
+    
+    var uidUser = user;
+    var userPassword = password;
+    var verbose = false;
+    var ldapAdminUser = adminUser;
+    var ldapAdminPassword = adminPassword;
+    var ldapUrl = ldapServer;
+    var ldapAdminUserBasePath = ldapBasePath ? ldapBasePath : "";
+    
+    
+    var useSSL = false;
+    var ldapHost = "localhost";
+    var ldapPort = 389;
+    
+    var error = false;
+    var errorMessage = null;
+    var errorDetails = null;
+    var groups = [];
+    var groupsToInsert = [];
+    var loggedIn = false;
+    var userEmail = null;
+    var userCN = null;
+    
+    if (ldapUrl.startsWith("ldaps://")) {
+        useSSL = true;
+        ldapUrl = ldapUrl.substring(8);
+    } else if (ldapUrl.startsWith("ldap://")) {
+        ldapUrl = ldapUrl.substring(7);
+    }
+    
+    var parts = ldapUrl.split(":");
+    if (parts.length > 1) {
+        ldapHost = parts[0];
+        ldapPort = parseInt(parts[1], 10);
+    } else {
+        ldapHost = ldapUrl;
+    }
+    
+    try {
+        var connOptions = new LDAPConnectionOptions();
+        if (useSSL) {
+            connOptions.setUseSSL(true);
+            // Configurer les options SSL si nécessaire
+            var sslUtil = new SSLUtil();
+            // Vous pouvez configurer des options SSL spécifiques ici si nécessaire
+        }
+    
+        // Connexion initiale pour obtenir le DN de l''utilisateur
+        var conn = new LDAPConnection(connOptions, ldapHost, ldapPort);
+    	var bindResult;
+    	try {
+        	bindResult = conn.bind(ldapAdminUser, ldapAdminPassword);
+    	}
+    	catch(e){
+    		error = true;
+    		errorMessage = "LDAP ADMIN Connexion error";
+    		errorDetails = e;
+    		log.error("[signInLDAPBulk] "+ errorMessage + ": " + errorDetails);
+    		throw new Error("errorMessage");
+    	}
+        if (bindResult.getResultCode() != ResultCode.SUCCESS) {
+    		error = true;
+    		errorMessage = "LDAP ADMIN Connexion error";
+    		errorDetails = bindResult.getDiagnosticMessage();
+    		log.error("[signInLDAPBulk] "+ errorMessage + ": " + errorDetails);
+    		throw new Error("errorMessage");
+        }
+        // Requête op_1 # Recherche de l''utilisateur
+        var searchRequest = new SearchRequest(ldapAdminUserBasePath, SearchScope.SUB, "("+userIdAttribute+"=" + uidUser + ")");
+        var searchResult = conn.search(searchRequest);
+        if (searchResult.getEntryCount() > 0) {
+            var entry = searchResult.getSearchEntries().get(0);
+            var dn = entry.getDN();
+            if (verbose) log.warn("  Requête op_1 = DN: " + dn);
+    		userEmail = entry.getAttributeValue("mail");
+    		userCN = entry.getAttributeValue("cn");
+    
+            // Fermer la connexion initiale
+            conn.close();
+    
+            // Nouvelle connexion avec l''UID et le mot de passe de l''utilisateur pour vérifier les informations d''identification
+            var userConnOptions = new LDAPConnectionOptions();
+            if (useSSL) {
+                userConnOptions.setUseSSL(true);
+            }
+            var userConn = new LDAPConnection(userConnOptions, ldapHost, ldapPort);
+            var userBindResult;
+    		try{
+    			userBindResult = userConn.bind(dn, userPassword);
+    		}
+    		catch(e){
+    			error = true;
+    			errorMessage = "LDAP Connexion error with "+ dn ;
+    			errorDetails = e;
+    			log.error("[signInLDAPBulk] "+ errorMessage + ": " + errorDetails);
+    			throw new Error("errorMessage");
+    		} 
+            if (userBindResult.getResultCode() != ResultCode.SUCCESS) {
+    			error = true;
+    			errorMessage = "LDAP Connexion error with "+ dn ;
+    			errorDetails = userBindResult.getDiagnosticMessage()
+    			log.error("[signInLDAPBulk] "+ errorMessage + ": " + errorDetails);
+    			throw new Error("errorMessage");
+            }
+    		else{
+    			loggedIn = true;
+    		}
+            userConn.close();
+    
+            // Re-connexion avec le gestionnaire pour effectuer la recherche des DroitPérimètre
+            var managerConnOptions = new LDAPConnectionOptions();
+            if (useSSL) {
+                managerConnOptions.setUseSSL(true);
+            }
+            var managerConn = new LDAPConnection(managerConnOptions, ldapHost, ldapPort);
+            managerConn.bind(ldapAdminUser, ldapAdminPassword);
+    
+            // Requête op_2 # Récupère les groupes de l''utilisateur
+            var op2Request = new SearchRequest(ldapBasePathGroup, SearchScope.SUB, "(&(objectClass="+groupAttribute+")(uniqueMember=" + dn + "))");
+            var op2Result = managerConn.search(op2Request);
+            if (op2Result.getEntryCount() > 0) {
+                var entries = op2Result.getSearchEntries();
+                if (verbose) log.warn("  Requête op_2 = " + entries.size() + " DroitPérimètre :");
+                var it = entries.iterator();
+                while (it.hasNext()) {
+                    var e = it.next();
+                    log.warn(" = " + e.getAttributeValue(groupDisplayAttribute));
+    				groups.push(e.getAttributeValue(groupDisplayAttribute));
+    				groupsToInsert.push({user: uidUser, group: "ad:"+e.getAttributeValue(groupDisplayAttribute)});
+                }
+            } else {
+                log.warn("  Requête op_2 = 0 DroitPérimètre");
+            }
+    
+            // Fermer la connexion
+            managerConn.close();
+        } else {
+            log.warn("  Requête op_1 = Le compte " + uidUser + " n''existe pas !");
+        }
+    
+    } catch (e) {
+    	loggedIn = false;
+    	if(error == false){
+    		error = true;
+    		errorMessage = "LDAP error";
+    		errorDetails = e;
+    	}
+        log.warn("Erreur LDAP: " + e.message);
+    }
+    '
+  isEnabled: false
+↓user [variables.RequestableVariable-1758721913857]: 
+  comment: 'The LDAP user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
+↓password [variables.RequestableVariable-1758721913860]: 
+  comment: The LDAP users password
+↓adminUser [variables.RequestableVariable-1758721913863]: 
+  comment: A valid LDAP service Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
+  value: ${lib_UserManager.adminUser}
+↓adminPassword [variables.RequestableVariable-1758721913866]: 
+  comment: The LDAP service account password. If not  provided or invalid, the group membership information will not be provided.
+  value: ${lib_UserManager.adminPassword.secret}
+↓ldapServer [variables.RequestableVariable-1758721913869]: 
+  comment: The LDAP server url as ldap(s)://server:port. Mandatory.
+  value: ${lib_UserManager.ldapServer}
+↓ldapBasePath [variables.RequestableVariable-1758721913872]: 
+  comment: 'The LDAP user user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
+  value: ${lib_UserManager.ldapBasePath}
+↓domainNameUser [variables.RequestableVariable-1758721913875]: 
+  comment: Domain name to prefix to user in case of azure AD
+  value: ${lib_UserManager.ldapDomainName=''}
+↓userIdAttribute [variables.RequestableVariable-1758723520770]: 
+  comment: User ID attribute to search
+  value: ${lib_UserManager.LDAP_USER_ID_ATTRIBUTE=uid}
+↓groupAttribute [variables.RequestableVariable-1758723714981]: 
+  comment: Object class identifying groups
+  value: ${lib_UserManager.LDAP_GROUP_OBJECT_CLASS=group}
+↓ldapBasePathGroup [variables.RequestableVariable-1758726271792]: 
+  comment: Base path used to search for LDAP groups
+  value: ${lib_UserManager.ldapBasePathGroup}
+↓groupDisplayAttribute [variables.RequestableVariable-1758726504900]: 
+  comment: The display name attribute for groups
+  value: ${lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE=cn}
+↓Test_Case [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1758789765459]: 
+    value: AC75008557
+  ↓password [variables.TestCaseVariable-1758789765461]: 
+    value: totototo
+  ↓adminUser [variables.TestCaseVariable-1758789765463]: 
+    value: cn=Directory Manager
+  ↓adminPassword [variables.TestCaseVariable-1758789765465]: 
+    value: 53CR37
+  ↓ldapServer [variables.TestCaseVariable-1758789765467]: 
+    value: ldap://localhost:389
+  ↓ldapBasePath [variables.TestCaseVariable-1758789765469]: 
+    value: dc=recouv
+  ↓domainNameUser [variables.TestCaseVariable-1758789765471]: 
+    value: 
+  ↓userIdAttribute [variables.TestCaseVariable-1758789765473]: 
+    value: uid
+  ↓groupAttribute [variables.TestCaseVariable-1758789765475]: 
+    value: arDroitPerimetre
+  ↓ldapBasePathGroup [variables.TestCaseVariable-1758789765477]: 
+    value: ou=arApplications,ou=Recouvrement,dc=recouv
+  ↓groupDisplayAttribute [variables.TestCaseVariable-1758789765479]: 
+    value: cn
+↓Test_CaseKO [core.TestCase]: 
+  ↓user [variables.TestCaseVariable-1758791849903]: 
+    value: AC75008557
+  ↓password [variables.TestCaseVariable-1758791849906]: 
+    value: totototo2
+  ↓adminUser [variables.TestCaseVariable-1758791849909]: 
+    value: cn=Directory Manager
+  ↓adminPassword [variables.TestCaseVariable-1758791849912]: 
+    value: 53CR37
+  ↓ldapServer [variables.TestCaseVariable-1758791849915]: 
+    value: ldap://localhost:389
+  ↓ldapBasePath [variables.TestCaseVariable-1758791849918]: 
+    value: dc=recouv
+  ↓domainNameUser [variables.TestCaseVariable-1758791849921]: 
+    value: 
+  ↓userIdAttribute [variables.TestCaseVariable-1758791849924]: 
+    value: uid
+  ↓groupAttribute [variables.TestCaseVariable-1758791849927]: 
+    value: arDroitPerimetre
+  ↓ldapBasePathGroup [variables.TestCaseVariable-1758791849930]: 
+    value: ou=arApplications,ou=Recouvrement,dc=recouv
+  ↓groupDisplayAttribute [variables.TestCaseVariable-1758791849933]: 
+    value: cn
