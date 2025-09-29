@@ -11,6 +11,23 @@
     );
     
     with (JavaImporter) {
+        // ---- Chrono helpers ----------------------------------------------------
+        var System = java.lang.System;
+        var t0 = System.nanoTime();
+        var last = t0;
+        function lap(msg) {
+            var now = System.nanoTime();
+            var deltaMs = (now - last) / 1e6;
+            var totalMs = (now - t0) / 1e6;
+            last = now;
+            log.warn("[TIMER] +" + deltaMs.toFixed(3) + " ms  | total " + totalMs.toFixed(3) + " ms | " + msg);
+        }
+        function mark(msg) {
+            var totalMs = (System.nanoTime() - t0) / 1e6;
+            log.warn("[TIMER] ---- " + totalMs.toFixed(3) + " ms | " + msg);
+        }
+    
+        // -----------------------------------------------------------------------
         var uidUser = String(user);
         var userPassword = String(password);
         var verbose = false;
@@ -30,6 +47,8 @@
         var userEmail = null;
         var userCN = null;
     
+        mark("Début script signInLDAPBulk pour user=" + uidUser);
+    
         if (ldapUrl.startsWith("ldaps://")) {
             useSSL = true;
             ldapUrl = ldapUrl.substring(8);
@@ -44,44 +63,60 @@
         } else {
             ldapHost = ldapUrl;
         }
+        log.warn("[LDAP] Target host=" + ldapHost + " port=" + ldapPort + " useSSL=" + useSSL);
+        lap("Parsing URL LDAP et préparation paramètres");
+    
+        var conn = null;
+        var managerConn = null;
     
         try {
-            // Configuration de l''environnement pour la connexion LDAP
+            // Configuration de l''environnement pour la connexion LDAP (admin)
             var env = new java.util.Hashtable();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
             env.put(Context.SECURITY_PRINCIPAL, ldapAdminUser);
             env.put(Context.SECURITY_CREDENTIALS, ldapAdminPassword);
+            if (useSSL) env.put(Context.SECURITY_PROTOCOL, "ssl");
     
-            if (useSSL) {
-                env.put(Context.SECURITY_PROTOCOL, "ssl");
-            }
+            mark("Bind ADMIN: début InitialLdapContext");
+            conn = new InitialLdapContext(env, null);
+            lap("Bind ADMIN: InitialLdapContext OK");
     
-            // Connexion initiale pour obtenir le DN de l''utilisateur
-            var conn = new InitialLdapContext(env, null);
+            // Recherche de l''utilisateur
             var searchControls = new SearchControls();
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
     
-            // Requête op_1 # Recherche de l''utilisateur
-            var searchResult = conn.search(ldapAdminUserBasePath, "(" + String(userIdAttribute) + "=" + uidUser + ")", searchControls);
+            var userFilter = "(" + String(userIdAttribute) + "=" + uidUser + ")";
+            mark("Search USER: base=''" + ldapAdminUserBasePath + "'' filter=''" + userFilter + "''");
+            var searchResult = conn.search(ldapAdminUserBasePath, userFilter, searchControls);
+            lap("Search USER: exécution recherche (conn.search) OK");
+    
             if (searchResult.hasMore()) {
+                var entryFetchStart = System.nanoTime();
                 var entry = searchResult.next();
+                var entryFetchMs = (System.nanoTime() - entryFetchStart) / 1e6;
+                log.warn("[TIMER] Fetch premier SearchResult.next() = " + entryFetchMs.toFixed(3) + " ms");
+    
                 var dn = entry.getNameInNamespace();
                 if (verbose) log.warn("  Requête op_1 = DN: " + dn);
+    
                 var mailAttr = entry.getAttributes().get("mail");
-                if (mailAttr != null) {
-                    userEmail = mailAttr.get();
-                }
+                if (mailAttr != null) userEmail = mailAttr.get();
+    
                 var cnAttr = entry.getAttributes().get("cn");
-                if (cnAttr != null) {
-                    userCN = cnAttr.get();
-                }
+                if (cnAttr != null) userCN = cnAttr.get();
+    
+                lap("Traitement attributs utilisateur (mail, cn) OK");
     
                 // Fermer la connexion initiale
-                conn.close();
+                if (conn != null) {
+                    conn.close();
+                    lap("Fermeture connexion ADMIN (post op_1)");
+                    conn = null;
+                }
     
-                // Nouvelle connexion avec l''UID et le mot de passe de l''utilisateur pour vérifier les informations d''identification
+                // Vérification des identifiants de l''utilisateur (bind user)
                 var userEnv = new java.util.Hashtable();
                 userEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
                 userEnv.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
@@ -89,10 +124,14 @@
                 userEnv.put(Context.SECURITY_PRINCIPAL, dn);
                 userEnv.put(Context.SECURITY_CREDENTIALS, userPassword);
     
+                mark("Bind USER: début InitialLdapContext pour DN=" + dn);
                 try {
                     var userConn = new InitialLdapContext(userEnv, null);
+                    lap("Bind USER: InitialLdapContext OK");
                     loggedIn = true;
+    
                     userConn.close();
+                    lap("Bind USER: fermeture connexion OK");
                 } catch (e) {
                     error = true;
                     errorMessage = "LDAP Connexion error with " + dn;
@@ -101,7 +140,7 @@
                     throw new Error(errorMessage);
                 }
     
-                // Re-connexion avec le gestionnaire pour effectuer la recherche des DroitPérimètre
+                // Re-connexion admin/manager
                 var managerEnv = new java.util.Hashtable();
                 managerEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
                 managerEnv.put(Context.PROVIDER_URL, "ldap://" + ldapHost + ":" + ldapPort);
@@ -109,31 +148,46 @@
                 managerEnv.put(Context.SECURITY_PRINCIPAL, ldapAdminUser);
                 managerEnv.put(Context.SECURITY_CREDENTIALS, ldapAdminPassword);
     
-                var managerConn = new InitialLdapContext(managerEnv, null);
+                mark("Bind MANAGER: début InitialLdapContext");
+                managerConn = new InitialLdapContext(managerEnv, null);
+                lap("Bind MANAGER: InitialLdapContext OK");
     
-                // Requête op_2 # Récupère les groupes de l''utilisateur
-                var op2Result = managerConn.search(String(ldapBasePathGroup), "(&(objectClass=" + String(groupAttribute) + ")(uniqueMember=" + dn + "))", searchControls);
+                // Recherche des groupes
+                var groupFilter = "(&(objectClass=" + String(groupAttribute) + ")(uniqueMember=" + dn + "))";
+                mark("Search GROUPS: base=''" + String(ldapBasePathGroup) + "'' filter=''" + groupFilter + "''");
+                var op2Result = managerConn.search(String(ldapBasePathGroup), groupFilter, searchControls);
+                lap("Search GROUPS: exécution recherche (managerConn.search) OK");
+    
                 if (op2Result.hasMore()) {
-                    var entries = op2Result;
-                    if (verbose) log.warn("  Requête op_2 = " + entries.size() + " DroitPérimètre :");
-                    while (entries.hasMore()) {
-                        var e = entries.next();
+                    var count = 0;
+                    var iterateStart = System.nanoTime();
+                    while (op2Result.hasMore()) {
+                        var e = op2Result.next();
+                        count++;
+                        if (count === 1 || count % 10 === 0) {
+                            // Log périodique pour voir si on « bloque » sur next()
+                            var iterMs = (System.nanoTime() - iterateStart) / 1e6;
+                            log.warn("[TIMER] itération groupes: " + count + " éléments lus en " + iterMs.toFixed(3) + " ms");
+                        }
                         var groupAttr = e.getAttributes().get(String(groupDisplayAttribute));
                         if (groupAttr != null) {
                             var groupValue = groupAttr.get();
-                            log.warn(" = " + groupValue);
+                            if (verbose) log.warn(" = " + groupValue);
                             groups.push(groupValue);
                             groupsToInsert.push({user: uidUser, group: "ad:" + groupValue});
                         }
                     }
+                    var totalIterMs = (System.nanoTime() - iterateStart) / 1e6;
+                    log.warn("[TIMER] itération groupes terminée: " + count + " éléments en " + totalIterMs.toFixed(3) + " ms");
+                    lap("Search GROUPS: parcours des résultats terminé");
                 } else {
                     log.warn("  Requête op_2 = 0 DroitPérimètre");
+                    lap("Search GROUPS: aucun résultat");
                 }
     
-                // Fermer la connexion
-                managerConn.close();
             } else {
                 log.warn("  Requête op_1 = Le compte " + uidUser + " n''existe pas !");
+                lap("Search USER: aucun résultat");
             }
         } catch (e) {
             loggedIn = false;
@@ -143,6 +197,25 @@
                 errorDetails = e;
             }
             log.warn("Erreur LDAP: " + e.message);
+        } finally {
+            // Fermetures sûres + timings
+            try {
+                if (conn != null) {
+                    conn.close();
+                    lap("Fermeture connexion ADMIN (finally)");
+                }
+            } catch (closeErr1) {
+                log.warn("Erreur fermeture connexion ADMIN: " + closeErr1);
+            }
+            try {
+                if (managerConn != null) {
+                    managerConn.close();
+                    lap("Fermeture connexion MANAGER (finally)");
+                }
+            } catch (closeErr2) {
+                log.warn("Erreur fermeture connexion MANAGER: " + closeErr2);
+            }
+            mark("Fin script signInLDAPBulk");
         }
     }
     '
