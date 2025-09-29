@@ -20,11 +20,11 @@
             var deltaMs = (now - last) / 1e6;
             var totalMs = (now - t0) / 1e6;
             last = now;
-            log.warn("[TIMER] +" + deltaMs.toFixed(3) + " ms  | total " + totalMs.toFixed(3) + " ms | " + msg);
+            log.debug("[TIMER] +" + deltaMs.toFixed(3) + " ms  | total " + totalMs.toFixed(3) + " ms | " + msg);
         }
         function mark(msg) {
             var totalMs = (System.nanoTime() - t0) / 1e6;
-            log.warn("[TIMER] ---- " + totalMs.toFixed(3) + " ms | " + msg);
+            log.debug("[TIMER] ---- " + totalMs.toFixed(3) + " ms | " + msg);
         }
     
         // -----------------------------------------------------------------------
@@ -63,7 +63,7 @@
         } else {
             ldapHost = ldapUrl;
         }
-        log.warn("[LDAP] Target host=" + ldapHost + " port=" + ldapPort + " useSSL=" + useSSL);
+        log.debug("[LDAP] Target host=" + ldapHost + " port=" + ldapPort + " useSSL=" + useSSL);
         lap("Parsing URL LDAP et préparation paramètres");
     
         var conn = null;
@@ -96,10 +96,10 @@
                 var entryFetchStart = System.nanoTime();
                 var entry = searchResult.next();
                 var entryFetchMs = (System.nanoTime() - entryFetchStart) / 1e6;
-                log.warn("[TIMER] Fetch premier SearchResult.next() = " + entryFetchMs.toFixed(3) + " ms");
+                log.debug("[TIMER] Fetch premier SearchResult.next() = " + entryFetchMs.toFixed(3) + " ms");
     
                 var dn = entry.getNameInNamespace();
-                if (verbose) log.warn("  Requête op_1 = DN: " + dn);
+                if (verbose) log.debug("  Requête op_1 = DN: " + dn);
     
                 var mailAttr = entry.getAttributes().get("mail");
                 if (mailAttr != null) userEmail = mailAttr.get();
@@ -123,6 +123,7 @@
                 userEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
                 userEnv.put(Context.SECURITY_PRINCIPAL, dn);
                 userEnv.put(Context.SECURITY_CREDENTIALS, userPassword);
+    			if (useSSL) userEnv.put(Context.SECURITY_PROTOCOL, "ssl");
     
                 mark("Bind USER: début InitialLdapContext pour DN=" + dn);
                 try {
@@ -147,6 +148,7 @@
                 managerEnv.put(Context.SECURITY_AUTHENTICATION, "simple");
                 managerEnv.put(Context.SECURITY_PRINCIPAL, ldapAdminUser);
                 managerEnv.put(Context.SECURITY_CREDENTIALS, ldapAdminPassword);
+    			if (useSSL) managerEnv.put(Context.SECURITY_PROTOCOL, "ssl");
     
                 mark("Bind MANAGER: début InitialLdapContext");
                 managerConn = new InitialLdapContext(managerEnv, null);
@@ -167,26 +169,26 @@
                         if (count === 1 || count % 10 === 0) {
                             // Log périodique pour voir si on « bloque » sur next()
                             var iterMs = (System.nanoTime() - iterateStart) / 1e6;
-                            log.warn("[TIMER] itération groupes: " + count + " éléments lus en " + iterMs.toFixed(3) + " ms");
+                            log.debug("[TIMER] itération groupes: " + count + " éléments lus en " + iterMs.toFixed(3) + " ms");
                         }
                         var groupAttr = e.getAttributes().get(String(groupDisplayAttribute));
                         if (groupAttr != null) {
                             var groupValue = groupAttr.get();
-                            if (verbose) log.warn(" = " + groupValue);
+                            if (verbose) log.debug(" = " + groupValue);
                             groups.push(groupValue);
                             groupsToInsert.push({user: uidUser, group: "ad:" + groupValue});
                         }
                     }
                     var totalIterMs = (System.nanoTime() - iterateStart) / 1e6;
-                    log.warn("[TIMER] itération groupes terminée: " + count + " éléments en " + totalIterMs.toFixed(3) + " ms");
+                    log.debug("[TIMER] itération groupes terminée: " + count + " éléments en " + totalIterMs.toFixed(3) + " ms");
                     lap("Search GROUPS: parcours des résultats terminé");
                 } else {
-                    log.warn("  Requête op_2 = 0 DroitPérimètre");
+                    log.debug("  Requête op_2 = 0 DroitPérimètre");
                     lap("Search GROUPS: aucun résultat");
                 }
     
             } else {
-                log.warn("  Requête op_1 = Le compte " + uidUser + " n''existe pas !");
+                log.debug("  Requête op_1 = Le compte " + uidUser + " n''existe pas !");
                 lap("Search USER: aucun résultat");
             }
         } catch (e) {
@@ -196,7 +198,7 @@
                 errorMessage = "LDAP error";
                 errorDetails = e;
             }
-            log.warn("Erreur LDAP: " + e.message);
+            log.debug("Erreur LDAP: " + e.message);
         } finally {
             // Fermetures sûres + timings
             try {
@@ -205,7 +207,7 @@
                     lap("Fermeture connexion ADMIN (finally)");
                 }
             } catch (closeErr1) {
-                log.warn("Erreur fermeture connexion ADMIN: " + closeErr1);
+                log.debug("Erreur fermeture connexion ADMIN: " + closeErr1);
             }
             try {
                 if (managerConn != null) {
@@ -213,7 +215,7 @@
                     lap("Fermeture connexion MANAGER (finally)");
                 }
             } catch (closeErr2) {
-                log.warn("Erreur fermeture connexion MANAGER: " + closeErr2);
+                log.debug("Erreur fermeture connexion MANAGER: " + closeErr2);
             }
             mark("Fin script signInLDAPBulk");
         }
@@ -578,12 +580,21 @@
   comment: 'The LDAP user to sign in. May be a valid domain account ex: ''DOMAIN\user'' or the user''s email ex: ''user@domain.com'' or just the users full name ex:  ''John doe'''
 ↓password [variables.RequestableVariable-1758721913860]: 
   comment: The LDAP users password
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: xd8e180806a1c1d83a6255212121ab827
+  visibility: '-1'
 ↓adminUser [variables.RequestableVariable-1758721913863]: 
   comment: A valid LDAP service Account with read privileges used to search for the user attributes. If this is not provided, the group membership information will not be returned.
   value: ${lib_UserManager.adminUser}
 ↓adminPassword [variables.RequestableVariable-1758721913866]: 
   comment: The LDAP service account password. If not  provided or invalid, the group membership information will not be provided.
-  value: ${lib_UserManager.adminPassword.secret}
+  value: 
+    - ↑ciphered: true
+    - ↑traceable: false
+    - →→: x530464aa1e63d0f98506f75047888822cd14101585f94218a48f6594c8d671cc5363d6aa941b84b949231422a2651cd9
+  visibility: '-1'
 ↓ldapServer [variables.RequestableVariable-1758721913869]: 
   comment: The LDAP server url as ldap(s)://server:port. Mandatory.
   value: ${lib_UserManager.ldapServer}
