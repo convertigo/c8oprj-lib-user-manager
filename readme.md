@@ -33,6 +33,52 @@ When using user/password, the library will use the **lib_usermanager_fullsync** 
 | lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE | The display name attribute for groups |
 
 
+## Authentication Modes And Required Symbols
+
+<a id="auth-mode-internal"></a>
+### Internal Login (SignIn / CheckSecureToken)
+
+No `lib_UserManager.*` symbol is required for the standard internal login (`SignIn`).
+
+`CheckSecureToken` validates JWT signatures with the Convertigo engine property:
+
+- `CRYPTO_PASSPHRASE` (engine property, not a `lib_UserManager.*` symbol)
+
+<a id="auth-mode-ad"></a>
+### Active Directory Login (SignInAD / SignInADBulk)
+
+| symbol                               | Required | Usage |
+|--------------------------------------|----------|-------|
+| lib_UserManager.ldapServer           | yes      | Active Directory LDAP URL (`ldap://host:port` or `ldaps://host:port`) |
+| lib_UserManager.ldapBasePath         | yes      | Base DN used to search users |
+| lib_UserManager.adminUser            | yes      | Service account used to perform LDAP searches |
+| lib_UserManager.adminPassword.secret | yes      | Service account password |
+| lib_UserManager.ldapDomainName       | optional | Domain prefix automatically prepended to `user` when needed |
+
+<a id="auth-mode-ldap"></a>
+### LDAP Login (SignInLDAPBulk)
+
+| symbol                                          | Required | Usage |
+|-------------------------------------------------|----------|-------|
+| lib_UserManager.ldapServer                      | yes      | LDAP URL (`ldap://host:port` or `ldaps://host:port`) |
+| lib_UserManager.ldapBasePath                    | yes      | Base DN used to search users |
+| lib_UserManager.ldapBasePathGroup               | yes      | Base DN used to search groups |
+| lib_UserManager.adminUser                       | yes      | LDAP service account |
+| lib_UserManager.adminPassword.secret            | yes      | LDAP service account password |
+| lib_UserManager.LDAP_USER_ID_ATTRIBUTE          | optional | User identifier attribute (default `uid`) |
+| lib_UserManager.LDAP_GROUP_OBJECT_CLASS         | optional | LDAP objectClass used to find groups (default `group`) |
+| lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE    | optional | Group display attribute (default `cn`) |
+| lib_UserManager.ldapDomainName                  | optional | Domain prefix helper for user login |
+
+<a id="auth-mode-oauth-openid"></a>
+### OpenID/OAuth Login (Google, Microsoft, LinkedIn, OpenID)
+
+OpenID/OAuth login is handled by `lib_OAuth`.
+
+No additional `lib_UserManager.*` symbol is required for provider configuration.
+Configure provider credentials and endpoints in the `lib_OAuth` project symbols.
+
+
 
 For more technical informations : [documentation](./project.md)
 
@@ -635,6 +681,5 @@ The `SignOut` sequence logs out the authenticated user by removing their associa
 <td>token</td><td></td>
 </tr>
 </table>
-
 
 
