@@ -29,6 +29,10 @@
     
         // -----------------------------------------------------------------------
         var uidUser = String(user);
+        var canonicalUser = uidUser.trim();
+        if (String(casesensitive) != "true") {
+            canonicalUser = canonicalUser.toLowerCase();
+        }
         var userPassword = String(password);
         var verbose = false;
         var ldapAdminUser = String(adminUser);
@@ -176,7 +180,7 @@
                             var groupValue = groupAttr.get();
                             if (verbose) log.debug(" = " + groupValue);
                             groups.push(groupValue);
-                            groupsToInsert.push({user: uidUser, group: "ad:" + groupValue});
+                            groupsToInsert.push({user: canonicalUser, group: "ad:" + groupValue});
                         }
                     }
                     var totalIterMs = (System.nanoTime() - iterateStart) / 1e6;
@@ -263,7 +267,7 @@
           - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
           - SmartType: 
             - ↑mode: JS
-            - →→: uidUser
+            - →→: canonicalUser
     ↓user [steps.JsonFieldStep-1758730947674]: 
       key: 
         - xmlizable: 
@@ -276,7 +280,7 @@
           - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
           - SmartType: 
             - ↑mode: JS
-            - →→: uidUser
+            - →→: canonicalUser
     ↓authenticatedUserID [steps.JsonFieldStep-1758730964736]: 
       key: 
         - xmlizable: 
@@ -289,7 +293,7 @@
           - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
           - SmartType: 
             - ↑mode: JS
-            - →→: uidUser
+            - →→: canonicalUser
     ↓mail [steps.JsonFieldStep-1758731194969]: 
       key: 
         - xmlizable: 
@@ -616,6 +620,9 @@
 ↓groupDisplayAttribute [variables.RequestableVariable-1758726504900]: 
   comment: The display name attribute for groups
   value: ${lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE=cn}
+↓casesensitive [variables.RequestableVariable-1774621101772]: 
+  comment: If false, user ids are normalized to lowercase before mirroring LDAP groups.
+  value: true
 ↓Test_Case [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1758789765459]: 
     value: AC75008557

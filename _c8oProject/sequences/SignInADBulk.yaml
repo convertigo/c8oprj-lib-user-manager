@@ -15,34 +15,10 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: description
-                - xmlizable: 
-                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                  - com.twinsoft.convertigo.beans.common.XMLVector: 
-                    - java.lang.String: 
-                      - ↑value: 1594128996605
-                    - java.lang.String: 
-                      - ↑value: ./domainNameUser/text()
-                - java.lang.String: 
-                  - ↑value: ''
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: description
-                - xmlizable: 
-                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                  - com.twinsoft.convertigo.beans.common.XMLVector: 
-                    - java.lang.String: 
-                      - ↑value: 1594128996605
-                    - java.lang.String: 
-                      - ↑value: ./user/text()
-                - java.lang.String: 
-                  - ↑value: ''
+            - java.lang.String: 
+              - ↑value: '[description, 1594128996605, ./domainNameUser/text(), ]'
+            - java.lang.String: 
+              - ↑value: '[description, 1594128996605, ./user/text(), ]'
     ↓jSimpleSource [steps.SimpleSourceStep-1594128996617]: 
       sourceDefinition: 
         - xmlizable: 
@@ -65,7 +41,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
-        - →→: x9fdb555718b9d4ab4dc3093362c28f59
+        - →→: xca45dbc1ade21b1b64e699df1ba64faed9ffdd694c3e6ea642bb8a9539fa37e73a9c55799a0ae9960fb14bac1553170d868281291330e2fd6013eaa3be512588d61270f8d1948b3132c31b477db30dad6516b7914ac9415dfce1e7284a660c7488bd56c3e6f8691215f0f45ebcd8541e
   attributes: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -90,25 +66,41 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
-        - →→: xd2f81b8096cde392b18ffd0b366a67a4
+        - →→: x9708739d9b1b4c139dcac9dfa5286b12f8e676289ab511a28e3b77510fa603f2e06017aed2b4a0ac402042269a3be8f3b02047fd63610b0ccf10831da5513930f3ded584cb77a4c195168b789207b6a084ea05175ed762feffb5e6de7da2c10e62bf42984cc332346b6cd117e53a12fb
   server: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
         - →→: ldapServer
+↓rawAuthenticatedUser [steps.SimpleSourceStep-1774621110114]: 
+  sourceDefinition: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+      - com.twinsoft.convertigo.beans.common.XMLVector: 
+        - java.lang.String: 
+          - ↑value: 1594128996620
+        - java.lang.String: 
+          - ↑value: ./attribute[@name='sAMAccountName']/text()
+  variableName: rawAuthenticatedUser
+↓Normalize_authenticated_user [steps.SimpleStep-1774621115753]: 
+  expression: |
+    'var canonicalUser = ("" + rawAuthenticatedUser).trim();
+    if (casesensitive != "true") {
+      canonicalUser = canonicalUser.toLowerCase();
+    }'
+↓canonicalAuthenticatedUser [steps.ElementStep-1774621118808]: 
+  expression: canonicalUser
+  nodeName: canonicalAuthenticatedUser
+  output: false
 ↓Set_authenticated_user [steps.SetAuthenticatedUserStep-1594128996623]: 
   comment: override authenticatedUser by sAMAccountName
   userid: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
-        - ↑mode: SOURCE
-        - com.twinsoft.convertigo.beans.common.XMLVector: 
-          - java.lang.String: 
-            - ↑value: 1594128996620
-          - java.lang.String: 
-            - ↑value: ./attribute[@name='sAMAccountName']/text()
+        - ↑mode: JS
+        - →→: canonicalUser
 ↓jSimpleSource [steps.SimpleSourceStep-1594128996626]: 
   output: true
   sourceDefinition: 
@@ -136,12 +128,8 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
           - SmartType: 
-            - ↑mode: SOURCE
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1594128996620
-              - java.lang.String: 
-                - ↑value: ./attribute[@name='sAMAccountName']/text()
+            - ↑mode: JS
+            - →→: canonicalUser
     ↓Element [steps.XMLElementStep-1594128996635]: 
       nodeName: user
       sourceDefinition: 
@@ -149,9 +137,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
             - java.lang.String: 
-              - ↑value: 1594128996620
+              - ↑value: 1774621118808
             - java.lang.String: 
-              - ↑value: ./authenticatedUserID/text()
+              - ↑value: ./text()
     ↓Element1 [steps.XMLElementStep-1594128996638]: 
       nodeName: authenticatedUserID
       sourceDefinition: 
@@ -159,9 +147,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
             - java.lang.String: 
-              - ↑value: 1594128996620
+              - ↑value: 1774621118808
             - java.lang.String: 
-              - ↑value: ./attribute[@name='sAMAccountName']/text()
+              - ↑value: ./text()
     ↓Element11 [steps.XMLElementStep-1594813609243]: 
       nodeName: mail
       sourceDefinition: 
@@ -327,30 +315,10 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: ad
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                          - java.lang.String: 
-                            - ↑value: 1594128996683
-                          - java.lang.String: 
-                            - ↑value: ./text()
-                      - java.lang.String: 
-                        - ↑value: ''
+                  - java.lang.String: 
+                    - ↑value: '[description, ad]'
+                  - java.lang.String: 
+                    - ↑value: '[description, 1594128996683, ./text(), ]'
     ↓Call_Sequence [steps.SequenceStep-1594129312609]: 
       sourceSequence: lib_FullSyncGrp.SetUserInGroupBulk
       ↓bulkOBj [variables.StepMultiValuedVariable-1594129442846]: 
@@ -410,6 +378,9 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
   value: ${lib_UserManager.ldapBasePath}
 ↓domainNameUser [variables.RequestableVariable-1594128996728]: 
   value: ${lib_UserManager.ldapDomainName}
+↓casesensitive [variables.RequestableVariable-1774621101904]: 
+  comment: If false, user ids are normalized to lowercase before mirroring AD groups.
+  value: true
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1594128996732]: 
     value: test@mail.com
