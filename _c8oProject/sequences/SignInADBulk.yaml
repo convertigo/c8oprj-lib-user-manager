@@ -380,7 +380,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
   value: ${lib_UserManager.ldapDomainName}
 ↓casesensitive [variables.RequestableVariable-1774621101904]: 
   comment: If false, user ids are normalized to lowercase before mirroring AD groups.
-  value: true
+  value: ${C8Oforms.LDAP_AD_Casesentsitive=true}
 ↓TestInvalidPassword [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1594128996732]: 
     value: test@mail.com

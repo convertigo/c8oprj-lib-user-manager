@@ -30,7 +30,7 @@
     | lib_UserManager.ldapBasePathGroup	   | Base path used to search for LDAP groups |
     | lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE | The display name attribute for groups |
     '
-  version: 8.0.0.13
+  version: 8.0.0.16
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓CheckSecureToken [sequences.GenericSequence]: 🗏 sequences/CheckSecureToken.yaml
