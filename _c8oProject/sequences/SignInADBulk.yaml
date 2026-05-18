@@ -15,10 +15,34 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
           - com.twinsoft.convertigo.beans.common.XMLVector: 
-            - java.lang.String: 
-              - ↑value: '[description, 1594128996605, ./domainNameUser/text(), ]'
-            - java.lang.String: 
-              - ↑value: '[description, 1594128996605, ./user/text(), ]'
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1594128996605
+                    - java.lang.String: 
+                      - ↑value: ./domainNameUser/text()
+                - java.lang.String: 
+                  - ↑value: ''
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1594128996605
+                    - java.lang.String: 
+                      - ↑value: ./user/text()
+                - java.lang.String: 
+                  - ↑value: ''
     ↓jSimpleSource [steps.SimpleSourceStep-1594128996617]: 
       sourceDefinition: 
         - xmlizable: 
@@ -315,10 +339,30 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
                 - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: '[description, ad]'
-                  - java.lang.String: 
-                    - ↑value: '[description, 1594128996683, ./text(), ]'
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                    - com.twinsoft.convertigo.beans.common.XMLVector: 
+                      - java.lang.String: 
+                        - ↑value: description
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                        - com.twinsoft.convertigo.beans.common.XMLVector: 
+                      - java.lang.String: 
+                        - ↑value: ad
+                  - xmlizable: 
+                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                    - com.twinsoft.convertigo.beans.common.XMLVector: 
+                      - java.lang.String: 
+                        - ↑value: description
+                      - xmlizable: 
+                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                        - com.twinsoft.convertigo.beans.common.XMLVector: 
+                          - java.lang.String: 
+                            - ↑value: 1594128996683
+                          - java.lang.String: 
+                            - ↑value: ./text()
+                      - java.lang.String: 
+                        - ↑value: ''
     ↓Call_Sequence [steps.SequenceStep-1594129312609]: 
       sourceSequence: lib_FullSyncGrp.SetUserInGroupBulk
       ↓bulkOBj [variables.StepMultiValuedVariable-1594129442846]: 
