@@ -65,7 +65,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
-        - →→: xca45dbc1ade21b1b64e699df1ba64faed9ffdd694c3e6ea642bb8a9539fa37e73a9c55799a0ae9960fb14bac1553170d868281291330e2fd6013eaa3be512588d61270f8d1948b3132c31b477db30dad6516b7914ac9415dfce1e7284a660c7488bd56c3e6f8691215f0f45ebcd8541e
+        - →→: x9fdb555718b9d4ab4dc3093362c28f59
   attributes: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
@@ -90,7 +90,7 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
       - SmartType: 
         - ↑mode: JS
-        - →→: x9708739d9b1b4c139dcac9dfa5286b12f8e676289ab511a28e3b77510fa603f2e06017aed2b4a0ac402042269a3be8f3b02047fd63610b0ccf10831da5513930f3ded584cb77a4c195168b789207b6a084ea05175ed762feffb5e6de7da2c10e62bf42984cc332346b6cd117e53a12fb
+        - →→: xd2f81b8096cde392b18ffd0b366a67a4
   server: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
