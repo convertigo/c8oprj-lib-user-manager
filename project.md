@@ -462,7 +462,7 @@ Email subject
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
 </td>
 <td>
-The lang to be used in the email. It can be fr or en
+Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.
 </td>
 </tr>
 <tr>
@@ -516,7 +516,7 @@ Email logo to be added
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailSubject
 </td>
 <td>
-Email subject
+Optional caller override. Empty uses the localized default subject in ConfirmAccount.
 </td>
 </tr>
 <tr>
@@ -524,7 +524,7 @@ Email subject
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
 </td>
 <td>
-The language to be used into the email. Can be fr or en.
+Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.
 </td>
 </tr>
 <tr>
@@ -710,7 +710,7 @@ Email subject
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
 </td>
 <td>
-The lang to be used in the email. It can be fr or en
+Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.
 </td>
 </tr>
 <tr>
