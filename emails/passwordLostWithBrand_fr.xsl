@@ -64,7 +64,7 @@
                 </div>
                 <p>Cher utilisateur,</p>
                 <p>Vous avez récemment demandé à changer votre mot de passe pour votre compte <xsl:value-of select="//appName" />.</p>
-                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le boutton ci-dessous, pour continuer le processus de modification de votre mot de passe :</p>
+                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le bouton ci-dessous pour continuer le processus de modification de votre mot de passe :</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank">
 					<span class="innerButtonConfirm">
 						<span style="font-size: 16px; line-height: 28px;">

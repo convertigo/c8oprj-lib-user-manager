@@ -64,7 +64,7 @@
                 </div>
                 <p>Cher utilisateur,</p>
                 <p>Merci d'avoir créé un compte chez nous. Afin de finaliser votre inscription, nous devons vérifier que cette adresse email est valide.</p>
-                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le boutton ci-dessous, pour confirmer votre inscription :</p>
+                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le bouton ci-dessous pour confirmer votre inscription :</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank">
 					<span class="innerButtonConfirm">
 						<span style="font-size: 16px; line-height: 28px;">

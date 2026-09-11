@@ -1,5 +1,32 @@
 comment: Confirms a user account if a passwordResetKey was provided, or sends an email to the user with a passwordResetKey and allow him to confirm account. It should be called by CreateAccount sequence.
 ↓Input_variables [steps.InputVariablesStep-1674730624375]: 
+↓NormalizeEmailLocale [steps.SimpleStep-1789133711374]: 
+  comment: Normalizes the canonical mail locale, resolves the default localized subject and selects the locale-specific XSL.
+  expression: |
+    '// Canonical server-side locale and default subject selection for account confirmation emails.
+    var normalizeEmailLocale = function(value){
+    	var candidate = value == null ? "" : String(value).trim();
+    	return ["en", "fr", "es", "it", "zh-CN"].indexOf(candidate) != -1 ? candidate : "en";
+    };
+    var normalizedEmailLocale = normalizeEmailLocale(lang);
+    var accountConfirmationSubjects = {
+    	"en": "Confirm your account",
+    	"fr": "Confirmez votre compte",
+    	"es": "Confirma tu cuenta",
+    	"it": "Conferma il tuo account",
+    	"zh-CN": "确认您的帐户"
+    };
+    var suppliedEmailSubject = emailSubject == null ? "" : String(emailSubject).trim();
+    if(suppliedEmailSubject.length == 0){
+    	var subjectApplicationName = targetApplicationName == null ? "" : String(targetApplicationName).trim();
+    	var subjectSeparator = normalizedEmailLocale == "fr" ? " : " : (normalizedEmailLocale == "zh-CN" ? "：" : ": ");
+    	emailSubject = subjectApplicationName.length == 0
+    		? accountConfirmationSubjects[normalizedEmailLocale]
+    		: subjectApplicationName + subjectSeparator + accountConfirmationSubjects[normalizedEmailLocale];
+    }
+    var accountConfirmationXsl = ".//emails/accountConfirmation_" + normalizedEmailLocale + ".xsl";
+    context.addTextNodeUnderRoot("emailLocale", normalizedEmailLocale);
+    context.addTextNodeUnderRoot("resolvedEmailSubject", String(emailSubject));'
 ↓jIfThenElse [steps.IfThenElseStep-1674730624378]: 
   condition: passwordResetKey != undefined
   ↓jThen [steps.ThenStep-1674730624381]: 
@@ -350,7 +377,7 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
               smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
               smtpUsername: ${lib_UserManager.smtp.user}
-              xslFilepath: '".//emails/accountConfirmation_fr.xsl"'
+              xslFilepath: accountConfirmationXsl
           ↓jElse [steps.ElseStep-1675941785910]: 
             ↓SMTP_send [steps.SmtpStep-1675951386928]: 
               comment: accountConfirmation.xsl"
@@ -362,7 +389,7 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
               smtpServer: ${lib_UserManager.smtp.server}
               smtpSubject: emailSubject
               smtpUsername: ${lib_UserManager.smtp.user}
-              xslFilepath: '".//emails/accountConfirmation_en.xsl"'
+              xslFilepath: accountConfirmationXsl
 ↓email [variables.RequestableVariable-1674728469829]: 
   comment: Email where to send the reset password link to
 ↓emailSubject [variables.RequestableVariable-1674728469835]: 
@@ -374,4 +401,4 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
 ↓targetApplicationName [variables.RequestableVariable-1674757881102]: 
   comment: The Target application name to be used into the email template
 ↓lang [variables.RequestableVariable-1675941857876]: 
-  comment: The lang to be used in the email. It can be fr or en
+  comment: 'Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.'

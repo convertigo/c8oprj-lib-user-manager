@@ -173,21 +173,29 @@ comment: Creates a user account and sends validation email, to active this accou
               - java.lang.String: 
                 - ↑value: ./targetApplicationName/text()
       ↓lang [variables.StepVariable-1675951609080]: 
-        comment: if you set lang, variable body must be set to null, you will need to provide along side logo, and appname. Value of lang can be either fr or en.
+        comment: Canonical mail locale forwarded to ConfirmAccount.
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1674725834458
+              - java.lang.String: 
+                - ↑value: ./lang/text()
 ↓user [variables.RequestableVariable-1674725834506]: 
   comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1674725834509]: 
   comment: The inital password. (User will be able to change it afterwards)
 ↓emailSubject [variables.RequestableVariable-1674731077401]: 
-  comment: Email subject
-  value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by clicking on the confirm account button}
+  comment: Optional caller override. Empty uses the localized default subject in ConfirmAccount.
+  value: 
 ↓emailLogo [variables.RequestableVariable-1674731077404]: 
   comment: Email logo to be added
   value: ${lib_UserManager.createAccount.emailLogo =https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png}
 ↓targetApplicationName [variables.RequestableVariable-1674757927083]: 
   comment: target Application Name
 ↓lang [variables.RequestableVariable-1675951622672]: 
-  comment: The language to be used into the email. Can be fr or en.
+  comment: 'Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.'
 ↓TestOKEN [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1675953109185]: 
     value: test@mail.com

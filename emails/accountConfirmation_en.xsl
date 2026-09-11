@@ -59,7 +59,7 @@
                         src="{//logo}" />
                     </div>
                     <div>
-                        <h2 class="OpenSans700" >Confirmation de création de compte</h2>
+                        <h2 class="OpenSans700" >Account confirmation</h2>
                     </div>
                 </div>
                 <p>Dear user,</p>
@@ -68,7 +68,7 @@
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank">
 					<span class="innerButtonConfirm">
 						<span style="font-size: 16px; line-height: 28px;">
-							<span style="font-size: 14px; line-height: 25px; color: #ffffff;">Confirm my email adress</span>
+							<span style="font-size: 14px; line-height: 25px; color: #ffffff;">Confirm my email address</span>
 						</span>
 					</span>
 				</a>
