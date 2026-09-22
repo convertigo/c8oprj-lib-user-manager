@@ -6,6 +6,7 @@
     <xsl:template match="/">
         <html>
             <head>
+                <title>重置密码</title>
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap');
                     body { font-family: 'Open Sans', sans-serif; }

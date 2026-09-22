@@ -7,6 +7,7 @@
     <xsl:template match="/">
         <html>
             <head>
+                <title>Réinitialisation du mot de passe</title>
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap');
 
