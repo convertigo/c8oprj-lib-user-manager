@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <p>Dear user,</p>
-                <p>You recently requested to change your password for your <xsl:value-of select="//appName" /> account.</p>
+                <p><xsl:value-of select="//body" /></p>
                 <p>Please click on <a href="{//confirmURL}" >this link</a> or the below button to continue the process of changing your password:</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank">
 					<span class="innerButtonConfirm">

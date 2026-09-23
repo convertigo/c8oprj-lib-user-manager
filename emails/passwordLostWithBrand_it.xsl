@@ -30,7 +30,7 @@
                     <div><h2 class="OpenSans700">Richiesta di modifica della password</h2></div>
                 </div>
                 <p>Gentile utente,</p>
-                <p>Hai richiesto di recente di modificare la password del tuo account <xsl:value-of select="//appName" />.</p>
+                <p><xsl:value-of select="//body" /></p>
                 <p>Fai clic su <a href="{//confirmURL}">questo link</a> o sul pulsante seguente per continuare:</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank"><span class="innerButtonConfirm"><span style="font-size: 16px; line-height: 28px;"><span style="font-size: 14px; line-height: 25px; color: #ffffff;">Modifica la mia password</span></span></span></a>
                 <p>Grazie per l'attenzione.</p>

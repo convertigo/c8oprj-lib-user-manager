@@ -30,7 +30,7 @@
                     <div><h2 class="OpenSans700">重置密码请求</h2></div>
                 </div>
                 <p>尊敬的用户：</p>
-                <p>您最近请求重置 <xsl:value-of select="//appName" /> 帐户的密码。</p>
+                <p><xsl:value-of select="//body" /></p>
                 <p>请点击<a href="{//confirmURL}">此链接</a>或下方按钮继续：</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank"><span class="innerButtonConfirm"><span style="font-size: 16px; line-height: 28px;"><span style="font-size: 14px; line-height: 25px; color: #ffffff;">重置我的密码</span></span></span></a>
                 <p>感谢您的关注。</p>

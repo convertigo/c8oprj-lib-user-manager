@@ -2,6 +2,62 @@ accessibility: Private
 authenticatedContextRequired: true
 comment: Adds an user to the Internal Convertigo User database
 ↓Input_variables [steps.InputVariablesStep-1572600429317]: 
+↓ResolveEmailLocalization [steps.SimpleStep-1790156854739]: 
+  comment: Normalizes lang and resolves caller overrides, locale symbols, then generic symbols.
+  expression: |
+    '// Shared email locale normalization and explicit symbol fallback policy.
+    var normalizeEmailLocale = function(value) {
+    	var candidate = value == null ? "" : String(value).trim().replace(/_/g, "-").toLowerCase();
+    	if (candidate == "en" || candidate.indexOf("en-") == 0) return "en";
+    	if (candidate == "fr" || candidate.indexOf("fr-") == 0) return "fr";
+    	if (candidate == "es" || candidate.indexOf("es-") == 0) return "es";
+    	if (candidate == "it" || candidate.indexOf("it-") == 0) return "it";
+    	if (candidate == "zh" || candidate == "zh-cn" || candidate == "zh-hans" || candidate.indexOf("zh-hans-") == 0) return "zh-CN";
+    	return "en";
+    };
+    var firstNonBlankEmailValue = function() {
+    	for (var i = 0; i < arguments.length; i++) {
+    		var value = arguments[i];
+    		if (value != null && String(value).trim().length > 0) return String(value);
+    	}
+    	return "";
+    };
+    var normalizedEmailLocale = normalizeEmailLocale(lang);
+    var localizedEmailBodies = {
+    	"en": symbolEmailBodyEn,
+    	"fr": symbolEmailBodyFr,
+    	"es": symbolEmailBodyEs,
+    	"it": symbolEmailBodyIt,
+    	"zh-CN": symbolEmailBodyZhCN
+    };
+    var localizedEmailSubjects = {
+    	"en": symbolEmailSubjectEn,
+    	"fr": symbolEmailSubjectFr,
+    	"es": symbolEmailSubjectEs,
+    	"it": symbolEmailSubjectIt,
+    	"zh-CN": symbolEmailSubjectZhCN
+    };
+    var resolvedEmailBody = firstNonBlankEmailValue(emailBody, localizedEmailBodies[normalizedEmailLocale], symbolEmailBody, "Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.");
+    var resolvedEmailSubject = firstNonBlankEmailValue(emailSubject, localizedEmailSubjects[normalizedEmailLocale], symbolEmailSubject, "Please confirm your account by creating a new password and clicking on the reset password button");
+    lang = normalizedEmailLocale;
+    emailBody = resolvedEmailBody;
+    emailSubject = resolvedEmailSubject;
+    '
+↓ResolvedEmailLocale [steps.ElementStep-1790156854793]: 
+  comment: Resolved email localization value.
+  expression: normalizedEmailLocale
+  nodeName: resolvedEmailLocale
+  output: false
+↓ResolvedEmailSubject [steps.ElementStep-1790156854784]: 
+  comment: Resolved email localization value.
+  expression: resolvedEmailSubject
+  nodeName: resolvedEmailSubject
+  output: false
+↓ResolvedEmailBody [steps.ElementStep-1790156854775]: 
+  comment: Resolved email localization value.
+  expression: resolvedEmailBody
+  nodeName: resolvedEmailBody
+  output: false
 ↓Call_Sequence [steps.SequenceStep-1572600561038]: 
   sourceSequence: lib_UserManager.HashAndSalt
   ↓password [variables.StepVariable-1572600561040]: 
@@ -148,9 +204,9 @@ comment: Adds an user to the Internal Convertigo User database
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1572600429317
+                  - ↑value: 1790156854775
                 - java.lang.String: 
-                  - ↑value: ./emailBody/text()
+                  - ↑value: ./text()
         ↓emailSubject [variables.StepVariable-1674733317452]: 
           comment: Email subject
           sourceDefinition: 
@@ -158,9 +214,9 @@ comment: Adds an user to the Internal Convertigo User database
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1572600429317
+                  - ↑value: 1790156854784
                 - java.lang.String: 
-                  - ↑value: ./emailSubject/text()
+                  - ↑value: ./text()
         ↓emailLogo [variables.StepVariable-1674733317454]: 
           comment: Email logo to be added
           sourceDefinition: 
@@ -185,6 +241,17 @@ comment: Adds an user to the Internal Convertigo User database
                   - ↑value: 1572600429317
                 - java.lang.String: 
                   - ↑value: ./targetApplicationName/text()
+        ↓lang [variables.StepVariable-1790156908467]: 
+          comment: Normalized email locale.
+          description: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1790156854793
+                - java.lang.String: 
+                  - ↑value: ./text()
 ↓user [variables.RequestableVariable-1572600451823]: 
   comment: The user id as a valid email address
 ↓password [variables.RequestableVariable-1572600460277]: 
@@ -193,16 +260,79 @@ comment: Adds an user to the Internal Convertigo User database
   comment: The user id as a valid email address
   value: false
 ↓emailBody [variables.RequestableVariable-1674733616140]: 
-  comment: Email content
-  value: ${lib_UserManager.createAccount.emailBody =Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
+  comment: Caller-overridable localized email body; blank uses symbol fallback.
+  value: 
 ↓emailSubject [variables.RequestableVariable-1674733616143]: 
-  comment: Email subject
-  value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by creating a new password and clicking on the reset password button}
+  comment: Caller-overridable localized email subject; blank uses symbol fallback.
+  value: 
 ↓emailLogo [variables.RequestableVariable-1674733616146]: 
   comment: Email logo to be added
   value: ${lib_UserManager.createAccount.emailLogo =https://www.convertigo.com/wp-content/themes/EightDegree/images/logo_convertigo.png}
 ↓targetApplicationName [variables.RequestableVariable-1674757846419]: 
   comment: Email where to send the reset password link to
+↓symbolEmailBody [variables.RequestableVariable-1790156854062]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody=Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
+  wsdl: false
+↓symbolEmailBodyEn [variables.RequestableVariable-1790156854113]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.en.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody.en=Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
+  wsdl: false
+↓symbolEmailBodyFr [variables.RequestableVariable-1790156854127]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.fr.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody.fr=Bonjour, un compte vient d’être créé pour vous. Veuillez cliquer sur le bouton de réinitialisation du mot de passe ci-dessous pour définir votre mot de passe et confirmer votre compte.}
+  wsdl: false
+↓symbolEmailBodyEs [variables.RequestableVariable-1790156854141]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.es.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody.es=Hola, acabamos de crear una cuenta para ti. Haz clic en el botón de restablecimiento de contraseña que aparece a continuación para definir tu contraseña y confirmar tu cuenta.}
+  wsdl: false
+↓symbolEmailBodyIt [variables.RequestableVariable-1790156854165]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.it.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody.it=Ciao, è stato appena creato un account per te. Fai clic sul pulsante di reimpostazione della password qui sotto per impostare la password e confermare l'account.}
+  wsdl: false
+↓symbolEmailBodyZhCN [variables.RequestableVariable-1790156854180]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.zh-CN.
+  description: 
+  value: ${lib_UserManager.createAccount.emailBody.zh-CN=您好，我们刚刚为您创建了一个帐户。请点击下方的重置密码按钮设置密码并确认您的帐户。}
+  wsdl: false
+↓symbolEmailSubject [variables.RequestableVariable-1790156854200]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject=Please confirm your account by creating a new password and clicking on the reset password button}
+  wsdl: false
+↓symbolEmailSubjectEn [variables.RequestableVariable-1790156854213]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.en.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject.en=Please confirm your account by creating a new password and clicking on the reset password button}
+  wsdl: false
+↓symbolEmailSubjectFr [variables.RequestableVariable-1790156854224]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.fr.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject.fr=Veuillez confirmer votre compte en créant un nouveau mot de passe et en cliquant sur le bouton de réinitialisation du mot de passe}
+  wsdl: false
+↓symbolEmailSubjectEs [variables.RequestableVariable-1790156854237]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.es.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject.es=Confirma tu cuenta creando una nueva contraseña y haciendo clic en el botón de restablecimiento de contraseña}
+  wsdl: false
+↓symbolEmailSubjectIt [variables.RequestableVariable-1790156854253]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.it.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject.it=Conferma il tuo account creando una nuova password e facendo clic sul pulsante di reimpostazione della password}
+  wsdl: false
+↓symbolEmailSubjectZhCN [variables.RequestableVariable-1790156854265]: 
+  comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.zh-CN.
+  description: 
+  value: ${lib_UserManager.createAccount.emailSubject.zh-CN=请创建新密码并点击重置密码按钮以确认您的帐户}
+  wsdl: false
+↓lang [variables.RequestableVariable-1790156854664]: 
+  comment: Canonical email locale; defaults to en.
+  description: 
 ↓TestOK [core.TestCase]: 
   ↓user [variables.TestCaseVariable-1572600838619]: 
     value: test@mail.com

@@ -338,7 +338,7 @@ The user id as a valid email address
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailBody
 </td>
 <td>
-Email content
+Caller-overridable localized email body; blank uses symbol fallback.
 </td>
 </tr>
 <tr>
@@ -354,7 +354,15 @@ Email logo to be added
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailSubject
 </td>
 <td>
-Email subject
+Caller-overridable localized email subject; blank uses symbol fallback.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
+</td>
+<td>
+Canonical email locale; defaults to en.
 </td>
 </tr>
 <tr>
@@ -363,6 +371,102 @@ Email subject
 </td>
 <td>
 The inital password. (User will be able to change it afterwards)
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBody
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.zh-CN.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubject
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.zh-CN.
 </td>
 </tr>
 <tr>
@@ -616,7 +720,7 @@ Email where to send the reset password link to
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailBody
 </td>
 <td>
-Email content
+Caller-overridable localized email body; blank uses symbol fallback.
 </td>
 </tr>
 <tr>
@@ -632,7 +736,15 @@ Email logo to be added
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailSubject
 </td>
 <td>
-Email subject
+Caller-overridable localized email subject; blank uses symbol fallback.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;lang
+</td>
+<td>
+Canonical email locale; defaults to en.
 </td>
 </tr>
 <tr>
@@ -649,6 +761,102 @@ New password to be set
 </td>
 <td>
 Password reset key
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBody
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.zh-CN.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubject
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.zh-CN.
 </td>
 </tr>
 <tr>
@@ -691,6 +899,14 @@ Email where to send the reset password link to
 </tr>
 <tr>
 <td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailBody
+</td>
+<td>
+Caller-overridable localized email body.
+</td>
+</tr>
+<tr>
+<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailLogo
 </td>
 <td>
@@ -702,7 +918,7 @@ Email logo to be added
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;emailSubject
 </td>
 <td>
-Email subject
+Caller-overridable localized email subject; blank uses symbol fallback.
 </td>
 </tr>
 <tr>
@@ -727,6 +943,102 @@ New password to be set
 </td>
 <td>
 Password reset key
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBody
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailBodyZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailBody.zh-CN.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubject
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEn
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.en.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectEs
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.es.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectFr
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.fr.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectIt
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.it.
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/variables/images/variable_color_16x16.png?raw=true "  alt="RequestableVariable" >&nbsp;symbolEmailSubjectZhCN
+</td>
+<td>
+Internal explicit reference to lib_UserManager.createAccount.emailSubject.zh-CN.
 </td>
 </tr>
 <tr>
