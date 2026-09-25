@@ -273,62 +273,62 @@ comment: Adds an user to the Internal Convertigo User database
 ↓symbolEmailBody [variables.RequestableVariable-1790156854062]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody}
+  value: ${lib_UserManager.createAccount.emailBody =Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
   wsdl: false
 ↓symbolEmailBodyEn [variables.RequestableVariable-1790156854113]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.en.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody.en}
+  value: ${lib_UserManager.createAccount.emailBody.en =Hello, an account has just been created for you. Please click on the following reset password Button to change your password and confirm your account.}
   wsdl: false
 ↓symbolEmailBodyFr [variables.RequestableVariable-1790156854127]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.fr.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody.fr}
+  value: ${lib_UserManager.createAccount.emailBody.fr =Bonjour, un compte vient d’être créé pour vous. Cliquez sur le bouton de réinitialisation du mot de passe ci-dessous pour définir votre mot de passe et confirmer votre compte.}
   wsdl: false
 ↓symbolEmailBodyEs [variables.RequestableVariable-1790156854141]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.es.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody.es}
+  value: ${lib_UserManager.createAccount.emailBody.es =Hola, se ha creado una cuenta para ti. Haz clic en el botón de restablecimiento de contraseña para definir tu contraseña y confirmar tu cuenta.}
   wsdl: false
 ↓symbolEmailBodyIt [variables.RequestableVariable-1790156854165]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.it.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody.it}
+  value: ${lib_UserManager.createAccount.emailBody.it =Salve, è stato creato un account per te. Fai clic sul pulsante di reimpostazione della password per definire la password e confermare l’account.}
   wsdl: false
 ↓symbolEmailBodyZhCN [variables.RequestableVariable-1790156854180]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailBody.zh-CN.
   description: 
-  value: ${lib_UserManager.createAccount.emailBody.zh-CN}
+  value: ${lib_UserManager.createAccount.emailBody.zh-CN =您好，已为您创建帐户。请点击下方的重置密码按钮来设置密码并确认您的帐户。}
   wsdl: false
 ↓symbolEmailSubject [variables.RequestableVariable-1790156854200]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject}
+  value: ${lib_UserManager.createAccount.emailSubject =Please confirm your account by creating a new password and clicking on the reset password button}
   wsdl: false
 ↓symbolEmailSubjectEn [variables.RequestableVariable-1790156854213]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.en.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject.en}
+  value: ${lib_UserManager.createAccount.emailSubject.en =Please confirm your account by creating a new password and clicking on the reset password button}
   wsdl: false
 ↓symbolEmailSubjectFr [variables.RequestableVariable-1790156854224]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.fr.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject.fr}
+  value: ${lib_UserManager.createAccount.emailSubject.fr =Confirmez votre compte en créant un nouveau mot de passe}
   wsdl: false
 ↓symbolEmailSubjectEs [variables.RequestableVariable-1790156854237]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.es.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject.es}
+  value: ${lib_UserManager.createAccount.emailSubject.es =Confirma tu cuenta creando una nueva contraseña}
   wsdl: false
 ↓symbolEmailSubjectIt [variables.RequestableVariable-1790156854253]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.it.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject.it}
+  value: ${lib_UserManager.createAccount.emailSubject.it =Conferma il tuo account creando una nuova password}
   wsdl: false
 ↓symbolEmailSubjectZhCN [variables.RequestableVariable-1790156854265]: 
   comment: Internal explicit reference to lib_UserManager.createAccount.emailSubject.zh-CN.
   description: 
-  value: ${lib_UserManager.createAccount.emailSubject.zh-CN}
+  value: ${lib_UserManager.createAccount.emailSubject.zh-CN =请创建新密码以确认您的帐户}
   wsdl: false
 ↓lang [variables.RequestableVariable-1790156854664]: 
   comment: Canonical email locale; defaults to en.
