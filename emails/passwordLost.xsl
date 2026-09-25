@@ -3,7 +3,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output encoding="UTF-8" indent="no"
 		media-type="text/html" method="html" />
-	<xsl:template match="document">
+	<xsl:template match="/">
 		<html>
 			<head>
 				<meta name="viewport" content="width=device-width" />
