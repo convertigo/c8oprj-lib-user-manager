@@ -1,3 +1,4 @@
+accessibility: Private
 comment: Get all groups available in the AD
 ↓GetAllAdGroups [steps.SimpleStep-1755755432439]: 
   expression: |

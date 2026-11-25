@@ -1,17 +1,19 @@
 ↑default: true
 databaseName: lib_usermanager_fullsync
+replicationAccess: deny
 ↓DeleteDocument [transactions.couchdb.DeleteDocumentTransaction]: 
-  accessibility: Public
+  accessibility: Private
   ↓_use_docid [variables.RequestableVariable-1572602108218]: 
     description: Document ID
 ↓GetAccountDocument [transactions.couchdb.GetDocumentTransaction]: 
+  accessibility: Private
   ↓_use_docid [variables.RequestableVariable-1572600355389]: 
     description: Document ID
 ↓GetServerInfo [transactions.couchdb.GetServerInfoTransaction]: 
   ↑default: true
-  accessibility: Public
+  accessibility: Private
 ↓GetView [transactions.couchdb.GetViewTransaction]: 
-  accessibility: Public
+  accessibility: Private
   ↓_use_ddoc [variables.RequestableVariable-1582124298856]: 
     description: Design document name
   ↓_use_view [variables.RequestableVariable-1582124298858]: 
@@ -25,6 +27,12 @@ databaseName: lib_usermanager_fullsync
   ↓_use_descending [variables.RequestableVariable-1738663588277]: 
     description: (boolean) – Return the documents in descending by key order. Default is false
 ↓PostDocument [transactions.couchdb.PostDocumentTransaction]: 
+  accessibility: Private
+  fullSyncAclPolicy: fromKeyC8oAcl
+  ↓_c8oAcl [variables.RequestableVariable-1895100000001]: 
+    comment: Reserved owner of every account document. The design document refuses any other value.
+    description: Set the owner of the document if the "Acl Policy"="From _c8oACL variable"
+    value: c8o:admin
   ↓_use_json_base [variables.RequestableVariable-1572600355393]: 
     description: (string) – JSON use as a base for the document (js object). Optional
   ↓_id [variables.RequestableVariable-1572600355396]: 
@@ -32,7 +40,13 @@ databaseName: lib_usermanager_fullsync
   ↓data [variables.RequestableVariable-1572600355399]: 
     description: Document content
 ↓PostMergeDocument [transactions.couchdb.PostDocumentTransaction]: 
+  accessibility: Private
+  fullSyncAclPolicy: fromKeyC8oAcl
   policy: merge
+  ↓_c8oAcl [variables.RequestableVariable-1895100000002]: 
+    comment: Reserved owner of every account document. The design document refuses any other value.
+    description: Set the owner of the document if the "Acl Policy"="From _c8oACL variable"
+    value: c8o:admin
   ↓_use_json_base [variables.RequestableVariable-1582120940449]: 
     description: (string) – JSON use as a base for the document (js object). Optional
   ↓_id [variables.RequestableVariable-1582120940452]: 
@@ -42,20 +56,31 @@ databaseName: lib_usermanager_fullsync
       '(string) – JSON used to specify special behavior of the ''merge'' Policy. Optional <br/>
        In this strict JSON string, you can:<br/><br/>• <b>delete</b>: delete the target key. <br/>• <b>override</b>: replace the value of the target key, don''t merge this. <br/>• <b>prepend</b>: prepend the value or the array in the existing array or value of the target key. <br/>• <b>append</b>: append the value or the array in the existing array or value of the target key. <br/><br/>A target key is the path of the object to reach, separated by the "_separator" (default is dot). The target key is the same for the 2 documents to merge. <br/>Samples: <br/>{"a.b.c": "override", "a.b.d": "delete"} <br/>{"_separator": "+", "a+b+c": "override"} <br/><br/>'
 ↓Design_document [couchdb.DesignDocument]: 
+  comment: |
+    Account documents are accepted with the reserved ACL c8o:admin only, the one written by the lib_UserManager sequences (PostDocument, PostMergeDocument); a document from a FullSync client carries its user as ~c8oAcl.
+    Documents written by earlier versions keep their ACL until their next write through PostDocument or PostMergeDocument.
   docdata: 
     →: |
       '{
         "_id": "_design\/Design_document",
         "filters": {},
         "updates": {},
+        "validate_doc_update": "function (newDoc, oldDoc, userCtx, secObj) {\r\n
+          \/\/ Accounts are written by the lib_UserManager sequences only, with the reserved ACL.\r\n
+          \/\/ A document pushed by a FullSync client carries its user as ~c8oAcl and is refused.\r\n
+          if (newDoc._id.indexOf(\"_design\/\") !== 0 && newDoc._deleted !== true && newDoc[\"~c8oAcl\"] !== \"c8o:admin\") {\r\n
+              throw({forbidden: \"Accounts are written by the lib_UserManager sequences only.\"});\r\n
+          }\r\n
+      }",
         "views": {
           "PasswordLostAccountsByPasswordResetKey": {
             "map": "function (doc) {\r\n
           try {\r\n
-              if (doc.account.status == ''passwordlost'' && doc.account.passwordResetKey) {\r\n
+              if (doc[\"~c8oAcl\"] == \"c8o:admin\" && doc.account && \/^[0-9a-f]{64}$\/.test(doc.account.passwordResetKey) && (doc.account.status == ''confirmed'' || doc.account.status == ''draft'' || doc.account.status == ''passwordlost'')) {\r\n
                   emit(doc.account.passwordResetKey, {\r\n
                       site: doc.account.site,\r\n
-                      email: doc.account.email\r\n
+                      email: doc.account.email,\r\n
+                      expiresAt: doc.account.passwordResetExpiresAt\r\n
                   });\r\n
               }\r\n
           } catch (err) {\r\n
@@ -99,7 +124,7 @@ databaseName: lib_usermanager_fullsync
           "getDraftedAccounts": {
             "map": "function (doc) {\r\n
           try {\r\n
-              if(doc.account && doc.account.status == \"passwordlost\" && doc.account.timeStamp != undefined){\r\n
+              if(doc.account && (doc.account.status == \"draft\" || doc.account.status == \"passwordlost\") && doc.account.timeStamp != undefined){\r\n
                   emit(doc.account.timeStamp, doc._rev);\r\n
               }\r\n
           } catch (err) {\r\n

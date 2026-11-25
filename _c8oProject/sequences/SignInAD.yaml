@@ -1,5 +1,21 @@
+accessibility: Private
 comment: Sign in using an ActiveDirectory account. Will also return the list of groups the user belongs to
 ↓Input_variables [steps.InputVariablesStep-1582356986531]: 
+↓TrustedDirectory [steps.SimpleStep-1790246000030]: 
+  comment: Only server-side LDAP settings may be used by public sign-in calls.
+  expression: |
+    var symbolManager = com.twinsoft.convertigo.engine.Engine.theApp.databaseObjectsManager;
+    function trustedDirectorySetting(name, required) {
+      var value = symbolManager.symbolsGetValue(name);
+      if (value == null || String(value).trim() == "") {
+        if (!required) return "";
+        throw new java.lang.SecurityException("LDAP configuration is unavailable");
+      }
+      return String(symbolManager.getCompiledValue("$" + "{" + name + "}")); // a %ENV% value is resolved
+    }
+    ldapServer = trustedDirectorySetting("lib_UserManager.ldapServer", true);
+    adminUser = trustedDirectorySetting("lib_UserManager.adminUser", false);
+    adminPassword = trustedDirectorySetting("lib_UserManager.adminPassword.secret", false);
 ↓jIf [steps.IfStep-1588004581008]: 
   comment: if we are not logging with an email
   condition: '!(user.match(new RegExp("^\\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$")) != null)'
@@ -384,22 +400,3 @@ comment: Sign in using an ActiveDirectory account. Will also return the list of 
   value: ${lib_UserManager.ldapBasePath}
 ↓domainNameUser [variables.RequestableVariable-1588005622006]: 
   value: ${lib_UserManager.ldapDomainName}
-↓TestInvalidPassword [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1582356986589]: 
-    value: test@mail.com
-  ↓password [variables.TestCaseVariable-1582356986592]: 
-    value: kfdsfkjhdf
-↓TestInvalidUsename [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1582356986596]: 
-    value: XIYIUYIUY
-  ↓password [variables.TestCaseVariable-1582356986599]: 
-    value: test
-↓TestOK [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1582356986603]: 
-    value: aaron.may
-  ↓password [variables.TestCaseVariable-1582356986606]: 
-    value: 
-      - ↑ciphered: true
-      - ↑traceable: false
-      - →→: xef5264be55a6f832948740b69a0aba32
-    visibility: '-1'

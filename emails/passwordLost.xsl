@@ -3,13 +3,13 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 	<xsl:output encoding="UTF-8" indent="no"
 		media-type="text/html" method="html" />
-	<xsl:template match="document">
+	<xsl:template match="/">
 		<html>
 			<head>
 				<meta name="viewport" content="width=device-width" />
 				<meta http-equiv="Content-Type"
 					content="text/html; charset=UTF-8" />
-				<title>Simple Transactional Email</title>
+				<title><xsl:value-of select="//emailTitle" /></title>
 				<style>
 					/* -------------------------------------
 					INLINED WITH
@@ -165,7 +165,7 @@
 											<span
 												style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;">
 												<span style="font-size: 16px; line-height: 28px;">
-													<span style="font-size: 14px; line-height: 25px;">Reset password</span>
+													<span style="font-size: 14px; line-height: 25px;"><xsl:value-of select="//emailButtonLabel" /></span>
 												</span>
 											</span>
 										</a>

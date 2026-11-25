@@ -168,8 +168,49 @@ No `lib_UserManager.*` symbol is required for the standard internal login (`Sign
 
 - `CRYPTO_PASSPHRASE` (engine property, not a `lib_UserManager.*` symbol)
 
+The password reset and account confirmation emails (`ForgotPassword`, `ForgotPasswordWithBrand`, `ConfirmAccount`) build their links from a trusted base URL, never from the host of the request:
+
+| symbol                               | Required | Usage |
+|--------------------------------------|----------|-------|
+| lib_UserManager.publicUrl            | no, see below | Public URL of the server, for example `https://forms.example.com/convertigo`; it may reference an environment variable, for example `%CONVERTIGO_PUBLIC_URL%` |
+
+The base URL of the links is the first of:
+
+1. the symbol `lib_UserManager.publicUrl` (an environment variable it references and that is not defined leaves it unset);
+2. the environment variable `CONVERTIGO_PUBLIC_URL`;
+3. the engine property *Convertigo Server endpoint URL*;
+4. the engine property *Convertigo Server local URL* (`-Dconvertigo.engine.application_server.convertigo.url`, set by C8oCloud), unless it targets the local host;
+5. in the Studio only, the URL of the request.
+
+Otherwise the sequences answer with an error (`The public URL of the server is not configured`) and send no email: on a server, the request host (`Host` or `X-Convertigo-Request-Host` header) is never used, whatever the account.
+
+Password reset and account confirmation links are valid for 15 minutes. While the link of an account is still valid no new email is sent, and an account receives at most 3 links per 15 minutes; the answer of the sequence is the same in every case.
+
+Accounts created by the anonymous form publication of earlier C8Oforms versions are refused by `SignIn` and `CheckSecureToken`, according to:
+
+| symbol                                          | Required | Usage |
+|-------------------------------------------------|----------|-------|
+| lib_UserManager.legacyFormsAnonymousAuthMode    | optional | `enforce` (default: refuse the listed accounts and the detected ones), `inventory` (refuse only the listed accounts), `observe` (log without refusing) or `off` |
+| lib_UserManager.legacyFormsAnonymousAccountIds  | optional | Exact IDs of these accounts, separated by commas or whitespace |
+
+<a id="emails-language"></a>
+### Email Language And Texts
+
+`AddUser`, `CreateAccount`, `ConfirmAccount`, `ForgotPassword` and `ForgotPasswordWithBrand` take a `lang` input: `en`, `fr`, `es`, `it` or `zh-CN` (any other value falls back to `en`). It sets the language of the email, and `ForgotPassword` and `ForgotPasswordWithBrand` add it to the link. A non-empty `emailBody` or `emailSubject` input is used as is; otherwise the text comes from these optional symbols, the one of the locale first:
+
+| symbol                                          | Usage |
+|-------------------------------------------------|-------|
+| lib_UserManager.resetPassword.emailBody.`<locale>`, lib_UserManager.resetPassword.emailBody | Body of the password reset email (`ForgotPassword`, `ForgotPasswordWithBrand`) |
+| lib_UserManager.resetPassword.emailSubject.`<locale>`, lib_UserManager.resetPassword.emailSubject | Subject of the password reset email |
+| lib_UserManager.createAccount.emailBody.`<locale>`, lib_UserManager.createAccount.emailBody | Body of the email sent by `AddUser` |
+| lib_UserManager.createAccount.emailSubject.`<locale>`, lib_UserManager.createAccount.emailSubject | Subject of the email sent by `AddUser` |
+
+`ConfirmAccount` uses a built-in subject in the language of the email when `emailSubject` is empty.
+
 <a id="auth-mode-ad"></a>
 ### Active Directory Login (SignInAD / SignInADBulk)
+
+`SignInAD` and `SignInADBulk` are private: call them from a sequence of your project, which applies its own login policy.
 
 | symbol                               | Required | Usage |
 |--------------------------------------|----------|-------|
@@ -193,6 +234,7 @@ No `lib_UserManager.*` symbol is required for the standard internal login (`Sign
 | lib_UserManager.LDAP_GROUP_OBJECT_CLASS         | optional | LDAP objectClass used to find groups (default `group`) |
 | lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE    | optional | Group display attribute (default `cn`) |
 | lib_UserManager.ldapDomainName                  | optional | Domain prefix helper for user login |
+| lib_UserManager.ldapDirectSignInGroups          | optional | Groups (comma or semicolon separated) whose members may call `SignInLDAPBulk` directly from a client, `*` for any directory user; empty (default) refuses direct calls. A sequence of another project calling it keeps its own policy |
 
 <a id="auth-mode-oauth-openid"></a>
 ### OpenID/OAuth Login (Google, Microsoft, LinkedIn, OpenID)

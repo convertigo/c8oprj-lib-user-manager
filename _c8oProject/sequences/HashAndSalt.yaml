@@ -2,26 +2,48 @@ accessibility: Private
 comment: Utility sequence to Hash and Salt passwords
 ↓Hash [steps.SimpleStep-1572600502810]: 
   expression: |
-    'var jVerified = "";
+    'var jVerified = false;
     var jSalt = "";
     var jHash = "";
-    
-    if (salt == undefined) {
-    	// no Salt provided so use in set password mode.
-    	// We will generate a salt and HASH the whole stuff.
-    	// returning the hash and the salt.
-    	random = new java.security.SecureRandom();
-    	byteArray = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 32);
-    	random.nextBytes(byteArray);
-    	var jSalt = com.twinsoft.convertigo.engine.util.Base64.encodeBytes(byteArray);
-    	var jHash = org.apache.commons.codec.digest.DigestUtils.sha1Hex(password + "+" + jSalt);
+    var securityPassword = String(typeof password == "undefined" || password == null ? "" : password);
+    var securityBase64 = java.util.Base64;
+    if (typeof salt == "undefined" || salt == null || String(salt) == "") {
+      var securityBytes = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 32);
+      new java.security.SecureRandom().nextBytes(securityBytes);
+      var jSalt = String(securityBase64.getEncoder().encodeToString(securityBytes));
+      var securitySpec = new javax.crypto.spec.PBEKeySpec(
+        new java.lang.String(securityPassword).toCharArray(), securityBytes, 210000, 256);
+      var securityDerived = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(securitySpec).getEncoded();
+      var jHash = "pbkdf2-sha256$210000$" + securityBase64.getEncoder().encodeToString(securityDerived);
+      securitySpec.clearPassword();
     } else {
-    	// We do have a salt, so this is used in Verify mode
-    	testHash = org.apache.commons.codec.digest.DigestUtils.sha1Hex(password + "+" + salt) +"";
-    	var jVerified = testHash == hash ? true : false;
+      var securityHash = String(typeof hash == "undefined" || hash == null ? "" : hash);
+      if (securityHash.indexOf("pbkdf2-sha256$") == 0) {
+        var securityParts = securityHash.split("$");
+        var securityIterations = Number(securityParts[1]);
+        if (securityParts.length == 3 && /^[0-9]+$/.test(securityParts[1]) &&
+            securityIterations >= 100000 && securityIterations <= 500000) {
+          try {
+            var securitySalt = securityBase64.getDecoder().decode(String(salt));
+            var securityExpected = securityBase64.getDecoder().decode(securityParts[2]);
+            if (securitySalt.length == 32 && securityExpected.length == 32) {
+              var securityVerifySpec = new javax.crypto.spec.PBEKeySpec(
+                new java.lang.String(securityPassword).toCharArray(), securitySalt, securityIterations, 256);
+              var securityActual = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(securityVerifySpec).getEncoded();
+              jVerified = java.security.MessageDigest.isEqual(securityActual, securityExpected);
+              securityVerifySpec.clearPassword();
+            }
+          } catch (securityError) {
+            jVerified = false;
+          }
+        }
+      } else if (/^[a-fA-F0-9]{40}$/.test(securityHash)) {
+        var securityLegacy = org.apache.commons.codec.digest.DigestUtils.sha1Hex(securityPassword + "+" + String(salt));
+        jVerified = java.security.MessageDigest.isEqual(
+          new java.lang.String(securityLegacy).getBytes("UTF-8"),
+          new java.lang.String(securityHash.toLowerCase()).getBytes("UTF-8"));
+      }
     }
-    
-    
     '
 ↓jElement [steps.ElementStep-1572600502813]: 
   expression: jHash

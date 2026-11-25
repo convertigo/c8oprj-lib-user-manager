@@ -1,4 +1,40 @@
 ↓inputVars [steps.InputVariablesStep-1758721986139]: 
+↓TrustedDirectory [steps.SimpleStep-1790246000032]: 
+  comment: Only server-side LDAP settings may be used by public sign-in calls.
+  expression: |
+    var symbolManager = com.twinsoft.convertigo.engine.Engine.theApp.databaseObjectsManager;
+    function trustedDirectorySetting(name, required) {
+      var value = symbolManager.symbolsGetValue(name);
+      if (value == null || String(value).trim() == "") {
+        if (!required) return "";
+        throw new java.lang.SecurityException("LDAP configuration is unavailable");
+      }
+      return String(symbolManager.getCompiledValue("$" + "{" + name + "}")); // a %ENV% value is resolved
+    }
+    ldapServer = trustedDirectorySetting("lib_UserManager.ldapServer", true);
+    adminUser = trustedDirectorySetting("lib_UserManager.adminUser", false);
+    adminPassword = trustedDirectorySetting("lib_UserManager.adminPassword.secret", false);
+↓DirectSignInPolicy [steps.SimpleStep-1895100000041]: 
+  comment: |
+    A client calling this sequence directly (not a sequence of another project) signs in only if lib_UserManager.ldapDirectSignInGroups allows it, with the directory settings of the server.
+    The caller of a sequence step, such as C8Oforms LoginAD, keeps its own login policy.
+  expression: |
+    include("js/directorySignInPolicy.js");
+    var directSignIn = isDirectLibUserManagerRequest(context.httpServletRequest);
+    var directSignInGroups = [];
+    if (directSignIn) {
+      directSignInGroups = getDirectLdapSignInGroups();
+      if (directSignInGroups.length == 0) {
+        throw new java.lang.SecurityException("Direct LDAP sign-in is disabled");
+      }
+      ldapBasePath = trustedDirectorySetting("lib_UserManager.ldapBasePath", false);
+      ldapBasePathGroup = trustedDirectorySetting("lib_UserManager.ldapBasePathGroup", false);
+      domainNameUser = trustedDirectorySetting("lib_UserManager.ldapDomainName", false);
+      userIdAttribute = trustedDirectorySetting("lib_UserManager.LDAP_USER_ID_ATTRIBUTE", false) || "uid";
+      groupAttribute = trustedDirectorySetting("lib_UserManager.LDAP_GROUP_OBJECT_CLASS", false) || "group";
+      groupDisplayAttribute = trustedDirectorySetting("lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE", false) || "cn";
+      casesensitive = trustedDirectorySetting("C8Oforms.LDAP_AD_Casesentsitive", false) || "true";
+    }
 ↓SignInLDAP [steps.SimpleStep-1758722094891]: 
   expression: |
     'var JavaImporter = JavaImporter(
@@ -74,6 +110,12 @@
         var managerConn = null;
     
         try {
+            // The sign-in requires a non-empty password: an empty one is refused before any bind (RFC 4513, 5.1.2).
+            if (password == null || userPassword == "") {
+                error = true;
+                errorMessage = "LDAP sign-in requires a password";
+                throw new Error(errorMessage);
+            }
             // Configuration de l''environnement pour la connexion LDAP (admin)
             var env = new java.util.Hashtable();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -91,7 +133,7 @@
             var searchControls = new SearchControls();
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
     
-            var userFilter = "(" + String(userIdAttribute) + "=" + uidUser + ")";
+            var userFilter = "(" + String(userIdAttribute) + "=" + escapeLdapFilterValue(uidUser) + ")";
             mark("Search USER: base=''" + ldapAdminUserBasePath + "'' filter=''" + userFilter + "''");
             var searchResult = conn.search(ldapAdminUserBasePath, userFilter, searchControls);
             lap("Search USER: exécution recherche (conn.search) OK");
@@ -248,6 +290,11 @@
             - ↑mode: JS
             - →→: errorMessage
   ↓jElse [steps.ElseStep-1758730689925]: 
+    ↓DirectSignInGroups [steps.SimpleStep-1895100000042]: 
+      expression: |
+        if (directSignIn && !isDirectLdapSignInAllowed(directSignInGroups, groups)) {
+          throw new java.lang.SecurityException("LDAP sign-in is not allowed for this user");
+        }
     ↓groups0 [steps.JsonToXmlStep-1758730516035]: 
       jsonObject: 
         - xmlizable: 
@@ -623,49 +670,3 @@
 ↓casesensitive [variables.RequestableVariable-1774621101772]: 
   comment: If false, user ids are normalized to lowercase before mirroring LDAP groups.
   value: ${C8Oforms.LDAP_AD_Casesentsitive=true}
-↓Test_Case [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1758789765459]: 
-    value: AC75008557
-  ↓password [variables.TestCaseVariable-1758789765461]: 
-    value: totototo
-  ↓adminUser [variables.TestCaseVariable-1758789765463]: 
-    value: cn=Directory Manager
-  ↓adminPassword [variables.TestCaseVariable-1758789765465]: 
-    value: 53CR37
-  ↓ldapServer [variables.TestCaseVariable-1758789765467]: 
-    value: ldap://localhost:389
-  ↓ldapBasePath [variables.TestCaseVariable-1758789765469]: 
-    value: dc=recouv
-  ↓domainNameUser [variables.TestCaseVariable-1758789765471]: 
-    value: 
-  ↓userIdAttribute [variables.TestCaseVariable-1758789765473]: 
-    value: uid
-  ↓groupAttribute [variables.TestCaseVariable-1758789765475]: 
-    value: arDroitPerimetre
-  ↓ldapBasePathGroup [variables.TestCaseVariable-1758789765477]: 
-    value: ou=arApplications,ou=Recouvrement,dc=recouv
-  ↓groupDisplayAttribute [variables.TestCaseVariable-1758789765479]: 
-    value: cn
-↓Test_CaseKO [core.TestCase]: 
-  ↓user [variables.TestCaseVariable-1758791849903]: 
-    value: AC75008557
-  ↓password [variables.TestCaseVariable-1758791849906]: 
-    value: totototo2
-  ↓adminUser [variables.TestCaseVariable-1758791849909]: 
-    value: cn=Directory Manager
-  ↓adminPassword [variables.TestCaseVariable-1758791849912]: 
-    value: 53CR37
-  ↓ldapServer [variables.TestCaseVariable-1758791849915]: 
-    value: ldap://localhost:389
-  ↓ldapBasePath [variables.TestCaseVariable-1758791849918]: 
-    value: dc=recouv
-  ↓domainNameUser [variables.TestCaseVariable-1758791849921]: 
-    value: 
-  ↓userIdAttribute [variables.TestCaseVariable-1758791849924]: 
-    value: uid
-  ↓groupAttribute [variables.TestCaseVariable-1758791849927]: 
-    value: arDroitPerimetre
-  ↓ldapBasePathGroup [variables.TestCaseVariable-1758791849930]: 
-    value: ou=arApplications,ou=Recouvrement,dc=recouv
-  ↓groupDisplayAttribute [variables.TestCaseVariable-1758791849933]: 
-    value: cn

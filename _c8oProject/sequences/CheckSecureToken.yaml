@@ -104,8 +104,14 @@ comment: The `CheckSecureToken` sequence verifies the validity of a JWT by check
             - java.lang.String: 
               - ↑value: ./document/couchdb_output
       variableName: doc
+    ↓RejectLegacyFormsAnonymousToken [steps.SimpleStep-1894097100003]: 
+      expression: |
+        'include("js/legacyFormsAnonymousAccount.js");
+        if (shouldRejectLegacyFormsAnonymousAccount(payload.user, doc, "token")) {
+          throw new java.lang.SecurityException("Legacy Forms anonymous account token is disabled");
+        }'
     ↓jIfThenElse [steps.IfThenElseStep-1739194723830]: 
-      condition: doc.account.hashPassword == payload.pwd_hash && doc.JWTokens.find((x)=>{return x == token}) != null
+      condition: doc && doc.account && doc.account.status == "confirmed" && doc.account.hashPassword == payload.pwd_hash && Array.isArray(doc.JWTokens) && doc.JWTokens.find((x)=>{return x == token}) != null
       ↓jThen [steps.ThenStep-1739194724740]: 
         ↓authenticatedUserID [steps.SetAuthenticatedUserStep-1739194754603]: 
           output: true

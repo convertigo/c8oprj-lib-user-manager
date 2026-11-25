@@ -7,6 +7,7 @@
     <xsl:template match="/">
         <html>
             <head>
+                <title>Réinitialisation du mot de passe</title>
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap');
 
@@ -63,8 +64,8 @@
                     </div>
                 </div>
                 <p>Cher utilisateur,</p>
-                <p>Vous avez récemment demandé à changer votre mot de passe pour votre compte <xsl:value-of select="//appName" />.</p>
-                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le boutton ci-dessous, pour continuer le processus de modification de votre mot de passe :</p>
+                <p><xsl:value-of select="//body" /></p>
+                <p>Veuillez cliquer sur <a href="{//confirmURL}" >ce lien</a> ou le bouton ci-dessous pour continuer le processus de modification de votre mot de passe :</p>
                 <a href="{//confirmURL}" class="buttonConfirm" target="_blank">
 					<span class="innerButtonConfirm">
 						<span style="font-size: 16px; line-height: 28px;">

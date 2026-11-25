@@ -1,4 +1,5 @@
-comment: Gets an user by attribute name and value
+accessibility: Private
+comment: Gets a user by attribute name and value for internal callers only.
 ↓Input_variables [steps.InputVariablesStep-1673557024033]: 
 ↓Sequence_JS [steps.SimpleStep-1673557130759]: 
   expression: |
@@ -26,8 +27,3 @@ comment: Gets an user by attribute name and value
           - ↑value: ./document/couchdb_output/rows/item/id/text()
 ↓attrName [variables.RequestableVariable-1673556983436]: 
 ↓attrValue [variables.RequestableVariable-1673556996736]: 
-↓Test_Case [core.TestCase]: 
-  ↓attrName [variables.TestCaseVariable-1673557241475]: 
-    value: password
-  ↓attrValue [variables.TestCaseVariable-1673557241477]: 
-    value: M%tNoEOSxjsfUmj

@@ -1,3 +1,4 @@
+accessibility: Private
 comment: Gives the localized Domain Users group,  where all users automatically belong
 ↓GetPrimaryGroup [steps.SimpleStep-1755529419614]: 
   expression: |

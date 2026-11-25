@@ -1,3 +1,4 @@
+accessibility: Private
 comment: Remove any drafts accounts not confirmed by email. Has to be scheduled.
 ↓Sequence_JS [steps.SimpleStep-1738666113465]: 
   expression: |

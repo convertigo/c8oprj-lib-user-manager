@@ -18,7 +18,7 @@
     | lib_UserManager.adminUser	           | LDAP admin account user                   |
     | lib_UserManager.ldapBasePath		   | LDAP Search Root Path                     |
     | lib_UserManager.ldapDomainName	   | LDAP DOMAIN Name                          |
-    | lib_UserManager.ldapServer           | LDAP server address:port                  |
+    | lib_UserManager.ldapServer           | LDAP server address:port, required by SignInAD, SignInADBulk and SignInLDAPBulk (the LDAP server and admin account always come from the symbols) |
     | lib_UserManager.smtp.server          | SMTP server address                       |
     | lib_UserManager.smtp.port            | SMTP server port                          |
     | lib_UserManager.smtp.sauthtype       | SMTP server authentication type           |
@@ -29,8 +29,18 @@
     | lib_UserManager.LDAP_GROUP_OBJECT_CLASS | Object class identifying groups        |
     | lib_UserManager.ldapBasePathGroup	   | Base path used to search for LDAP groups |
     | lib_UserManager.LDAP_GROUP_DISPLAY_ATTRIBUTE | The display name attribute for groups |
+    | lib_UserManager.ldapDirectSignInGroups | Groups (comma or semicolon separated) whose members may call SignInLDAPBulk directly from a client; * for any directory user; empty (default) refuses direct calls |
+    | lib_UserManager.legacyFormsAnonymousAccountIds | Exact legacy Forms account IDs, separated by commas or whitespace; set after inventory for orphan accounts |
+    | lib_UserManager.legacyFormsAnonymousAuthMode | enforce (default: block inventoried and detected legacy Forms anonymous accounts), inventory (block only inventoried IDs), observe (log without blocking) or off (roll back immediately) |
+    | lib_UserManager.publicUrl            | Public URL of the server used in the links of the emails, for example https://forms.example.com/convertigo; when empty, the environment variable CONVERTIGO_PUBLIC_URL, then the engine endpoint URL |
+    | lib_UserManager.resetPassword.emailBody, lib_UserManager.resetPassword.emailBody.LOCALE | Body of the password reset email (ForgotPassword, ForgotPasswordWithBrand), for one LOCALE (en, fr, es, it or zh-CN) or for any |
+    | lib_UserManager.resetPassword.emailSubject, lib_UserManager.resetPassword.emailSubject.LOCALE | Subject of the password reset email, for one LOCALE or for any |
+    | lib_UserManager.createAccount.emailBody, lib_UserManager.createAccount.emailBody.LOCALE | Body of the email sent by AddUser, for one LOCALE or for any |
+    | lib_UserManager.createAccount.emailSubject, lib_UserManager.createAccount.emailSubject.LOCALE | Subject of the email sent by AddUser, for one LOCALE or for any |
+    
+    The emails take the language of the lang input (en, fr, es, it or zh-CN, else en). Password reset and account confirmation links are valid for 15 minutes.
     '
-  version: 8.0.0.19
+  version: 8.0.1.0
   ↓lib_usermanager_fullsync [connectors.FullSyncConnector]: 🗏 connectors/lib_usermanager_fullsync.yaml
   ↓AddUser [sequences.GenericSequence]: 🗏 sequences/AddUser.yaml
   ↓CheckSecureToken [sequences.GenericSequence]: 🗏 sequences/CheckSecureToken.yaml
@@ -58,6 +68,6 @@
   ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
     urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
   ↓lib_FullSyncGrp_reference [references.ProjectSchemaReference]: 
-    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=v8.0.0.3:autoPull=true
+    projectName: lib_FullSyncGrp=https://github.com/convertigo/c8oprj-lib-fullsync-grp.git:branch=v8.0.1.0
   ↓Project_reference1 [references.ProjectSchemaReference]: 
-    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=v8.0.0.4:autoPull=true
+    projectName: lib_OAuth=https://github.com/convertigo/c8oprj-lib-oauth.git:branch=v8.0.1.0

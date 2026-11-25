@@ -1,8 +1,43 @@
 comment: Confirms a user account if a passwordResetKey was provided, or sends an email to the user with a passwordResetKey and allow him to confirm account. It should be called by CreateAccount sequence.
 ↓Input_variables [steps.InputVariablesStep-1674730624375]: 
+↓NormalizeEmailLocale [steps.SimpleStep-1789133711374]: 
+  comment: Normalizes the canonical mail locale, resolves the default localized subject and selects the locale-specific XSL.
+  expression: |
+    '// Canonical server-side locale and default subject selection for account confirmation emails.
+    var normalizeEmailLocale = function(value){
+    	var candidate = value == null ? "" : String(value).trim();
+    	return ["en", "fr", "es", "it", "zh-CN"].indexOf(candidate) != -1 ? candidate : "en";
+    };
+    var normalizedEmailLocale = normalizeEmailLocale(lang);
+    var accountConfirmationSubjects = {
+    	"en": "Confirm your account",
+    	"fr": "Confirmez votre compte",
+    	"es": "Confirma tu cuenta",
+    	"it": "Conferma il tuo account",
+    	"zh-CN": "确认您的帐户"
+    };
+    var suppliedEmailSubject = emailSubject == null ? "" : String(emailSubject).trim();
+    if(suppliedEmailSubject.length == 0){
+    	var subjectApplicationName = targetApplicationName == null ? "" : String(targetApplicationName).trim();
+    	var subjectSeparator = normalizedEmailLocale == "fr" ? " : " : (normalizedEmailLocale == "zh-CN" ? "：" : ": ");
+    	emailSubject = subjectApplicationName.length == 0
+    		? accountConfirmationSubjects[normalizedEmailLocale]
+    		: subjectApplicationName + subjectSeparator + accountConfirmationSubjects[normalizedEmailLocale];
+    }
+    var accountConfirmationXsl = ".//emails/accountConfirmation_" + normalizedEmailLocale + ".xsl";
+    context.addTextNodeUnderRoot("emailLocale", normalizedEmailLocale);
+    context.addTextNodeUnderRoot("resolvedEmailSubject", String(emailSubject));'
 ↓jIfThenElse [steps.IfThenElseStep-1674730624378]: 
   condition: passwordResetKey != undefined
   ↓jThen [steps.ThenStep-1674730624381]: 
+    ↓Validate_key_request [steps.SimpleStep-1790282200300]: 
+      expression: |
+        if (!passwordResetKey || String(passwordResetKey).length < 32) {
+          throw new java.lang.Exception("Invalid password reset request");
+        }
+        // Only the SHA-256 of the key is stored: the account is looked up by the hash of the key received.
+        var passwordResetKeyHash = String(org.apache.commons.codec.digest.DigestUtils.sha256Hex(String(passwordResetKey)));
+        var _use_key = JSON.stringify(passwordResetKeyHash);
     ↓Call_Transaction1 [steps.TransactionStep-1674730624384]: 
       sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetView
       ↓_use_ddoc [variables.StepVariable-1674730624387]: 
@@ -13,14 +48,6 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
         value: PasswordLostAccountsByPasswordResetKey
       ↓_use_key [variables.StepVariable-1674730624393]: 
         description: (string) – Return only documents that match the specified key. Optional
-        sourceDefinition: 
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: 1674730624375
-              - java.lang.String: 
-                - ↑value: ./passwordResetKey/text()
     ↓IfExistThenElse [steps.IfExistThenElseStep-1674730624396]: 
       sourceDefinition: 
         - xmlizable: 
@@ -31,8 +58,41 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
             - java.lang.String: 
               - ↑value: ./document/couchdb_output/rows/item
       ↓jThen [steps.ThenStep-1674730624399]: 
+        ↓Reset_expiry [steps.SimpleSourceStep-1790282200301]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1674730624384
+                - java.lang.String: 
+                  - ↑value: ./document/couchdb_output/rows/item/value/expiresAt/text()
+          variableName: resetExpiresAt
+        ↓Reset_key_hash [steps.SimpleSourceStep-1895100000011]: 
+          sourceDefinition: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: 1674730624384
+                - java.lang.String: 
+                  - ↑value: ./document/couchdb_output/rows/item/key/text()
+          variableName: resetKeyHash
+        ↓Validate_reset_key [steps.SimpleStep-1895100000012]: 
+          expression: |
+            if (!resetKeyHash || !java.security.MessageDigest.isEqual(
+                new java.lang.String(String(resetKeyHash)).getBytes("UTF-8"),
+                new java.lang.String(passwordResetKeyHash).getBytes("UTF-8"))) {
+              throw new java.lang.Exception("Invalid password reset request");
+            }
+        ↓Validate_reset_expiry [steps.SimpleStep-1790282200302]: 
+          expression: |
+            if (!resetExpiresAt || !isFinite(Number(resetExpiresAt)) || Number(resetExpiresAt) <= new Date().getTime()) {
+              throw new java.lang.Exception("Password reset link expired");
+            }
         ↓jElement [steps.ElementStep-1674730624414]: 
-          expression: '''{account: {status:"confirmed", passwordResetKey:null, timeStamp: null}}'''
+          expression: |
+            JSON.stringify({account: {status: "confirmed", passwordResetKey: null, passwordResetExpiresAt: null, timeStamp: null}})
           nodeName: jSonData
           output: false
         ↓Call_Transaction [steps.TransactionStep-1674730624417]: 
@@ -66,6 +126,11 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
                 - ↑mode: PLAIN
                 - →→: This password resetkey is invalid
   ↓jElse [steps.ElseStep-1674730624432]: 
+    ↓Public_url [steps.SimpleStep-1895100000083]: 
+      comment: The links of the email never use the host of the request (js/publicUrl.js).
+      expression: |
+        include("js/publicUrl.js");
+        var publicUrl = configuredPublicUrl();
     ↓Call_Transaction [steps.TransactionStep-1674730624435]: 
       sourceTransaction: lib_UserManager.lib_usermanager_fullsync.GetAccountDocument
       ↓_use_docid [variables.StepVariable-1674730624438]: 
@@ -88,204 +153,70 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
             - java.lang.String: 
               - ↑value: ./document/couchdb_output/error
       ↓jThen [steps.ThenStep-1674730624444]: 
-        ↓Error_structure [steps.XMLErrorStep-1674730624447]: 
-          code: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
-              - SmartType: 
-                - ↑mode: PLAIN
-                - →→: 2
-          details: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
-              - SmartType: 
-                - ↑mode: SOURCE
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1674730624435
-                  - java.lang.String: 
-                    - ↑value: ./document/couchdb_output/error/text()
-          message: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.steps.SmartType
-              - SmartType: 
-                - ↑mode: PLAIN
-                - →→: Invalid username
+        comment: An unknown account gets the same answer as a known one.
       ↓jElse [steps.ElseStep-1674730624450]: 
-        ↓jElement [steps.ElementStep-1674730624453]: 
-          expression: '''{account: {status: "passwordlost"}}'''
-          nodeName: jSonBase
-          output: false
-        ↓Call_Transaction [steps.TransactionStep-1674730624456]: 
-          sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
-          ↓_use_json_base [variables.StepVariable-1674730624459]: 
-            description: (string) – JSON use as a base for the document (js object). Optional
-            sourceDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1674730624453
-                  - java.lang.String: 
-                    - ↑value: ./text()
-          ↓_id [variables.StepVariable-1674730624462]: 
-            description: Document id
-            sourceDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1674730624375
-                  - java.lang.String: 
-                    - ↑value: ./email/text()
-        ↓Call_Sequence [steps.SequenceStep-1674730624465]: 
-          comment: Just to get a random in 'salt' return
-          sourceSequence: lib_UserManager.HashAndSalt
-          ↓password [variables.StepVariable-1674730624468]: 
-            value: TEST
-        ↓jSimpleSource [steps.SimpleSourceStep-1674730624471]: 
+        ↓AccountStatus [steps.SimpleSourceStep-1790246000020]: 
           sourceDefinition: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1674730624465
+                  - ↑value: 1674730624435
                 - java.lang.String: 
-                  - ↑value: ./document/salt/text()
-          variableName: jPasswordResetKey
-        ↓jSimpleSource1 [steps.SimpleSourceStep-1675959413005]: 
+                  - ↑value: ./document/couchdb_output/account/status/text()
+          variableName: accountStatus
+        ↓ResetAccountDocument [steps.JsonSourceStep-1895100000051]: 
           sourceDefinition: 
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
               - com.twinsoft.convertigo.beans.common.XMLVector: 
                 - java.lang.String: 
-                  - ↑value: 1674730624375
+                  - ↑value: 1674730624435
                 - java.lang.String: 
-                  - ↑value: ./targetApplicationName/text()
-          variableName: jTargetApplicationName
-        ↓jSimpleSource2 [steps.SimpleSourceStep-1675959413008]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1674730624375
-                - java.lang.String: 
-                  - ↑value: ./emailLogo/text()
-          variableName: jEmailLogo
-        ↓jElement1 [steps.ElementStep-1674730624474]: 
-          expression: encodeURIComponent(jPasswordResetKey)
-          nodeName: urlEncodedPasswordResetKey
-          output: false
-        ↓jElement3 [steps.ElementStep-1675959427137]: 
-          expression: encodeURIComponent(jTargetApplicationName)
-          nodeName: urlEncodedAppName
-          output: false
-        ↓jElement4 [steps.ElementStep-1675959427140]: 
-          expression: encodeURIComponent(jEmailLogo)
-          nodeName: urlEncodedLogoUrl
-          output: false
-        ↓Complex [steps.XMLComplexStep-1674730624477]: 
-          nodeName: data
-          ↓confirmURL [steps.ElementStep-1674730928441]: 
-            expression: context.getConvertigoUrl() + 'projects/lib_UserManager_ui_ngx/DisplayObjects/mobile/ConfirmAccountPage/'
-            nodeName: url
+                  - ↑value: ./document/couchdb_output
+          variableName: resetAccountDocument
+        ↓Reset_rate_limit [steps.SimpleStep-1895100000052]: 
+          comment: A confirmed account or one over the limit gets the same answer as a new request.
+          expression: |
+            include("js/passwordResetRateLimit.js");
+            var resetRequest = accountStatus == "draft" || accountStatus == "passwordlost"
+                ? nextPasswordResetRequest(resetAccountDocument.account, new Date().getTime()) : null;
+        ↓IfResetAllowed [steps.IfStep-1895100000053]: 
+          condition: resetRequest != null
+          ↓jElement [steps.ElementStep-1674730624453]: 
+            expression: '''{account: {status: "passwordlost"}}'''
+            nodeName: jSonBase
             output: false
-          ↓Concat1 [steps.XMLConcatStep-1674730624480]: 
-            nodeName: confirmURL
-            separator: 
-            sourcesDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                          - java.lang.String: 
-                            - ↑value: 1674730928441
-                          - java.lang.String: 
-                            - ↑value: ./text()
-                      - java.lang.String: 
-                        - ↑value: ''
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                          - java.lang.String: 
-                            - ↑value: 1674730624474
-                          - java.lang.String: 
-                            - ↑value: ./text()
-                      - java.lang.String: 
-                        - ↑value: ''
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: '?appName='
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                          - java.lang.String: 
-                            - ↑value: 1675959427137
-                          - java.lang.String: 
-                            - ↑value: ./text()
-                      - java.lang.String: 
-                        - ↑value: ''
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: '&imgUrl='
-                  - xmlizable: 
-                    - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                    - com.twinsoft.convertigo.beans.common.XMLVector: 
-                      - java.lang.String: 
-                        - ↑value: description
-                      - xmlizable: 
-                        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                        - com.twinsoft.convertigo.beans.common.XMLVector: 
-                          - java.lang.String: 
-                            - ↑value: 1675959427140
-                          - java.lang.String: 
-                            - ↑value: ./text()
-                      - java.lang.String: 
-                        - ↑value: ''
-          ↓Element1 [steps.XMLElementStep-1674730624486]: 
-            nodeName: logo
-            sourceDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1674730624375
-                  - java.lang.String: 
-                    - ↑value: ./emailLogo/text()
-          ↓Element2 [steps.XMLElementStep-1675941926688]: 
-            nodeName: appName
+          ↓Call_Transaction [steps.TransactionStep-1674730624456]: 
+            sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+            ↓_use_json_base [variables.StepVariable-1674730624459]: 
+              description: (string) – JSON use as a base for the document (js object). Optional
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624453
+                    - java.lang.String: 
+                      - ↑value: ./text()
+            ↓_id [variables.StepVariable-1674730624462]: 
+              description: Document id
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624375
+                    - java.lang.String: 
+                      - ↑value: ./email/text()
+          ↓Generate_reset_key [steps.SimpleStep-1674730624465]: 
+            expression: |
+              var resetRandomBytes = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 32);
+              new java.security.SecureRandom().nextBytes(resetRandomBytes);
+              var jPasswordResetKey = String(java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(resetRandomBytes));
+              // The email carries the key, the account document only its SHA-256.
+              var jPasswordResetKeyHash = String(org.apache.commons.codec.digest.DigestUtils.sha256Hex(jPasswordResetKey));
+          ↓jSimpleSource1 [steps.SimpleSourceStep-1675959413005]: 
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -294,8 +225,8 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
                     - ↑value: 1674730624375
                   - java.lang.String: 
                     - ↑value: ./targetApplicationName/text()
-          ↓Element3 [steps.XMLElementStep-1675942034586]: 
-            nodeName: email
+            variableName: jTargetApplicationName
+          ↓jSimpleSource2 [steps.SimpleSourceStep-1675959413008]: 
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -303,25 +234,172 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
                   - java.lang.String: 
                     - ↑value: 1674730624375
                   - java.lang.String: 
-                    - ↑value: ./email/text()
-        ↓jElement2 [steps.ElementStep-1674730624489]: 
-          expression: '''{account: {passwordResetKey:"'' + jPasswordResetKey + ''"}}'''
-          nodeName: jSonBase
-          output: false
-        ↓Call_Transaction1 [steps.TransactionStep-1674730624492]: 
-          sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
-          ↓_use_json_base [variables.StepVariable-1674730624495]: 
-            description: (string) – JSON use as a base for the document (js object). Optional
-            sourceDefinition: 
-              - xmlizable: 
-                - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-                - com.twinsoft.convertigo.beans.common.XMLVector: 
-                  - java.lang.String: 
-                    - ↑value: 1674730624489
-                  - java.lang.String: 
-                    - ↑value: ./text()
-          ↓_id [variables.StepVariable-1674730624498]: 
-            description: Document id
+                    - ↑value: ./emailLogo/text()
+            variableName: jEmailLogo
+          ↓jElement1 [steps.ElementStep-1674730624474]: 
+            expression: encodeURIComponent(jPasswordResetKey)
+            nodeName: urlEncodedPasswordResetKey
+            output: false
+          ↓jElement3 [steps.ElementStep-1675959427137]: 
+            expression: encodeURIComponent(jTargetApplicationName)
+            nodeName: urlEncodedAppName
+            output: false
+          ↓jElement4 [steps.ElementStep-1675959427140]: 
+            expression: encodeURIComponent(jEmailLogo)
+            nodeName: urlEncodedLogoUrl
+            output: false
+          ↓Complex [steps.XMLComplexStep-1674730624477]: 
+            nodeName: data
+            output: false
+            ↓confirmURL [steps.ElementStep-1674730928441]: 
+              expression: publicUrl + 'projects/lib_UserManager_ui_ngx/DisplayObjects/mobile/ConfirmAccountPage/'
+              nodeName: url
+              output: false
+            ↓Concat1 [steps.XMLConcatStep-1674730624480]: 
+              output: false
+              nodeName: confirmURL
+              separator: 
+              sourcesDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                            - java.lang.String: 
+                              - ↑value: 1674730928441
+                            - java.lang.String: 
+                              - ↑value: ./text()
+                        - java.lang.String: 
+                          - ↑value: ''
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                            - java.lang.String: 
+                              - ↑value: 1674730624474
+                            - java.lang.String: 
+                              - ↑value: ./text()
+                        - java.lang.String: 
+                          - ↑value: ''
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: '?appName='
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                            - java.lang.String: 
+                              - ↑value: 1675959427137
+                            - java.lang.String: 
+                              - ↑value: ./text()
+                        - java.lang.String: 
+                          - ↑value: ''
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: '&imgUrl='
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                      - com.twinsoft.convertigo.beans.common.XMLVector: 
+                        - java.lang.String: 
+                          - ↑value: description
+                        - xmlizable: 
+                          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                          - com.twinsoft.convertigo.beans.common.XMLVector: 
+                            - java.lang.String: 
+                              - ↑value: 1675959427140
+                            - java.lang.String: 
+                              - ↑value: ./text()
+                        - java.lang.String: 
+                          - ↑value: ''
+            ↓Element1 [steps.XMLElementStep-1674730624486]: 
+              output: false
+              nodeName: logo
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624375
+                    - java.lang.String: 
+                      - ↑value: ./emailLogo/text()
+            ↓Element2 [steps.XMLElementStep-1675941926688]: 
+              output: false
+              nodeName: appName
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624375
+                    - java.lang.String: 
+                      - ↑value: ./targetApplicationName/text()
+            ↓Element3 [steps.XMLElementStep-1675942034586]: 
+              output: false
+              nodeName: email
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624375
+                    - java.lang.String: 
+                      - ↑value: ./email/text()
+          ↓jElement2 [steps.ElementStep-1674730624489]: 
+            expression: |
+              JSON.stringify({account: {passwordResetKey: jPasswordResetKeyHash, passwordResetExpiresAt: new Date().getTime() + 15 * 60 * 1000, passwordResetWindowStart: resetRequest.passwordResetWindowStart, passwordResetCount: resetRequest.passwordResetCount}})
+            nodeName: jSonBase
+            output: false
+          ↓Call_Transaction1 [steps.TransactionStep-1674730624492]: 
+            sourceTransaction: lib_UserManager.lib_usermanager_fullsync.PostMergeDocument
+            ↓_use_json_base [variables.StepVariable-1674730624495]: 
+              description: (string) – JSON use as a base for the document (js object). Optional
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624489
+                    - java.lang.String: 
+                      - ↑value: ./text()
+            ↓_id [variables.StepVariable-1674730624498]: 
+              description: Document id
+              sourceDefinition: 
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1674730624375
+                    - java.lang.String: 
+                      - ↑value: ./email/text()
+          ↓IfExistThenElse [steps.IfExistThenElseStep-1675941782795]: 
             sourceDefinition: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -329,40 +407,31 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
                   - java.lang.String: 
                     - ↑value: 1674730624375
                   - java.lang.String: 
-                    - ↑value: ./email/text()
-        ↓IfExistThenElse [steps.IfExistThenElseStep-1675941782795]: 
-          sourceDefinition: 
-            - xmlizable: 
-              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-              - com.twinsoft.convertigo.beans.common.XMLVector: 
-                - java.lang.String: 
-                  - ↑value: 1674730624375
-                - java.lang.String: 
-                  - ↑value: ./lang[./text() = 'fr']
-          ↓jThen [steps.ThenStep-1675941785908]: 
-            ↓SMTP_send [steps.SmtpStep-1674730624501]: 
-              comment: accountConfirmation.xsl"
-              smtpAuthType: ${lib_UserManager.smtp.authtype}
-              smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
-              smtpPort: ${lib_UserManager.smtp.port}
-              smtpRecipients: email
-              smtpSender: '"${lib_UserManager.smtp.sender}"'
-              smtpServer: ${lib_UserManager.smtp.server}
-              smtpSubject: emailSubject
-              smtpUsername: ${lib_UserManager.smtp.user}
-              xslFilepath: '".//emails/accountConfirmation_fr.xsl"'
-          ↓jElse [steps.ElseStep-1675941785910]: 
-            ↓SMTP_send [steps.SmtpStep-1675951386928]: 
-              comment: accountConfirmation.xsl"
-              smtpAuthType: ${lib_UserManager.smtp.authtype}
-              smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
-              smtpPort: ${lib_UserManager.smtp.port}
-              smtpRecipients: email
-              smtpSender: '"${lib_UserManager.smtp.sender}"'
-              smtpServer: ${lib_UserManager.smtp.server}
-              smtpSubject: emailSubject
-              smtpUsername: ${lib_UserManager.smtp.user}
-              xslFilepath: '".//emails/accountConfirmation_en.xsl"'
+                    - ↑value: ./lang[./text() = 'fr']
+            ↓jThen [steps.ThenStep-1675941785908]: 
+              ↓SMTP_send [steps.SmtpStep-1674730624501]: 
+                comment: accountConfirmation.xsl"
+                smtpAuthType: ${lib_UserManager.smtp.authtype}
+                smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
+                smtpPort: ${lib_UserManager.smtp.port}
+                smtpRecipients: email
+                smtpSender: '"${lib_UserManager.smtp.sender}"'
+                smtpServer: ${lib_UserManager.smtp.server}
+                smtpSubject: emailSubject
+                smtpUsername: ${lib_UserManager.smtp.user}
+                xslFilepath: accountConfirmationXsl
+            ↓jElse [steps.ElseStep-1675941785910]: 
+              ↓SMTP_send [steps.SmtpStep-1675951386928]: 
+                comment: accountConfirmation.xsl"
+                smtpAuthType: ${lib_UserManager.smtp.authtype}
+                smtpPassword: x530464aa1e63d0f98506f75047888822078ec9b22b7c6c1e01fd6606130fa7d5cd28ad877e7935d71f53154799d80326
+                smtpPort: ${lib_UserManager.smtp.port}
+                smtpRecipients: email
+                smtpSender: '"${lib_UserManager.smtp.sender}"'
+                smtpServer: ${lib_UserManager.smtp.server}
+                smtpSubject: emailSubject
+                smtpUsername: ${lib_UserManager.smtp.user}
+                xslFilepath: accountConfirmationXsl
 ↓email [variables.RequestableVariable-1674728469829]: 
   comment: Email where to send the reset password link to
 ↓emailSubject [variables.RequestableVariable-1674728469835]: 
@@ -374,4 +443,4 @@ comment: Confirms a user account if a passwordResetKey was provided, or sends an
 ↓targetApplicationName [variables.RequestableVariable-1674757881102]: 
   comment: The Target application name to be used into the email template
 ↓lang [variables.RequestableVariable-1675941857876]: 
-  comment: The lang to be used in the email. It can be fr or en
+  comment: 'Canonical email locale: en, fr, es, it or zh-CN; other values fall back to en.'
